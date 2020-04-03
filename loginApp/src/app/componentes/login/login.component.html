@@ -1,0 +1,33 @@
+<form (ngSubmit)="enviarDatos(formLogin)" #formLogin="ngForm">
+  <ion-list lines="full" class="ion-no-margin ion-no-padding">
+    <ion-item-group>
+      <ion-list-header>
+        <ion-label>Por favor ingrese sus credenciales</ion-label>
+      </ion-list-header>
+
+      <ion-item>
+        <ion-label position="stacked">
+          E-Mail 
+          <ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-input [(ngModel)]="usuario.id" required type="email" autofocus="true" inputmode="email" name="id"></ion-input>
+      </ion-item>
+      <ion-text *ngIf="formLogin.form.dirty && formLogin.form.controls.id.invalid && formLogin.form.controls.id.dirty" color="danger">Debe ingresar un E-Mail válido</ion-text>
+
+      <ion-item>
+        <ion-label position="stacked">
+          Clave
+          <ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-input [(ngModel)]="usuario.clave" required type="password" name="clave"></ion-input>
+      </ion-item>
+      <ion-text *ngIf="formLogin.form.dirty && formLogin.form.controls.clave.invalid && formLogin.form.controls.clave.dirty" color="danger">Debe ingresar una clave válida</ion-text>
+    </ion-item-group>
+
+    <ion-item-group>
+      <ion-button [disabled]="!formLogin.form.valid" expand="block" type="submit" color="success">Ingresar</ion-button>
+      <ion-button expand="block" color="light" (click)="formLogin.reset()">Limpiar</ion-button>
+    </ion-item-group>
+  </ion-list>
+
+</form>

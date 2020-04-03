@@ -1,11 +1,12 @@
 #container {
   text-align: center;
+  height: 35%;
 
-  position: absolute;
+  /*position: absolute;
   left: 0;
   right: 0;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%);*/
 }
 
 #container strong {
@@ -24,6 +25,11 @@
 
 #container a {
   text-decoration: none;
+}
+
+#logo {
+  text-align: center;
+  height: 35%;
 }
 
 ion-content ion-toolbar {
