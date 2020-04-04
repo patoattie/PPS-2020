@@ -1,6 +1,6 @@
 <form [formGroup]="formLogin" (ngSubmit)="enviarDatos()">
   <ion-list lines="full" class="ion-no-margin ion-no-padding">
-    <ion-item-group>
+    <ion-item-group class="formLogin">
       <ion-list-header>
         <ion-label>Por favor ingrese sus credenciales</ion-label>
       </ion-list-header>
@@ -25,7 +25,11 @@
       <ion-text *ngIf="tieneError('clave')" color="danger">Debe ingresar una clave válida</ion-text>
     </ion-item-group>
 
-    <ion-item-group>
+    <ion-item-group class="botonesUsuario">
+      <ion-button color="light" (click)="completarUsuario('admin')">Admin</ion-button>
+    </ion-item-group>
+
+    <ion-item-group class="botonesLogin">
       <ion-button [disabled]="!puedeEnviar()" expand="block" type="submit" color="success">Ingresar</ion-button>
       <ion-button expand="block" color="light" (click)="limpiarDatos()">Limpiar</ion-button>
     </ion-item-group>

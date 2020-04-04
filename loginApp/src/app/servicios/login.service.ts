@@ -10,8 +10,8 @@ export class LoginService {
 
   constructor(private auth: AuthFirebaseService) { }
 
-  public login(usuario: Usuario): Promise<Usuario> {
-    this.auth.SignIn(usuario);
+  public async login(email: string, clave: string): Promise<Usuario> {
+    await this.auth.SignIn(email, clave);
 
     return this.auth.getUserData();
   }

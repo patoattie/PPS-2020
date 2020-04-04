@@ -13,9 +13,10 @@ export class AuthFirebaseService {
   ) { }
 
   // Sign in with email/password
-  public SignIn(usuario: Usuario): Promise<any> {
-    return this.afAuth.auth.signInWithEmailAndPassword(usuario.id, usuario.clave)
+  public SignIn(email: string, clave: string): Promise<any> {
+    return this.afAuth.auth.signInWithEmailAndPassword(email, clave)
       .then((result) => {
+        const usuario: Usuario = new Usuario();
         // this.SetUserData(result.user);
         usuario.uid = result.user.uid;
         usuario.email = result.user.email;

@@ -10,7 +10,7 @@ import { LoginService } from '../../servicios/login.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  usuario: Usuario;
+  // usuario: Usuario;
   formLogin: FormGroup;
   validar: boolean; // Para que se muestren los errores una vez que se intenta enviar el formulario.
 
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
       public fb: FormBuilder,
       public login: LoginService
     ) {
-    this.usuario = new Usuario('', '');
+    // this.usuario = new Usuario('', '');
     this.validar = false;
 
     this.formLogin = this.fb.group({
@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
     this.validar = true;
 
     if (this.formLogin.valid) {
+      let usuario: Usuario = new Usuario();
       // console.log('HOLA');
       /*this.login.login(this.usuario).subscribe(
         userLogueado => {
@@ -40,10 +41,10 @@ export class LoginComponent implements OnInit {
         }
       );*/
 
-      this.usuario.id = this.formLogin.controls.id.value;
-      this.usuario.clave = this.formLogin.controls.clave.value;
+      // usuario.id = this.formLogin.controls.id.value;
+      // usuario.clave = this.formLogin.controls.clave.value;
 
-      this.usuario = await this.login.login(this.usuario);
+      usuario = await this.login.login(this.formLogin.controls.id.value, this.formLogin.controls.clave.value);
     } else {
       console.log('ERROR');
     }
@@ -64,6 +65,15 @@ export class LoginComponent implements OnInit {
 
   loginFallido(): boolean {
     return (this.validar && this.login.getError().length > 0);
+  }
+
+  completarUsuario(usuario: string): void {
+    switch (usuario) {
+      case 'admin':
+        this.formLogin.controls.id.setValue('admin@admin.com');
+        this.formLogin.controls.clave.setValue('111111');
+        this.formLogin.markAsDirty();
+    }
   }
 
 }
