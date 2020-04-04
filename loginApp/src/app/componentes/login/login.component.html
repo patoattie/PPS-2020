@@ -1,3 +1,5 @@
+<app-selector-usuario class="botonesUsuario" (enviarUsuarioEvent)="completarUsuario($event)"></app-selector-usuario>
+
 <form [formGroup]="formLogin" (ngSubmit)="enviarDatos()">
   <ion-list lines="full" class="ion-no-margin ion-no-padding">
     <ion-item-group class="formLogin">
@@ -9,24 +11,20 @@
         <ion-label position="stacked">
           E-Mail 
           <ion-text color="danger">*</ion-text>
+          <ion-text *ngIf="tieneError('id')" color="danger">Debe ingresar un E-Mail válido</ion-text>
+          <ion-text *ngIf="loginFallido()" color="danger">E-Mail o Contraseña no válidos</ion-text>
         </ion-label>
         <ion-input formControlName="id" required type="email" autofocus="true" inputmode="email" name="id"></ion-input>
       </ion-item>
-      <ion-text *ngIf="tieneError('id')" color="danger">Debe ingresar un E-Mail válido</ion-text>
-      <ion-text *ngIf="loginFallido()" color="danger">E-Mail o Contraseña no válidos</ion-text>
 
       <ion-item>
         <ion-label position="stacked">
           Clave
           <ion-text color="danger">*</ion-text>
+          <ion-text *ngIf="tieneError('clave')" color="danger">Debe ingresar una clave válida</ion-text>
         </ion-label>
         <ion-input formControlName="clave" required type="password" name="clave"></ion-input>
       </ion-item>
-      <ion-text *ngIf="tieneError('clave')" color="danger">Debe ingresar una clave válida</ion-text>
-    </ion-item-group>
-
-    <ion-item-group class="botonesUsuario">
-      <ion-button color="light" (click)="completarUsuario('admin')">Admin</ion-button>
     </ion-item-group>
 
     <ion-item-group class="botonesLogin">

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Usuario } from '../clases/usuario';
-// import { Observable } from 'rxjs';
+import { Login } from '../clases/login';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +13,8 @@ export class AuthFirebaseService {
   ) { }
 
   // Sign in with email/password
-  public SignIn(email: string, clave: string): Promise<any> {
-    return this.afAuth.auth.signInWithEmailAndPassword(email, clave)
+  public SignIn(login: Login): Promise<any> {
+    return this.afAuth.auth.signInWithEmailAndPassword(login.email, login.clave)
       .then((result) => {
         const usuario: Usuario = new Usuario();
         // this.SetUserData(result.user);
@@ -23,7 +23,6 @@ export class AuthFirebaseService {
         usuario.displayName = result.user.displayName;
         usuario.photoURL = result.user.photoURL;
         usuario.emailVerified = result.user.emailVerified;
-        // usuario.login = true;
 
         localStorage.setItem('user', JSON.stringify(usuario));
         localStorage.removeItem('error-login');
@@ -59,11 +58,9 @@ export class AuthFirebaseService {
   }*/
 
   // Sign out
-  // public SignOut(usuario: Usuario) {
   public SignOut() {
     return this.afAuth.auth.signOut()
     .then(() => {
-      // usuario.login = false;
       localStorage.removeItem('user');
       // this.router.navigate(['login']);
       console.log('Logout OK');

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Usuario } from '../../clases/usuario';
 import { LoginService } from '../../servicios/login.service';
+import { Login } from '../../clases/login';
 
 @Component({
   selector: 'app-login',
@@ -10,15 +11,14 @@ import { LoginService } from '../../servicios/login.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  // usuario: Usuario;
   formLogin: FormGroup;
   validar: boolean; // Para que se muestren los errores una vez que se intenta enviar el formulario.
+  @Output() usuarioLogueadoEvent = new EventEmitter<Usuario>();
 
   constructor(
       public fb: FormBuilder,
       public login: LoginService
     ) {
-    // this.usuario = new Usuario('', '');
     this.validar = false;
 
     this.formLogin = this.fb.group({
@@ -34,17 +34,14 @@ export class LoginComponent implements OnInit {
 
     if (this.formLogin.valid) {
       let usuario: Usuario = new Usuario();
-      // console.log('HOLA');
-      /*this.login.login(this.usuario).subscribe(
-        userLogueado => {
-          this.usuario = userLogueado;
-        }
-      );*/
 
-      // usuario.id = this.formLogin.controls.id.value;
-      // usuario.clave = this.formLogin.controls.clave.value;
+      const datosLogin: Login = new Login();
+      datosLogin.email = this.formLogin.controls.id.value;
+      datosLogin.clave = this.formLogin.controls.clave.value;
 
-      usuario = await this.login.login(this.formLogin.controls.id.value, this.formLogin.controls.clave.value);
+      usuario = await this.login.login(datosLogin);
+
+      this.usuarioLogueadoEvent.emit(usuario);
     } else {
       console.log('ERROR');
     }
@@ -67,13 +64,10 @@ export class LoginComponent implements OnInit {
     return (this.validar && this.login.getError().length > 0);
   }
 
-  completarUsuario(usuario: string): void {
-    switch (usuario) {
-      case 'admin':
-        this.formLogin.controls.id.setValue('admin@admin.com');
-        this.formLogin.controls.clave.setValue('111111');
-        this.formLogin.markAsDirty();
-    }
+  completarUsuario(usuario: Login): void {
+    this.formLogin.controls.id.setValue(usuario.email);
+    this.formLogin.controls.clave.setValue(usuario.clave);
+    this.formLogin.markAsDirty(); // Para que habilite el botón de logueo
   }
 
 }

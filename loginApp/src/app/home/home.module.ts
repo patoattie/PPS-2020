@@ -8,6 +8,7 @@ import { HomePage } from './home.page';
 import { ToolbarComponent } from '../componentes/toolbar/toolbar.component';
 import { LoginComponent } from '../componentes/login/login.component';
 import { LogoComponent } from '../componentes/logo/logo.component';
+import { SelectorUsuarioComponent } from '../componentes/selector-usuario/selector-usuario.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { LogoComponent } from '../componentes/logo/logo.component';
     HomePage,
     ToolbarComponent,
     LoginComponent,
-    LogoComponent
+    LogoComponent,
+    SelectorUsuarioComponent
   ]
 })
 export class HomePageModule {}

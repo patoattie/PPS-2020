@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { LoginService } from '../../servicios/login.service';
 import { Usuario } from '../../clases/usuario';
 
@@ -8,6 +8,7 @@ import { Usuario } from '../../clases/usuario';
   styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent implements OnInit {
+  @Input() usuarioLogueado: Usuario;
 
   constructor(public login: LoginService) { }
 

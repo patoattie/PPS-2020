@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthFirebaseService } from './auth-firebase.service';
 import { Usuario } from '../clases/usuario';
-// import { Observable } from 'rxjs';
+import { Login } from '../clases/login';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +10,8 @@ export class LoginService {
 
   constructor(private auth: AuthFirebaseService) { }
 
-  public async login(email: string, clave: string): Promise<Usuario> {
-    await this.auth.SignIn(email, clave);
+  public async login(login: Login): Promise<Usuario> {
+    await this.auth.SignIn(login);
 
     return this.auth.getUserData();
   }
