@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from '../../servicios/login.service';
+import { Usuario } from '../../clases/usuario';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,8 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(public login: LoginService) { }
 
   ngOnInit() {}
+
+  public getDatos(): string {
+    const usuario: Usuario = this.login.getUsuario();
+
+    return usuario.email + '(' + usuario.uid + ')';
+  }
+
+  public getLogueado(): boolean {
+    return this.login.getLogin();
+  }
 
 }
