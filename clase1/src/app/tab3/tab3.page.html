@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Tab tres
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-card [ngStyle]="{'background-color': color}">
+
+    <ion-card-header>Cambiar el color de fondo</ion-card-header>
+    
+    <ion-card-content > 
+      <ion-button block (click)="CambiarColor()">Cambiar Color</ion-button>
+    </ion-card-content>
+    
+  </ion-card>
+
+</ion-content>

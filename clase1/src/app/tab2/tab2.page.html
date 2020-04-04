@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Tab dos
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-list>
+    <ion-button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
+      <ion-icon [name]="item.icon" item-left></ion-icon>
+      -
+       {{item.title}}
+      -
+      <div class="item-note" item-right>
+         {{item.note}}
+      </div>
+    </ion-button>
+  </ion-list>
+
+  <br>
+
+  <div padding *ngIf="show">
+    Item seleccionado: <b>{{selectedItem}}</b>
+  </div>
+</ion-content>
