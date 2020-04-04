@@ -7,7 +7,8 @@
     {{ usuarioLogueado.email }}
   </ion-title>
   <ion-buttons *ngIf="login.getLogin()" slot="start">
-    <ion-button (click)="login.logout()">
+    <!-- <ion-button (click)="login.logout()"> -->
+    <ion-button (click)="hacerLogout()">
       <ion-icon name="exit"></ion-icon>
     </ion-button>
   </ion-buttons>

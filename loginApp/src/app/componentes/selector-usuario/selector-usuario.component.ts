@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Login } from '../../clases/login';
 
 @Component({
@@ -8,6 +8,7 @@ import { Login } from '../../clases/login';
 })
 export class SelectorUsuarioComponent implements OnInit {
   @Output() enviarUsuarioEvent = new EventEmitter<Login>();
+  @Input() deshabilitaControl: boolean;
 
   constructor() { }
 

@@ -1,27 +1,14 @@
 <ion-header [translucent]="true">
-  <!-- <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar> -->
-  <app-toolbar [usuarioLogueado]="usuarioLogueado"></app-toolbar>
+  <app-toolbar [usuarioLogueado]="usuarioLogueado" (logoutEvent)="registrarDeslogueo()"></app-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header> -->
-
   <div id="logo">
     <app-logo></app-logo>
   </div>
 
   <div id="container">
-    <!-- <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p> -->
-    <app-login (usuarioLogueadoEvent)="registrarLogueo($event)"></app-login>
+    <app-login (loginEvent)="registrarLogueo($event)" [habilitaLogin]="habilitaLogin"></app-login>
   </div>
 </ion-content>
 

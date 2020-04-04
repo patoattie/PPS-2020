@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { LoginService } from '../../servicios/login.service';
 import { Usuario } from '../../clases/usuario';
 
@@ -9,6 +9,7 @@ import { Usuario } from '../../clases/usuario';
 })
 export class ToolbarComponent implements OnInit {
   @Input() usuarioLogueado: Usuario;
+  @Output() logoutEvent = new EventEmitter<any>();
 
   constructor(public login: LoginService) { }
 
@@ -22,6 +23,16 @@ export class ToolbarComponent implements OnInit {
 
   public getLogueado(): boolean {
     return this.login.getLogin();
+  }
+
+  hacerLogout(): void {
+    this.login.logout()
+      .then( a => {
+        this.logoutEvent.emit();
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
 }

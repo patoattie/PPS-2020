@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Usuario } from '../../clases/usuario';
@@ -13,7 +13,8 @@ import { Login } from '../../clases/login';
 export class LoginComponent implements OnInit {
   formLogin: FormGroup;
   validar: boolean; // Para que se muestren los errores una vez que se intenta enviar el formulario.
-  @Output() usuarioLogueadoEvent = new EventEmitter<Usuario>();
+  @Output() loginEvent = new EventEmitter<Usuario>();
+  @Input() habilitaLogin: boolean; // Si ya está logueado el usuario inhabilita los botones de ingresar y limpiar.
 
   constructor(
       public fb: FormBuilder,
@@ -41,7 +42,9 @@ export class LoginComponent implements OnInit {
 
       usuario = await this.login.login(datosLogin);
 
-      this.usuarioLogueadoEvent.emit(usuario);
+      if (!this.loginFallido()) {
+        this.loginEvent.emit(usuario);
+      }
     } else {
       console.log('ERROR');
     }
@@ -57,7 +60,7 @@ export class LoginComponent implements OnInit {
   }
 
   puedeEnviar(): boolean {
-    return this.formLogin.dirty && !this.login.getLogin();
+    return this.formLogin.dirty && this.habilitaLogin;
   }
 
   loginFallido(): boolean {

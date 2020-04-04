@@ -8,6 +8,7 @@ import { Usuario } from '../clases/usuario';
 })
 export class HomePage {
   usuarioLogueado: Usuario = new Usuario();
+  habilitaLogin = true;
 
   constructor() {}
 
@@ -17,6 +18,16 @@ export class HomePage {
     this.usuarioLogueado.emailVerified = usuario.emailVerified;
     this.usuarioLogueado.photoURL = usuario.photoURL;
     this.usuarioLogueado.uid = usuario.uid;
+    this.habilitaLogin = false;
+  }
+
+  registrarDeslogueo(): void {
+    this.usuarioLogueado.displayName = null;
+    this.usuarioLogueado.email = null;
+    this.usuarioLogueado.emailVerified = null;
+    this.usuarioLogueado.photoURL = null;
+    this.usuarioLogueado.uid = null;
+    this.habilitaLogin = true;
   }
 
 }
