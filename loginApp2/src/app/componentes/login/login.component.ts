@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {}
 
-  async enviarDatos(): Promise<void> {
+  enviarDatos(): void {
     this.validar = true;
 
     if (this.formLogin.valid) {
@@ -40,11 +40,18 @@ export class LoginComponent implements OnInit {
       datosLogin.email = this.formLogin.controls.id.value;
       datosLogin.clave = this.formLogin.controls.clave.value;
 
-      usuario = await this.login.login(datosLogin);
+      this.login.login(datosLogin)
+      .subscribe(() => {
+        // usuario = usuarioLog;
+          if (!this.loginFallido()) {
+            usuario = this.login.getUsuario();
+            this.loginEvent.emit(usuario);
+          }
+      });
 
-      if (!this.loginFallido()) {
+      /*if (!this.loginFallido()) {
         this.loginEvent.emit(usuario);
-      }
+      }*/
     } else {
       console.log('ERROR');
     }

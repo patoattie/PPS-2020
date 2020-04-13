@@ -26,13 +26,17 @@ export class ToolbarComponent implements OnInit {
   }
 
   hacerLogout(): void {
-    this.login.logout()
+    /*this.login.logout()
       .then( a => {
         this.logoutEvent.emit();
       })
       .catch(error => {
         console.log(error);
-      });
+      });*/
+    this.login.logout()
+    .subscribe(() => {
+        this.logoutEvent.emit();
+    });
   }
 
 }
