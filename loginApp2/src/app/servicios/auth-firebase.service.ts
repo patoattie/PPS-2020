@@ -84,4 +84,8 @@ export class AuthFirebaseService {
     return this.afAuth.auth.currentUser !== null;
   }
 
+  public getObsUser(): Observable<any> {
+    return this.afAuth.authState;
+  }
+
 }

@@ -42,16 +42,11 @@ export class LoginComponent implements OnInit {
 
       this.login.login(datosLogin)
       .subscribe(() => {
-        // usuario = usuarioLog;
           if (!this.loginFallido()) {
             usuario = this.login.getUsuario();
             this.loginEvent.emit(usuario);
           }
       });
-
-      /*if (!this.loginFallido()) {
-        this.loginEvent.emit(usuario);
-      }*/
     } else {
       console.log('ERROR');
     }

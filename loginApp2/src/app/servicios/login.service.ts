@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthFirebaseService } from './auth-firebase.service';
 import { Usuario } from '../clases/usuario';
 import { Login } from '../clases/login';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +36,9 @@ export class LoginService {
 
   public getLogin(): boolean {
     return (this.getUsuario() != null && this.getUsuario().uid != null);
+  }
+
+  public getObsUsuario(): Observable<any> {
+    return this.auth.getObsUser();
   }
 }
