@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Usuario } from '../clases/usuario';
 import { Login } from '../clases/login';
-import { Observable, from } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +14,9 @@ export class AuthFirebaseService {
   ) { }
 
   // Sign in with email/password
-  public SignIn(login: Login): Observable<void> {
+  public SignIn(login: Login): Promise<void> {
     // from convierte Promise en Observable
-    return from(this.afAuth.auth.signInWithEmailAndPassword(login.email, login.clave)
+    return this.afAuth.auth.signInWithEmailAndPassword(login.email, login.clave)
       .then((result) => {
         const usuario: Usuario = new Usuario();
         // this.SetUserData(result.user);
@@ -38,7 +38,7 @@ export class AuthFirebaseService {
       .catch((error) => {
         console.log(error.code);
         localStorage.setItem('error-login', error.code);
-      }));
+      });
   }
 
   /* Setting up user data when sign in with username/password,
@@ -60,8 +60,8 @@ export class AuthFirebaseService {
   }*/
 
   // Sign out
-  public SignOut(): Observable<void> {
-    return from(this.afAuth.auth.signOut()
+  public SignOut(): Promise<void> {
+    return this.afAuth.auth.signOut()
     .then(() => {
       localStorage.removeItem('user');
       // this.router.navigate(['login']);
@@ -69,7 +69,7 @@ export class AuthFirebaseService {
     })
     .catch((error) => {
       console.log(error.code);
-    }));
+    });
   }
 
   public getUserData(): Usuario {

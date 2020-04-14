@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <app-toolbar  (logoutEvent)="registrarDeslogueo()"></app-toolbar>
+  <app-toolbar></app-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -8,7 +8,7 @@
   </div>
 
   <div id="container">
-    <app-login (loginEvent)="registrarLogueo($event)" [habilitaLogin]="habilitaLogin"></app-login>
+    <app-login></app-login>
   </div>
 </ion-content>
 

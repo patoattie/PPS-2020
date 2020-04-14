@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Usuario } from '../clases/usuario';
+import { LoginService } from '../servicios/login.service';
 
 @Component({
   selector: 'app-home',
@@ -7,10 +8,10 @@ import { Usuario } from '../clases/usuario';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  usuarioLogueado: Usuario = new Usuario();
+  usuarioLogueado: Usuario = this.login.getUsuario();
   habilitaLogin = true;
 
-  constructor() {}
+  constructor(private login: LoginService) {}
 
   registrarLogueo(usuario: Usuario) {
     this.usuarioLogueado.displayName = usuario.displayName;

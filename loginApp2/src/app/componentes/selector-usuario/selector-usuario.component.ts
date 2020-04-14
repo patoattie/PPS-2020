@@ -22,9 +22,6 @@ export class SelectorUsuarioComponent implements OnInit {
         datosLogin.clave = '111111';
 
         this.enviarUsuarioEvent.emit(datosLogin);
-        /*this.formLogin.controls.id.setValue('admin@admin.com');
-        this.formLogin.controls.clave.setValue('111111');
-        this.formLogin.markAsDirty(); // Para que habilite el botón de logueo*/
     }
   }
 }

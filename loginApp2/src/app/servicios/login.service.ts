@@ -2,25 +2,45 @@ import { Injectable } from '@angular/core';
 import { AuthFirebaseService } from './auth-firebase.service';
 import { Usuario } from '../clases/usuario';
 import { Login } from '../clases/login';
-import { Observable, from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
+  private usuarioLogueado: Usuario = new Usuario();
 
-  constructor(private auth: AuthFirebaseService) { }
-
-  public login(login: Login): Observable<void> {
-    return this.auth.SignIn(login);
+  constructor(private auth: AuthFirebaseService) {
+    this.auth.getObsUser()
+    .subscribe(usuario => {
+      if (usuario) {
+        this.usuarioLogueado.displayName = usuario.displayName;
+        this.usuarioLogueado.email = usuario.email;
+        this.usuarioLogueado.emailVerified = usuario.emailVerified;
+        this.usuarioLogueado.photoURL = usuario.photoURL;
+        this.usuarioLogueado.uid = usuario.uid;
+      }
+    });
   }
 
-  public logout(): Observable<void> {
-    return this.auth.SignOut();
+  public login(login: Login): void {
+    this.auth.SignIn(login);
+  }
+
+  public logout(): void {
+
+    this.auth.SignOut()
+    .then(() => {
+      this.usuarioLogueado.displayName = null;
+      this.usuarioLogueado.email = null;
+      this.usuarioLogueado.emailVerified = null;
+      this.usuarioLogueado.photoURL = null;
+      this.usuarioLogueado.uid = null;
+    });
   }
 
   public getUsuario(): Usuario {
-    return this.auth.getUserData();
+    // return this.auth.getUserData();
+    return this.usuarioLogueado;
   }
 
   public getError(): string {
@@ -35,10 +55,7 @@ export class LoginService {
   }
 
   public getLogin(): boolean {
-    return (this.getUsuario() != null && this.getUsuario().uid != null);
-  }
-
-  public getObsUsuario(): Observable<any> {
-    return this.auth.getObsUser();
+    // return (this.getUsuario() != null && this.getUsuario().uid != null);
+    return (this.usuarioLogueado.email != null);
   }
 }

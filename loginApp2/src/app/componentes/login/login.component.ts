@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Usuario } from '../../clases/usuario';
@@ -13,12 +13,10 @@ import { Login } from '../../clases/login';
 export class LoginComponent implements OnInit {
   formLogin: FormGroup;
   validar: boolean; // Para que se muestren los errores una vez que se intenta enviar el formulario.
-  @Output() loginEvent = new EventEmitter<Usuario>();
-  @Input() habilitaLogin: boolean; // Si ya está logueado el usuario inhabilita los botones de ingresar y limpiar.
 
   constructor(
       public fb: FormBuilder,
-      public login: LoginService
+      private login: LoginService
     ) {
     this.validar = false;
 
@@ -34,19 +32,18 @@ export class LoginComponent implements OnInit {
     this.validar = true;
 
     if (this.formLogin.valid) {
-      let usuario: Usuario = new Usuario();
+      // let usuario: Usuario = new Usuario();
 
       const datosLogin: Login = new Login();
       datosLogin.email = this.formLogin.controls.id.value;
       datosLogin.clave = this.formLogin.controls.clave.value;
 
-      this.login.login(datosLogin)
-      .subscribe(() => {
+      this.login.login(datosLogin);
+      /*.subscribe(() => {
           if (!this.loginFallido()) {
             usuario = this.login.getUsuario();
-            this.loginEvent.emit(usuario);
           }
-      });
+      });*/
     } else {
       console.log('ERROR');
     }
@@ -62,7 +59,7 @@ export class LoginComponent implements OnInit {
   }
 
   puedeEnviar(): boolean {
-    return this.formLogin.dirty && this.habilitaLogin;
+    return this.formLogin.dirty && !this.getLogueado();
   }
 
   loginFallido(): boolean {
@@ -75,4 +72,7 @@ export class LoginComponent implements OnInit {
     this.formLogin.markAsDirty(); // Para que habilite el botón de logueo
   }
 
+  public getLogueado(): boolean {
+    return this.login.getLogin();
+  }
 }

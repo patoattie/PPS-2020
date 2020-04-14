@@ -1,13 +1,11 @@
 <ion-toolbar color="primary">
-  <ion-title *ngIf="!login.getLogin()">
+  <ion-title *ngIf="!getLogueado()">
     Usuario No Logueado
   </ion-title>
-  <ion-title *ngIf="login.getLogin()">
-    <!-- {{ getDatos() }} -->
+  <ion-title *ngIf="getLogueado()">
     {{ usuarioLogueado.email }}
   </ion-title>
-  <ion-buttons *ngIf="login.getLogin()" slot="start">
-    <!-- <ion-button (click)="login.logout()"> -->
+  <ion-buttons *ngIf="getLogueado()" slot="start">
     <ion-button (click)="hacerLogout()">
       <ion-icon name="exit"></ion-icon>
     </ion-button>
