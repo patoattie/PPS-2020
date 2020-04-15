@@ -15,13 +15,36 @@ export class SelectorUsuarioComponent implements OnInit {
   ngOnInit() {}
 
   enviarUsuario(usuario: string): void {
+    const datosLogin: Login = new Login();
+
     switch (usuario) {
       case 'admin':
-        const datosLogin: Login = new Login();
         datosLogin.email = 'admin@admin.com';
         datosLogin.clave = '111111';
+        break;
 
-        this.enviarUsuarioEvent.emit(datosLogin);
+      case 'invitado':
+        datosLogin.email = 'invitado@invitado.com';
+        datosLogin.clave = '222222';
+        break;
+
+      case 'usuario':
+        datosLogin.email = 'usuario@usuario.com';
+        datosLogin.clave = '333333';
+        break;
+
+      case 'anonimo':
+        datosLogin.email = 'anonimo@anonimo.com';
+        datosLogin.clave = '444444';
+        break;
+
+      case 'tester':
+        datosLogin.email = 'tester@tester.com';
+        datosLogin.clave = '555555';
+        break;
     }
+
+    this.enviarUsuarioEvent.emit(datosLogin);
   }
+
 }

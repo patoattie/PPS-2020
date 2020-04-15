@@ -11,7 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
-import { FirestoreSettingsToken } from '@angular/fire/firestore';
+import { FirestoreSettingsToken, AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
 
@@ -23,6 +23,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     IonicModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
+    AngularFirestoreModule,
     AppRoutingModule
   ],
   providers: [

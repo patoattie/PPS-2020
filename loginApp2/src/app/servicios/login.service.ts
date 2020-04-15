@@ -10,14 +10,18 @@ export class LoginService {
   private usuarioLogueado: Usuario = new Usuario();
 
   constructor(private auth: AuthFirebaseService) {
-    this.auth.getObsUser()
+    this.auth.getUsuarioRemoto()
     .subscribe(usuario => {
       if (usuario) {
-        this.usuarioLogueado.displayName = usuario.displayName;
-        this.usuarioLogueado.email = usuario.email;
-        this.usuarioLogueado.emailVerified = usuario.emailVerified;
-        this.usuarioLogueado.photoURL = usuario.photoURL;
-        this.usuarioLogueado.uid = usuario.uid;
+        const usuarioStorage: Usuario = this.auth.getUserData();
+        this.usuarioLogueado.displayName = usuarioStorage.displayName;
+        this.usuarioLogueado.email = usuarioStorage.email;
+        this.usuarioLogueado.emailVerified = usuarioStorage.emailVerified;
+        this.usuarioLogueado.id = usuarioStorage.id;
+        this.usuarioLogueado.perfil = usuarioStorage.perfil;
+        this.usuarioLogueado.photoURL = usuarioStorage.photoURL;
+        this.usuarioLogueado.sexo = usuarioStorage.sexo;
+        this.usuarioLogueado.uid = usuarioStorage.uid;
       }
     });
   }
@@ -35,11 +39,13 @@ export class LoginService {
       this.usuarioLogueado.emailVerified = null;
       this.usuarioLogueado.photoURL = null;
       this.usuarioLogueado.uid = null;
+      this.usuarioLogueado.id = null;
+      this.usuarioLogueado.perfil = null;
+      this.usuarioLogueado.sexo = null;
     });
   }
 
   public getUsuario(): Usuario {
-    // return this.auth.getUserData();
     return this.usuarioLogueado;
   }
 
@@ -55,7 +61,6 @@ export class LoginService {
   }
 
   public getLogin(): boolean {
-    // return (this.getUsuario() != null && this.getUsuario().uid != null);
     return (this.usuarioLogueado.email != null);
   }
 }

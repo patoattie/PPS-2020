@@ -1,38 +1,31 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { HomePage } from './home.page';
+import { UsuarioPage } from './usuario.page';
 import { ToolbarComponent } from '../componentes/toolbar/toolbar.component';
-import { LoginComponent } from '../componentes/login/login.component';
 import { LogoComponent } from '../componentes/logo/logo.component';
-import { SelectorUsuarioComponent } from '../componentes/selector-usuario/selector-usuario.component';
+import { HomePageModule } from '../home/home.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
     IonicModule,
+    HomePageModule,
     RouterModule.forChild([
       {
         path: '',
-        component: HomePage
+        component: UsuarioPage
       }
     ])
   ],
   declarations: [
-    HomePage,
+    UsuarioPage/*,
     ToolbarComponent,
-    LoginComponent,
-    LogoComponent,
-    SelectorUsuarioComponent
-  ],
-  exports: [
-    ToolbarComponent,
-    LogoComponent
+    LogoComponent*/
   ]
 })
-export class HomePageModule {}
+export class UsuarioPageModule {}

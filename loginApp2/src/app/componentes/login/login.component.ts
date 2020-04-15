@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { Usuario } from '../../clases/usuario';
 import { LoginService } from '../../servicios/login.service';
 import { Login } from '../../clases/login';
 
@@ -32,18 +31,12 @@ export class LoginComponent implements OnInit {
     this.validar = true;
 
     if (this.formLogin.valid) {
-      // let usuario: Usuario = new Usuario();
 
       const datosLogin: Login = new Login();
       datosLogin.email = this.formLogin.controls.id.value;
       datosLogin.clave = this.formLogin.controls.clave.value;
 
       this.login.login(datosLogin);
-      /*.subscribe(() => {
-          if (!this.loginFallido()) {
-            usuario = this.login.getUsuario();
-          }
-      });*/
     } else {
       console.log('ERROR');
     }
