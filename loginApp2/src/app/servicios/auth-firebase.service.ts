@@ -39,7 +39,7 @@ export class AuthFirebaseService {
         console.log('Login OK');
 
         this.ngZone.run(() => {
-          this.router.navigate(['usuario']);
+          this.router.navigate(['principal']);
         });
       })
       .catch((error) => {

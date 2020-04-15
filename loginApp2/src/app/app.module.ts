@@ -14,9 +14,15 @@ import { environment } from '../environments/environment';
 import { FirestoreSettingsToken, AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
+import { PrincipalComponent } from './componentes/principal/principal.component';
+import { HomePageModule } from './home/home.module';
+
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    PrincipalComponent
+  ],
   entryComponents: [],
   imports: [
     BrowserModule,
@@ -24,6 +30,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    HomePageModule,
     AppRoutingModule
   ],
   providers: [

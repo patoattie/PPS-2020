@@ -2,10 +2,10 @@
   <ion-title *ngIf="!getLogueado()">
     Usuario No Logueado
   </ion-title>
-  <ion-title *ngIf="getLogueado()">
+  <!-- <ion-title *ngIf="getLogueado()">
     {{ usuarioLogueado.email }}
-  </ion-title>
-  <ion-buttons *ngIf="getLogueado()" slot="start">
+  </ion-title> -->
+  <ion-buttons *ngIf="getLogueado()" slot="end">
     <ion-button (click)="hacerLogout()">
       <ion-icon name="exit"></ion-icon>
     </ion-button>
