@@ -9,10 +9,10 @@
 
       <ion-item [disabled]="getLogueado()">
         <ion-label position="stacked">
-          E-Mail 
+          Correo electrónico 
           <ion-text color="danger">*</ion-text>
-          <ion-text *ngIf="tieneError('id')" color="danger">Debe ingresar un E-Mail válido</ion-text>
-          <ion-text *ngIf="loginFallido()" color="danger">E-Mail o Contraseña no válidos</ion-text>
+          <ion-text *ngIf="tieneError('id')" color="danger">Debe ingresar un Correo electrónico válido</ion-text>
+          <ion-text *ngIf="loginFallido()" color="danger">Correo electrónico o Contraseña no válidos</ion-text>
         </ion-label>
         <ion-input formControlName="id" required type="email" autofocus="true" inputmode="email" name="id"></ion-input>
       </ion-item>
