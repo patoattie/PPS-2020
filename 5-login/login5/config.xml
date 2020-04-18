@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="ar.pps.app1" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Login App 1</name>
-    <description>Login Aplicación 1</description>
+<widget id="ar.pps.app5" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Login App 5</name>
+    <description>Login Aplicación 5</description>
     <author email="patoattie@gmail.com" href="http://ionicframework.com/">Patricio Attie</author>
     <content src="index.html" />
     <access origin="*" />
