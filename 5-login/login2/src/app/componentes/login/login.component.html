@@ -1,5 +1,3 @@
-<app-selector-usuario class="botonesUsuario" (enviarUsuarioEvent)="completarUsuario($event)" [deshabilitaControl]="getLogueado()"></app-selector-usuario>
-
 <form [formGroup]="formLogin" (ngSubmit)="enviarDatos()">
   <ion-list lines="full" class="ion-no-margin ion-no-padding">
     <ion-item-group class="formLogin">
@@ -33,3 +31,7 @@
     </ion-item-group>
   </ion-list>
 </form>
+
+<div class="usuarios">
+  <app-selector-usuario class="botonesUsuario" (enviarUsuarioEvent)="completarUsuario($event)" [deshabilitaControl]="getLogueado()"></app-selector-usuario>
+</div>
