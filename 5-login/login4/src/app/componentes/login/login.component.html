@@ -1,5 +1,3 @@
-<app-selector-usuario class="botonesUsuario" (enviarUsuarioEvent)="completarUsuario($event)" [deshabilitaControl]="getLogueado()"></app-selector-usuario>
-
 <form [formGroup]="formLogin" (ngSubmit)="enviarDatos()">
   <ion-list lines="full" class="ion-no-margin ion-no-padding">
     <ion-item-group class="formLogin">
@@ -16,7 +14,7 @@
         </ion-label>
         <ion-input formControlName="id" required type="email" autofocus="true" inputmode="email" name="id"></ion-input>
       </ion-item>
-
+      
       <ion-item [disabled]="getLogueado()">
         <ion-label position="stacked">
           Clave
@@ -26,10 +24,12 @@
         <ion-input formControlName="clave" required type="password" name="clave"></ion-input>
       </ion-item>
     </ion-item-group>
-
+    
     <ion-item-group class="botonesLogin">
       <ion-button [disabled]="!puedeEnviar()" expand="block" type="submit" color="success">Ingresar</ion-button>
       <ion-button [disabled]="!puedeEnviar()" expand="block" color="light" (click)="limpiarDatos()">Limpiar</ion-button>
     </ion-item-group>
   </ion-list>
 </form>
+
+<app-selector-usuario class="botonesUsuario" (enviarUsuarioEvent)="completarUsuario($event)" [deshabilitaControl]="getLogueado()"></app-selector-usuario>
