@@ -16,6 +16,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { PrincipalComponent } from './componentes/principal/principal.component';
 import { MenuComponent } from './componentes/menu/menu.component';
+import { SelectorPrincipalComponent } from './componentes/selector-principal/selector-principal.component';
 import { HomePageModule } from './home/home.module';
 
 
@@ -23,7 +24,8 @@ import { HomePageModule } from './home/home.module';
   declarations: [
     AppComponent,
     PrincipalComponent,
-    MenuComponent
+    MenuComponent,
+    SelectorPrincipalComponent
   ],
   entryComponents: [],
   imports: [

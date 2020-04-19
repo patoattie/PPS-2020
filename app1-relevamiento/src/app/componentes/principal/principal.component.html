@@ -3,12 +3,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div id="logo">
-    <app-menu (salirEvent)="hacerLogout()"></app-menu>
-    <app-logo></app-logo>
-  </div>
+  <app-menu (salirEvent)="hacerLogout()"></app-menu>
 
-  <div id="container">
+  <router-outlet></router-outlet>
+
+  <!-- <div id="container">
     <ion-card>
       <ion-card-header>
         <ion-card-subtitle>{{ usuarioLogueado.uid }}</ion-card-subtitle>
@@ -21,5 +20,5 @@
         Sexo: {{ usuarioLogueado.sexo }}
       </ion-card-content>
     </ion-card>
-  </div>
+  </div> -->
 </ion-content>

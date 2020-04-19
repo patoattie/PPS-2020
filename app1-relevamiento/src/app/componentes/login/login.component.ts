@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { LoginService } from '../../servicios/login.service';
 import { Login } from '../../clases/login';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
       public fb: FormBuilder,
-      private login: LoginService
+      private login: LoginService,
+      public toastController: ToastController
     ) {
     this.validar = false;
 
@@ -38,6 +40,12 @@ export class LoginComponent implements OnInit {
 
       this.login.login(datosLogin);
     } else {
+      if (this.formLogin.controls.id.invalid) {
+        this.mostrarMensaje('Debe ingresar un Correo electrónico válido');
+      }
+      if (this.formLogin.controls.clave.invalid) {
+        this.mostrarMensaje('Debe ingresar una clave válida');
+      }
       console.log('ERROR');
     }
   }
@@ -56,7 +64,12 @@ export class LoginComponent implements OnInit {
   }
 
   loginFallido(): boolean {
-    return (this.validar && this.login.getError().length > 0);
+    const retorno: boolean = (this.validar && this.login.getError().length > 0);
+
+    if (retorno) {
+      this.mostrarMensaje('Correo electrónico o Contraseña no válidos');
+    }
+    return retorno;
   }
 
   completarUsuario(usuario: Login): void {
@@ -67,5 +80,15 @@ export class LoginComponent implements OnInit {
 
   public getLogueado(): boolean {
     return this.login.getLogin();
+  }
+
+  async mostrarMensaje(mensaje: string) {
+    const toast = await this.toastController.create({
+      message: mensaje,
+      color: 'danger',
+      position: 'top',
+      duration: 2000
+    });
+    toast.present();
   }
 }

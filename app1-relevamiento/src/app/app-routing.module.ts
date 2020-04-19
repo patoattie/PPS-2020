@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { PrincipalComponent } from './componentes/principal/principal.component';
+import { SelectorPrincipalComponent } from './componentes/selector-principal/selector-principal.component';
 
 const routes: Routes = [
   {
@@ -10,7 +11,18 @@ const routes: Routes = [
   },
   {
     path: 'principal',
-    component: PrincipalComponent
+    component: PrincipalComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'selector',
+        pathMatch: 'full'
+      },
+      {
+        path: 'selector',
+        component: SelectorPrincipalComponent
+      }
+    ]
   },
   {
     path: 'home',
