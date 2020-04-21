@@ -23,6 +23,7 @@ export class PrincipalComponent implements OnInit {
   }
 
   hacerLogout(): void {
+    this.menu.close();
     this.login.logout();
   }
 }
