@@ -3,7 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { LoginService } from '../../servicios/login.service';
 import { Login } from '../../clases/login';
-import { ToastController } from '@ionic/angular';
+// import { ToastController } from '@ionic/angular';
+import { ToastService } from '../../servicios/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
   constructor(
       public fb: FormBuilder,
       private login: LoginService,
-      public toastController: ToastController
+      // public toastController: ToastController,
+      private mensaje: ToastService
     ) {
     this.validar = false;
 
@@ -29,7 +31,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {}
 
-  enviarDatos(): void {
+  async enviarDatos(): Promise<void> {
     this.validar = true;
 
     if (this.formLogin.valid) {
@@ -38,13 +40,20 @@ export class LoginComponent implements OnInit {
       datosLogin.email = this.formLogin.controls.id.value;
       datosLogin.clave = this.formLogin.controls.clave.value;
 
-      this.login.login(datosLogin);
+      this.login.login(datosLogin)
+      .then(async () => {
+        if (this.loginFallido()) {
+          await this.mensaje.presentToast('Correo electrónico o Clave no válidos');
+        }
+      });
     } else {
       if (this.formLogin.controls.id.invalid) {
-        this.mostrarMensaje('Debe ingresar un Correo electrónico válido');
+        // this.mostrarMensaje('Debe ingresar un Correo electrónico válido');
+        await this.mensaje.presentToast('Debe ingresar un Correo electrónico válido');
       }
       if (this.formLogin.controls.clave.invalid) {
-        this.mostrarMensaje('Debe ingresar una clave válida');
+        // this.mostrarMensaje('Debe ingresar una clave válida');
+        await this.mensaje.presentToast('Debe ingresar una Clave válida');
       }
       console.log('ERROR');
     }
@@ -64,12 +73,7 @@ export class LoginComponent implements OnInit {
   }
 
   loginFallido(): boolean {
-    const retorno: boolean = (this.validar && this.login.getError().length > 0);
-
-    if (retorno) {
-      this.mostrarMensaje('Correo electrónico o Contraseña no válidos');
-    }
-    return retorno;
+    return (this.validar && this.login.getError().length > 0);
   }
 
   completarUsuario(usuario: Login): void {
@@ -82,13 +86,13 @@ export class LoginComponent implements OnInit {
     return this.login.getLogin();
   }
 
-  async mostrarMensaje(mensaje: string) {
+  /*async mostrarMensaje(mensaje: string) {
     const toast = await this.toastController.create({
       message: mensaje,
       color: 'danger',
       position: 'top',
-      duration: 2000
+      duration: 3000,
     });
-    toast.present();
-  }
+    await toast.present();
+  }*/
 }

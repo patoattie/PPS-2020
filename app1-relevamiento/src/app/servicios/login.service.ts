@@ -26,8 +26,8 @@ export class LoginService {
     });
   }
 
-  public login(login: Login): void {
-    this.auth.SignIn(login);
+  public login(login: Login): Promise<void> {
+    return this.auth.SignIn(login);
   }
 
   public logout(): void {
