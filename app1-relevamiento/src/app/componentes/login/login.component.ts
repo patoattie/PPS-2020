@@ -56,7 +56,6 @@ export class LoginComponent implements OnInit {
       if (this.formLogin.controls.clave.invalid) {
         await this.mensajes.presentToast('Debe ingresar una Clave válida');
       }
-      console.log('ERROR');
     }
   }
 

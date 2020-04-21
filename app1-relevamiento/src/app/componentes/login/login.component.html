@@ -11,6 +11,8 @@
         <ion-label position="stacked">
           Correo electrónico 
           <ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-label position="stacked">
           <ion-text *ngIf="tieneError('id')" color="danger">Debe ingresar un Correo electrónico válido</ion-text>
           <ion-text *ngIf="loginFallido()" color="danger">Correo electrónico o Clave no válidos</ion-text>
         </ion-label>
@@ -21,7 +23,9 @@
         <ion-label position="stacked">
           Clave
           <ion-text color="danger">*</ion-text>
-          <ion-text *ngIf="tieneError('clave')" color="danger">Debe ingresar una clave válida</ion-text>
+        </ion-label>
+        <ion-label position="stacked">
+          <ion-text *ngIf="tieneError('clave')" color="danger">Debe ingresar una Clave válida</ion-text>
         </ion-label>
         <ion-input formControlName="clave" required type="password" name="clave"></ion-input>
       </ion-item>
