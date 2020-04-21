@@ -3,8 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { LoginService } from '../../servicios/login.service';
 import { Login } from '../../clases/login';
-// import { ToastController } from '@ionic/angular';
 import { ToastService } from '../../servicios/toast.service';
+import { SpinnerService } from '../../servicios/spinner.service';
 
 @Component({
   selector: 'app-login',
@@ -18,8 +18,8 @@ export class LoginComponent implements OnInit {
   constructor(
       public fb: FormBuilder,
       private login: LoginService,
-      // public toastController: ToastController,
-      private mensaje: ToastService
+      private mensajes: ToastService,
+      public espera: SpinnerService
     ) {
     this.validar = false;
 
@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
     this.validar = true;
 
     if (this.formLogin.valid) {
+      await this.espera.cargarEspera();
 
       const datosLogin: Login = new Login();
       datosLogin.email = this.formLogin.controls.id.value;
@@ -43,17 +44,17 @@ export class LoginComponent implements OnInit {
       this.login.login(datosLogin)
       .then(async () => {
         if (this.loginFallido()) {
-          await this.mensaje.presentToast('Correo electrónico o Clave no válidos');
+          await this.mensajes.presentToast('Correo electrónico o Clave no válidos');
         }
       });
+
+      await this.espera.quitarEspera();
     } else {
       if (this.formLogin.controls.id.invalid) {
-        // this.mostrarMensaje('Debe ingresar un Correo electrónico válido');
-        await this.mensaje.presentToast('Debe ingresar un Correo electrónico válido');
+        await this.mensajes.presentToast('Debe ingresar un Correo electrónico válido');
       }
       if (this.formLogin.controls.clave.invalid) {
-        // this.mostrarMensaje('Debe ingresar una clave válida');
-        await this.mensaje.presentToast('Debe ingresar una Clave válida');
+        await this.mensajes.presentToast('Debe ingresar una Clave válida');
       }
       console.log('ERROR');
     }
@@ -85,14 +86,4 @@ export class LoginComponent implements OnInit {
   public getLogueado(): boolean {
     return this.login.getLogin();
   }
-
-  /*async mostrarMensaje(mensaje: string) {
-    const toast = await this.toastController.create({
-      message: mensaje,
-      color: 'danger',
-      position: 'top',
-      duration: 3000,
-    });
-    await toast.present();
-  }*/
 }
