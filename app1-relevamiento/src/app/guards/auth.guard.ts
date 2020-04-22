@@ -15,11 +15,19 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean  {
-// console.log(this.login.getLogin());
-      if (!this.login.getLogin()) {
+
+      /*if (!this.login.getLogin()) {
         console.log('Acceso no permitido');
         this.router.navigate(['home']);
-      }
+      }*/
+
+      this.login.getLogin2()
+      .subscribe(usuario => {
+        if (!usuario) {
+          // console.log('Acceso no permitido');
+          this.router.navigate(['home']);
+        }
+      });
 
       return true;
   }

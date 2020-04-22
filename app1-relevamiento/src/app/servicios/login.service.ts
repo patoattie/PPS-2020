@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthFirebaseService } from './auth-firebase.service';
 import { Usuario } from '../clases/usuario';
 import { Login } from '../clases/login';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -61,7 +62,15 @@ export class LoginService {
   }
 
   public getLogin(): boolean {
-    // return (this.usuarioLogueado.email != null);
-    return this.auth.isLoggedIn();
+    return (this.usuarioLogueado.email != null);
+    // return this.auth.isLoggedIn();
+  }
+
+  public getLogin2(): Observable<boolean> {
+    return this.auth.getUsuarioRemoto();
+  }
+
+  public getLogin3(): Usuario {
+    return this.usuarioLogueado;
   }
 }

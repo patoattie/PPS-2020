@@ -38,9 +38,9 @@ export class AuthFirebaseService {
 
         console.log('Login OK');
 
-        this.ngZone.run(() => {
+        /*this.ngZone.run(() => {
           this.router.navigate(['principal']);
-        });
+        });*/
       })
       .catch((error) => {
         console.log(error.code);
@@ -85,7 +85,7 @@ export class AuthFirebaseService {
     return this.afAuth.auth.signOut()
     .then(() => {
       localStorage.removeItem('user');
-      this.router.navigate(['home']);
+      // this.router.navigate(['home']);
       console.log('Logout OK');
     })
     .catch((error) => {
@@ -106,7 +106,7 @@ export class AuthFirebaseService {
   }
 
   public getUsuarioRemoto(): Observable<any> {
-    return this.afAuth.authState;
+    return this.afAuth.user;
   }
 
 }
