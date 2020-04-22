@@ -61,6 +61,7 @@ export class LoginService {
   }
 
   public getLogin(): boolean {
-    return (this.usuarioLogueado.email != null);
+    // return (this.usuarioLogueado.email != null);
+    return this.auth.isLoggedIn();
   }
 }

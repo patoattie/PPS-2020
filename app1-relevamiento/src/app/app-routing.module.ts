@@ -3,6 +3,10 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { PrincipalComponent } from './componentes/principal/principal.component';
 import { SelectorPrincipalComponent } from './componentes/selector-principal/selector-principal.component';
 
+// Import canActivate guard services
+import { AuthGuard } from './guards/auth.guard';
+import { SecureInnerPagesGuard } from './guards/secure-inner-pages.guard';
+
 const routes: Routes = [
   {
     path: '',
@@ -22,11 +26,11 @@ const routes: Routes = [
         path: 'selector',
         component: SelectorPrincipalComponent
       }
-    ]
+    ], canActivate: [AuthGuard]
   },
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule), canActivate: [SecureInnerPagesGuard]
   }
 ];
 
