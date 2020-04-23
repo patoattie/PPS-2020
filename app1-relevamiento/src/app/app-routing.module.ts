@@ -29,11 +29,6 @@ const routes: Routes = [
       }
     ], canActivate: [AuthGuard]
   },
-  /*{
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
-    canActivate: [SecureInnerPagesGuard]
-  }*/
   {
     path: 'home',
     component: HomeComponent,

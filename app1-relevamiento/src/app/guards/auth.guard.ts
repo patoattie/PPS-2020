@@ -9,18 +9,12 @@ import { LoginService } from '../servicios/login.service';
 export class AuthGuard implements CanActivate {
 
   constructor(
-    public login: LoginService,
-    public router: Router
+    private login: LoginService,
+    private router: Router
   ) { }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean  {
-
-      /*if (!this.login.getLogin()) {
-        console.log('Acceso no permitido');
-        this.router.navigate(['home']);
-      }*/
-
       this.login.getLogin2()
       .subscribe(usuario => {
         if (!usuario) {
