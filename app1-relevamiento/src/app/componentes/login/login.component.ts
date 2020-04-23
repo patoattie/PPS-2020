@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { LoginService } from '../../servicios/login.service';
 import { Login } from '../../clases/login';
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
       public fb: FormBuilder,
       private login: LoginService,
       private mensajes: ToastService,
-      public espera: SpinnerService
+      public espera: SpinnerService,
+      private router: Router
     ) {
     this.validar = false;
 
@@ -45,6 +47,8 @@ export class LoginComponent implements OnInit {
       .then(async () => {
         if (this.loginFallido()) {
           await this.mensajes.presentToast('Correo electrónico o Clave no válidos');
+        } else {
+          this.router.navigate(['principal']);
         }
       });
 

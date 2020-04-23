@@ -15,16 +15,16 @@ export class SecureInnerPagesGuard implements CanActivate {
 
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-      this.login.getLogin2()
-      .subscribe(usuario => {
-        if (usuario) {
-          // console.log('Acceso no permitido');
-          this.router.navigate(['principal']);
-        }
-      });
+    state: RouterStateSnapshot): boolean {
+      let retorno = true;
 
-      return true;
+      if (this.login.getLogin()) {
+        console.log('Acceso no permitido');
+        this.router.navigate(['principal']);
+        retorno = false;
+      }
+
+      return retorno;
   }
 
 }

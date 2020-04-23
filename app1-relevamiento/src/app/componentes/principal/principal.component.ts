@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/clases/usuario';
 import { LoginService } from 'src/app/servicios/login.service';
 import { MenuController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-principal',
@@ -13,7 +14,8 @@ export class PrincipalComponent implements OnInit {
 
   constructor(
     private login: LoginService,
-    private menu: MenuController
+    private menu: MenuController,
+    private router: Router
   ) { }
 
   ngOnInit() {}
@@ -24,6 +26,7 @@ export class PrincipalComponent implements OnInit {
 
   hacerLogout(): void {
     this.menu.close();
-    this.login.logout();
+    this.login.logout()
+    .then(() => this.router.navigate(['home']));
   }
 }

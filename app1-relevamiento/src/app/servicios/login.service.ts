@@ -31,9 +31,9 @@ export class LoginService {
     return this.auth.SignIn(login);
   }
 
-  public logout(): void {
+  public logout(): Promise<void> {
 
-    this.auth.SignOut()
+    return this.auth.SignOut()
     .then(() => {
       this.usuarioLogueado.displayName = null;
       this.usuarioLogueado.email = null;
@@ -62,8 +62,8 @@ export class LoginService {
   }
 
   public getLogin(): boolean {
-    return (this.usuarioLogueado.email != null);
-    // return this.auth.isLoggedIn();
+    // return (this.usuarioLogueado.email != null);
+    return this.auth.isLoggedIn();
   }
 
   public getLogin2(): Observable<boolean> {
