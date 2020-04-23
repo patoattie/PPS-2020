@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -17,7 +18,12 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { PrincipalComponent } from './componentes/principal/principal.component';
 import { MenuComponent } from './componentes/menu/menu.component';
 import { SelectorPrincipalComponent } from './componentes/selector-principal/selector-principal.component';
-import { HomePageModule } from './home/home.module';
+// import { HomePageModule } from './home/home.module';
+import { HomeComponent } from './componentes/home/home.component';
+import { ToolbarComponent } from './componentes/toolbar/toolbar.component';
+import { LogoComponent } from './componentes/logo/logo.component';
+import { LoginComponent } from './componentes/login/login.component';
+import { SelectorUsuarioComponent } from './componentes/selector-usuario/selector-usuario.component';
 
 
 @NgModule({
@@ -25,7 +31,12 @@ import { HomePageModule } from './home/home.module';
     AppComponent,
     PrincipalComponent,
     MenuComponent,
-    SelectorPrincipalComponent
+    SelectorPrincipalComponent,
+    HomeComponent,
+    ToolbarComponent,
+    LogoComponent,
+    LoginComponent,
+    SelectorUsuarioComponent
   ],
   entryComponents: [],
   imports: [
@@ -34,7 +45,8 @@ import { HomePageModule } from './home/home.module';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    HomePageModule,
+    // HomePageModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
   providers: [

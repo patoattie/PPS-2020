@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { PrincipalComponent } from './componentes/principal/principal.component';
 import { SelectorPrincipalComponent } from './componentes/selector-principal/selector-principal.component';
+import { HomeComponent } from './componentes/home/home.component';
 
 // Import canActivate guard services
 import { AuthGuard } from './guards/auth.guard';
@@ -28,9 +29,15 @@ const routes: Routes = [
       }
     ], canActivate: [AuthGuard]
   },
+  /*{
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
+    canActivate: [SecureInnerPagesGuard]
+  }*/
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule), canActivate: [SecureInnerPagesGuard]
+    component: HomeComponent,
+    canActivate: [SecureInnerPagesGuard]
   }
 ];
 
