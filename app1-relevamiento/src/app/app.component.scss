@@ -1,5 +1,6 @@
 #superpuesto {
     position: fixed;
+    display: flex;
     top: 0;
     left: 0;
     right: 0;
@@ -25,5 +26,59 @@
     top: 40%;
     left: 32%;
     animation-name: logoSplash;
-    animation-duration: 12s;
+    animation-duration: 5s;
+}
+
+@keyframes logoSplash {
+    from {
+        transform: rotateZ(0deg);
+    }
+
+    10% {
+        transform: rotateZ(30deg);
+    }
+
+    20% {
+        transform: rotateZ(45deg);
+    }
+    
+    30% {
+        transform: rotateZ(30deg);
+    }
+
+    40% {
+        transform: rotateZ(0deg);
+    }
+
+    50% {
+        transform: rotateZ(-30deg);
+    }
+
+    60% {
+        transform: rotateZ(-45deg);
+    }
+
+    70% {
+        transform: rotateZ(-30deg);
+    }
+
+    75% {
+        transform: rotateZ(0deg);
+    }
+
+    80% {
+        transform: rotateZ(30deg);
+    }
+
+    85% {
+        transform: rotateZ(45deg);
+    }
+
+    90% {
+        transform: rotateZ(30deg);
+    }
+
+    to {
+        transform: rotateZ(0deg);
+    }
 }

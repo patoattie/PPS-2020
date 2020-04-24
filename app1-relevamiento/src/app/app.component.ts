@@ -25,6 +25,12 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       // this.hideSplashScreen();
+
+      if (this.splash) {
+        setTimeout(() => {
+          this.splash = false;
+        }, 6750);
+      }
     });
   }
 
