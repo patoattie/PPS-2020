@@ -8,13 +8,13 @@ export class SpinnerService {
 
   constructor(private loadingController: LoadingController) { }
 
-  async cargarEspera() {
+  async cargarEspera(ms: number) {
     const loading = await this.loadingController.create({
       message: 'Espere por favor',
       spinner: 'crescent'
     });
     await loading.present()
-    .then(() => this.delay(2000));
+    .then(() => this.delay(ms));
   }
 
   async quitarEspera() {

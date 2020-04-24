@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     this.validar = true;
 
     if (this.formLogin.valid) {
-      await this.espera.cargarEspera();
+      await this.espera.cargarEspera(2000);
 
       const datosLogin: Login = new Login();
       datosLogin.email = this.formLogin.controls.id.value;
