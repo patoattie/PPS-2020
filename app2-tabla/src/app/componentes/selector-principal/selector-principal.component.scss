@@ -1,4 +1,41 @@
 ion-button {
-    height: 50%;
+    height: 33%;
+    width: 33%;
     margin: 0;
+}
+
+#btn1 {
+    --background: #ff0000;
+}
+
+#btn2 {
+    --background: #ffff00;
+}
+
+#btn3 {
+    --background: #0000ff;
+}
+
+#btn4 {
+    --background: #00ff00;
+}
+
+#btn5 {
+    --background: #ff00ff;
+}
+
+#btn6 {
+    --background: #00bfff;
+}
+
+#btn7 {
+    --background: #ffa500;
+}
+
+#btn8 {
+    --background: #ffffff;
+}
+
+#btn9 {
+    --background: #000000;
 }

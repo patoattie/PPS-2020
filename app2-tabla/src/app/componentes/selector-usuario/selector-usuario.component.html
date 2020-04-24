@@ -1,22 +1,15 @@
-<ion-fab horizontal="start" vertical="bottom" slot="fixed">
-  <ion-fab-button [disabled]="deshabilitaControl" color="dark">
-    <ion-icon name="caret-forward-outline"></ion-icon>
-  </ion-fab-button>
-  <ion-fab-list side="end">
-    <ion-fab-button color="dark" (click)="enviarUsuario('admin')">
-      <ion-icon name="person"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-button color="success" (click)="enviarUsuario('invitado')">
-      <ion-icon name="person"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-button color="warning" (click)="enviarUsuario('usuario')">
-      <ion-icon name="person"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-button color="danger" (click)="enviarUsuario('anonimo')">
-      <ion-icon name="person"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-button color="medium" (click)="enviarUsuario('tester')">
-      <ion-icon name="person"></ion-icon>
-    </ion-fab-button>
-  </ion-fab-list>
-</ion-fab>
+<ion-button [disabled]="deshabilitaControl" size="small" color="dark" (click)="enviarUsuario('admin')">
+  Admin
+</ion-button>
+<ion-button [disabled]="deshabilitaControl" size="small" color="success" (click)="enviarUsuario('invitado')">
+  Invitado
+</ion-button>
+<ion-button [disabled]="deshabilitaControl" size="small" color="warning" (click)="enviarUsuario('usuario')">
+  Usuario
+</ion-button>
+<ion-button [disabled]="deshabilitaControl" size="small" color="danger" (click)="enviarUsuario('anonimo')">
+  Anónimo
+</ion-button>
+<ion-button [disabled]="deshabilitaControl" size="small" color="medium" (click)="enviarUsuario('tester')">
+  Tester
+</ion-button>
