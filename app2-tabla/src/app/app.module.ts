@@ -17,7 +17,6 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { PrincipalComponent } from './componentes/principal/principal.component';
 import { MenuComponent } from './componentes/menu/menu.component';
-import { SelectorPrincipalComponent } from './componentes/selector-principal/selector-principal.component';
 import { HomeComponent } from './componentes/home/home.component';
 import { ToolbarComponent } from './componentes/toolbar/toolbar.component';
 import { LogoComponent } from './componentes/logo/logo.component';
@@ -30,7 +29,6 @@ import { SelectorUsuarioComponent } from './componentes/selector-usuario/selecto
     AppComponent,
     PrincipalComponent,
     MenuComponent,
-    SelectorPrincipalComponent,
     HomeComponent,
     ToolbarComponent,
     LogoComponent,

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { PrincipalComponent } from './componentes/principal/principal.component';
-import { SelectorPrincipalComponent } from './componentes/selector-principal/selector-principal.component';
 import { HomeComponent } from './componentes/home/home.component';
 
 // Import canActivate guard services
@@ -17,17 +16,8 @@ const routes: Routes = [
   {
     path: 'principal',
     component: PrincipalComponent,
-    children: [
-      {
-        path: '',
-        redirectTo: 'selector',
-        pathMatch: 'full'
-      },
-      {
-        path: 'selector',
-        component: SelectorPrincipalComponent
-      }
-    ], canActivate: [AuthGuard]
+    children: [],
+    canActivate: [AuthGuard]
   },
   {
     path: 'home',
