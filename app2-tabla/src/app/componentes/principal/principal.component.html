@@ -4,11 +4,10 @@
 
 <ion-content [fullscreen]="true">
   <app-menu (salirEvent)="hacerLogout()"></app-menu>
-
-  <app-selector-principal></app-selector-principal>
   
-  <!-- <div id="container">
-    <ion-card>
+  <div id="container">
+    <app-selector-principal></app-selector-principal>
+    <!-- <ion-card>
       <ion-card-header>
         <ion-card-subtitle>{{ usuarioLogueado.uid }}</ion-card-subtitle>
         <ion-card-title>{{ usuarioLogueado.email }}</ion-card-title>
@@ -19,6 +18,6 @@
         Perfil: {{ usuarioLogueado.perfil }} <br>
         Sexo: {{ usuarioLogueado.sexo }}
       </ion-card-content>
-    </ion-card>
-  </div> -->
+    </ion-card> -->
+  </div>
 </ion-content>

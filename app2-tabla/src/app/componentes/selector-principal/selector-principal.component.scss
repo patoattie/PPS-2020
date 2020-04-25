@@ -1,7 +1,17 @@
 ion-button {
-    height: 33%;
-    width: 33%;
+    height: 100%;
     margin: 0;
+}
+
+ion-grid {
+    height: 100%;
+    --ion-grid-padding: 0;
+    --ion-grid-column-padding: 0;
+}
+
+ion-row {
+    height: 33%;
+    padding: 0;
 }
 
 #btn1 {
