@@ -11,7 +11,7 @@ import { LoginService } from './servicios/login.service';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-  public splash = true;
+  public splash = false;
 
   constructor(
     private platform: Platform,

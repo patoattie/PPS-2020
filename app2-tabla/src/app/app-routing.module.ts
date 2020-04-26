@@ -17,12 +17,12 @@ const routes: Routes = [
     path: 'principal',
     component: PrincipalComponent,
     children: [],
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [SecureInnerPagesGuard]
+    // canActivate: [SecureInnerPagesGuard]
   }
 ];
 
