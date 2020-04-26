@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Tema } from '../../enums/tema.enum';
 import { Idioma } from '../../enums/idioma.enum';
 import { Tabla } from '../../clases/tabla';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @Component({
   selector: 'app-selector-principal',
@@ -10,12 +11,20 @@ import { Tabla } from '../../clases/tabla';
 })
 export class SelectorPrincipalComponent implements OnInit {
   private tabla: Tabla = new Tabla();
+  private orientacion: string;
 
-  constructor() { }
+  constructor(private screen: ScreenOrientation) { }
 
   ngOnInit() {
     this.tabla.idioma = Idioma.ESPAÑOL;
     this.tabla.tema = Tema.NUMEROS;
+    this.orientacion = this.screen.type;
+
+    this.screen.onChange().subscribe(
+      () => {
+        this.orientacion = this.screen.type;
+      }
+   );
   }
 
   public getTema(): string {
@@ -52,5 +61,28 @@ export class SelectorPrincipalComponent implements OnInit {
         this.tabla.idioma = Idioma.PORTUGUES;
         break;
     }
+  }
+
+  public getLado(boton: string): string {
+    let retorno = 'top';
+
+    switch (boton) {
+      case 'tema':
+        if (this.orientacion === this.screen.ORIENTATIONS.LANDSCAPE
+           || this.orientacion === this.screen.ORIENTATIONS.LANDSCAPE_PRIMARY
+           || this.orientacion === this.screen.ORIENTATIONS.LANDSCAPE_SECONDARY) {
+          retorno = 'end';
+        }
+        break;
+      case 'idioma':
+        if (this.orientacion === this.screen.ORIENTATIONS.LANDSCAPE
+           || this.orientacion === this.screen.ORIENTATIONS.LANDSCAPE_PRIMARY
+           || this.orientacion === this.screen.ORIENTATIONS.LANDSCAPE_SECONDARY) {
+          retorno = 'start';
+        }
+        break;
+    }
+
+    return retorno;
   }
 }
