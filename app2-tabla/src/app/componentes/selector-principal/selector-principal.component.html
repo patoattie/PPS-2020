@@ -1,19 +1,19 @@
 <ion-grid>
   <ion-row>
     <ion-col>
-      <ion-button expand="full" fill='solid' id="btn1">
+      <ion-button expand="full" fill='solid' id="btn1" (click)="reproducir(1)">
         <ion-img *ngIf="getTema()==='numeros'" src="../../../assets/numeros/uno.png"></ion-img>
         <ion-img *ngIf="getTema()==='animales'" src="../../../assets/animales/abeja.png"></ion-img>
       </ion-button>
     </ion-col>
     <ion-col>
-      <ion-button expand="full" fill='solid' id="btn2">
+      <ion-button expand="full" fill='solid' id="btn2" (click)="reproducir(2)">
         <ion-img *ngIf="getTema()==='numeros'" src="../../../assets/numeros/dos.png"></ion-img>
         <ion-img *ngIf="getTema()==='animales'" src="../../../assets/animales/caballo.png"></ion-img>
       </ion-button>
     </ion-col>
     <ion-col>
-      <ion-button expand="full" fill='solid' id="btn3">
+      <ion-button expand="full" fill='solid' id="btn3" (click)="reproducir(3)">
         <ion-img *ngIf="getTema()==='numeros'" src="../../../assets/numeros/tres.png"></ion-img>
         <ion-img *ngIf="getTema()==='animales'" src="../../../assets/animales/cocodrilo.png"></ion-img>
       </ion-button>
@@ -22,19 +22,19 @@
   
   <ion-row>
     <ion-col>
-      <ion-button expand="full" fill='solid' id="btn4">
+      <ion-button expand="full" fill='solid' id="btn4" (click)="reproducir(4)">
         <ion-img *ngIf="getTema()==='numeros'" src="../../../assets/numeros/cuatro.png"></ion-img>
         <ion-img *ngIf="getTema()==='animales'" src="../../../assets/animales/cerdo.png"></ion-img>
       </ion-button>
     </ion-col>
     <ion-col>
-      <ion-button expand="full" fill='solid' id="btn5">
+      <ion-button expand="full" fill='solid' id="btn5" (click)="reproducir(5)">
         <ion-img *ngIf="getTema()==='numeros'" src="../../../assets/numeros/cinco.png"></ion-img>
         <ion-img *ngIf="getTema()==='animales'" src="../../../assets/animales/elefante.png"></ion-img>
       </ion-button>
     </ion-col>
     <ion-col>
-      <ion-button expand="full" fill='solid' id="btn6">
+      <ion-button expand="full" fill='solid' id="btn6" (click)="reproducir(6)">
         <ion-img *ngIf="getTema()==='numeros'" src="../../../assets/numeros/seis.png"></ion-img>
         <ion-img *ngIf="getTema()==='animales'" src="../../../assets/animales/jirafa.png"></ion-img>
       </ion-button>
@@ -43,19 +43,19 @@
   
   <ion-row>
     <ion-col>
-      <ion-button expand="full" fill='solid' id="btn7">
+      <ion-button expand="full" fill='solid' id="btn7" (click)="reproducir(7)">
         <ion-img *ngIf="getTema()==='numeros'" src="../../../assets/numeros/siete.png"></ion-img>
         <ion-img *ngIf="getTema()==='animales'" src="../../../assets/animales/pinguino.png"></ion-img>
       </ion-button>
     </ion-col>
     <ion-col>
-      <ion-button expand="full" fill='solid' id="btn8">
+      <ion-button expand="full" fill='solid' id="btn8" (click)="reproducir(8)">
         <ion-img *ngIf="getTema()==='numeros'" src="../../../assets/numeros/ocho.png"></ion-img>
         <ion-img *ngIf="getTema()==='animales'" src="../../../assets/animales/gallo.png"></ion-img>
       </ion-button>
     </ion-col>
     <ion-col>
-      <ion-button expand="full" fill='solid' id="btn9">
+      <ion-button expand="full" fill='solid' id="btn9" (click)="reproducir(9)">
         <ion-img *ngIf="getTema()==='numeros'" src="../../../assets/numeros/nueve.png"></ion-img>
         <ion-img *ngIf="getTema()==='animales'" src="../../../assets/animales/gato.png"></ion-img>
       </ion-button>
@@ -64,7 +64,7 @@
 
   <ion-fab vertical="bottom" horizontal="start">
     <ion-fab-button color="medium">
-      <ion-icon name="settings"></ion-icon>
+      <ion-img [src]="getIcono('tema')"></ion-img>
     </ion-fab-button>
     <ion-fab-list [side]="getLado('tema')">
       <ion-fab-button (click)="setTema('numeros')">
@@ -81,7 +81,7 @@
 
   <ion-fab vertical="bottom" horizontal="end">
     <ion-fab-button color="medium">
-      <ion-icon name="flag"></ion-icon>
+      <ion-img [src]="getIcono('idioma')"></ion-img>
     </ion-fab-button>
     <ion-fab-list [side]="getLado('idioma')">
       <ion-fab-button (click)="setIdioma('español')">
