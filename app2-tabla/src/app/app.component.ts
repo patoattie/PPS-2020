@@ -25,8 +25,8 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
-      this.splashScreen.hide();
-      // this.hideSplashScreen();
+      // this.splashScreen.hide();
+      this.hideSplashScreen();
 
       if (this.splash) {
         setTimeout(() => {
@@ -40,11 +40,11 @@ export class AppComponent {
     return this.login.getLogin();
   }
 
-  /*hideSplashScreen() {
+  hideSplashScreen() {
     if (this.splashScreen) {
       setTimeout(() => {
         this.splashScreen.hide();
       }, 100);
     }
-  }*/
+  }
 }
