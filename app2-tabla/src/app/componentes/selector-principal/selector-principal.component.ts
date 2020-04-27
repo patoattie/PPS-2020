@@ -4,7 +4,6 @@ import { Idioma } from '../../enums/idioma.enum';
 import { Tabla } from '../../clases/tabla';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
-import { NativeAudio } from '@ionic-native/native-audio/ngx';
 
 @Component({
   selector: 'app-selector-principal',
@@ -14,11 +13,11 @@ import { NativeAudio } from '@ionic-native/native-audio/ngx';
 export class SelectorPrincipalComponent implements OnInit {
   private tabla: Tabla = new Tabla();
   private orientacion: string;
+  private audio = new Audio();
 
   constructor(
     private screen: ScreenOrientation,
-    private vibration: Vibration,
-    private nativeAudio: NativeAudio
+    private vibration: Vibration
   ) { }
 
   ngOnInit() {
@@ -127,7 +126,7 @@ export class SelectorPrincipalComponent implements OnInit {
 
   public reproducir(boton: number): void {
     let ruta = '../../../assets/audios/';
-    this.vibration.vibrate(300);
+    this.vibration.vibrate(100);
 
     switch (boton) {
       case 1:
@@ -159,10 +158,8 @@ export class SelectorPrincipalComponent implements OnInit {
         break;
     }
 
-    this.nativeAudio.preloadSimple('audio', ruta)
-    .then(() => {
-      this.nativeAudio.play('audio');
-    })
-    .catch((error) => console.log(error));
+    this.audio.src = ruta;
+    this.audio.load();
+    this.audio.play();
   }
 }
