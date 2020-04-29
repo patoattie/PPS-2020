@@ -6,6 +6,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Vibration } from '@ionic-native/vibration/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -23,6 +25,7 @@ import { ToolbarComponent } from './componentes/toolbar/toolbar.component';
 import { LogoComponent } from './componentes/logo/logo.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { SelectorUsuarioComponent } from './componentes/selector-usuario/selector-usuario.component';
+import { CamaraComponent } from './componentes/camara/camara.component';
 
 
 @NgModule({
@@ -35,7 +38,8 @@ import { SelectorUsuarioComponent } from './componentes/selector-usuario/selecto
     ToolbarComponent,
     LogoComponent,
     LoginComponent,
-    SelectorUsuarioComponent
+    SelectorUsuarioComponent,
+    CamaraComponent
   ],
   entryComponents: [],
   imports: [
@@ -50,6 +54,8 @@ import { SelectorUsuarioComponent } from './componentes/selector-usuario/selecto
   providers: [
     StatusBar,
     SplashScreen,
+    Vibration,
+    Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: FirestoreSettingsToken, useValue: {} }
   ],

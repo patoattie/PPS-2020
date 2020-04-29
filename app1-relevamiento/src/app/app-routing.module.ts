@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { PrincipalComponent } from './componentes/principal/principal.component';
 import { SelectorPrincipalComponent } from './componentes/selector-principal/selector-principal.component';
 import { HomeComponent } from './componentes/home/home.component';
+import { CamaraComponent } from './componentes/camara/camara.component';
 
 // Import canActivate guard services
 import { AuthGuard } from './guards/auth.guard';
@@ -26,13 +27,17 @@ const routes: Routes = [
       {
         path: 'selector',
         component: SelectorPrincipalComponent
+      },
+      {
+        path: 'camara',
+        component: CamaraComponent
       }
-    ], canActivate: [AuthGuard]
+    ]// , canActivate: [AuthGuard]
   },
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [SecureInnerPagesGuard]
+    // canActivate: [SecureInnerPagesGuard]
   }
 ];
 
