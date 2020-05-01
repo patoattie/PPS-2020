@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
 import { CamaraService } from '../../servicios/camara.service';
 import { NavegacionService } from '../../servicios/navegacion.service';
 
@@ -7,7 +7,7 @@ import { NavegacionService } from '../../servicios/navegacion.service';
   templateUrl: './camara.component.html',
   styleUrls: ['./camara.component.scss'],
 })
-export class CamaraComponent implements OnInit {
+export class CamaraComponent implements OnInit, OnDestroy {
 
   constructor(
     public camara: CamaraService,
@@ -16,6 +16,10 @@ export class CamaraComponent implements OnInit {
 
   ngOnInit() {
     this.navegacion.muestraBackButton = true;
+  }
+
+  ngOnDestroy() {
+    this.camara.limpiarFotos();
   }
 
   public tomarFoto(): void {

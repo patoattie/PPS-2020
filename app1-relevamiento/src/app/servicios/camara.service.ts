@@ -19,7 +19,8 @@ export class CamaraService {
       quality: 50,
       destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.CAMERA
     };
   }
 
@@ -34,5 +35,11 @@ export class CamaraService {
     .catch(error => {
       console.log(error);
     });
+  }
+
+  public limpiarFotos(): void {
+    /*this.camera.cleanup()
+    .catch(error => alert(error));*/
+    this.fotos.splice(0, this.fotos.length);
   }
 }
