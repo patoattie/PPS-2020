@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavegacionService } from '../../servicios/navegacion.service';
 
 @Component({
   selector: 'app-selector-principal',
@@ -7,8 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SelectorPrincipalComponent implements OnInit {
 
-  constructor() { }
+  constructor(private navegacion: NavegacionService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.navegacion.muestraBackButton = false;
+  }
 
 }
