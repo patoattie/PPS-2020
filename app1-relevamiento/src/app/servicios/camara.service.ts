@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Foto } from '../clases/foto';
 
 @Injectable({
@@ -8,7 +9,10 @@ import { Foto } from '../clases/foto';
 export class CamaraService {
     public fotos: Foto[] = [];
 
-  constructor(private camera: Camera) { }
+  constructor(
+    private camera: Camera,
+    private webview: WebView
+  ) { }
 
   private getOpciones(): CameraOptions {
     return {
@@ -23,7 +27,7 @@ export class CamaraService {
     this.camera.getPicture(this.getOpciones())
     .then(datos => {
       this.fotos.unshift({
-        filepath: '...',
+        filepath: this.webview.convertFileSrc(datos),
         webviewPath: datos
       });
     })
