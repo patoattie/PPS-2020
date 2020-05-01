@@ -8,7 +8,7 @@ import { CamaraService } from '../../servicios/camara.service';
 })
 export class CamaraComponent implements OnInit {
 
-  constructor(private camara: CamaraService) { }
+  constructor(public camara: CamaraService) { }
 
   ngOnInit() {}
 

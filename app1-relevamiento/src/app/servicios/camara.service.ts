@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { Foto } from '../clases/foto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CamaraService {
+    public fotos: Foto[] = [];
 
   constructor(private camera: Camera) { }
 
@@ -20,7 +22,10 @@ export class CamaraService {
   public tomarFoto(): void {
     this.camera.getPicture(this.getOpciones())
     .then(datos => {
-      console.log(datos);
+      this.fotos.unshift({
+        filepath: '...',
+        webviewPath: datos
+      });
     })
     .catch(error => {
       console.log(error);
