@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { DatePipe } from '@angular/common';
 import { LoginService } from './login.service';
 import { Usuario } from '../clases/usuario';
@@ -8,6 +8,7 @@ import { File } from '@ionic-native/file/ngx';
 import { Imagen } from '../clases/imagen';
 import { TipoImagen } from '../enums/tipo-imagen.enum';
 import { UsuariosService } from './usuarios.service';
+import { ImagenesService } from './imagenes.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,8 @@ export class StorageFirebaseService {
     private login: LoginService,
     private file: File,
     private date: DatePipe,
-    private usuarios: UsuariosService
+    private usuarios: UsuariosService,
+    private imagenes: ImagenesService
   ) { }
 
   public async subirImagen(imagen: any, tipo: TipoImagen): Promise<void> {
@@ -43,8 +45,6 @@ export class StorageFirebaseService {
 
           // get the path..
           const path = nativeURL.substring(0, nativeURL.lastIndexOf('/'));
-          // console.log('path', path);
-          // console.log('fileName', name);
 
           fileName = name;
 
@@ -99,57 +99,16 @@ export class StorageFirebaseService {
           uploadTask.task.snapshot.ref.getDownloadURL()
           .then((downloadURL) => {
             const imageData: Imagen = this.SetImagen(nombre, usuario, tipo, downloadURL);
-// alert('2');
-            this.SetImagenUsuario(usuario, imageData);
-// alert('3');
-            // console.log('File available at', downloadURL);
-            // this.SetImageData(imageData);
-// alert('4');
-            // this.SetUserData(usuario);
-            this.usuarios.updateImagenes(usuario);
-            // .catch(error => alert(error));
 
-            // resolve(uploadTask.task.snapshot);
-// alert('6');
+            this.imagenes.addImagen(imageData);
+
+            this.usuarios.updateImagenes(usuario, imageData);
           });
+
+          resolve(uploadTask.task.snapshot);
         }
       );
     });
-  }
-
-  private SetImageData(imagen: Imagen) {
-    const imageRef: AngularFirestoreDocument<any> = this.afs.doc(`Imagenes/${imagen.id}`);
-
-    return imageRef.set(imagen, {
-      merge: true
-    });
-  }
-
-  private SetUserData(usuario: Usuario) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`Usuarios/${usuario.uid}`);
-    const userData = {
-      uid: usuario.uid,
-      /*email: usuario.email,
-      displayName: usuario.displayName,
-      photoURL: usuario.photoURL,
-      emailVerified: usuario.emailVerified,
-      id: usuario.id,
-      perfil: usuario.perfil,
-      sexo: usuario.sexo,*/
-      // imagenes: JSON.stringify(usuario.imagenes)
-      imagenes: usuario.imagenes.map((obj) => Object.assign({}, obj))
-    };
-
-    return userRef.set(userData, {
-      merge: true
-    });
-  }
-
-  private SetImagenUsuario(user: Usuario, imagen: Imagen): void {
-    const imagenes: Imagen[] = user.imagenes ? user.imagenes : [];
-    imagenes.unshift(imagen);
-
-    user.imagenes = imagenes;
   }
 
   private SetImagen(nombre: string, user: Usuario, tipoImg: TipoImagen, urlImg: string): Imagen {
@@ -158,7 +117,7 @@ export class StorageFirebaseService {
     imageData.id = nombre;
     imageData.tipo = tipoImg;
     imageData.url = urlImg;
-    imageData.usuario = user;
+    imageData.usuario = user.uid;
 
     return imageData;
   }

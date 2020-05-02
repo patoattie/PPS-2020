@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, DocumentReference } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import {Usuario} from '../clases/usuario';
 import { LoginService } from './login.service';
 import { Perfil } from '../enums/perfil.enum';
+import { Imagen } from '../clases/imagen';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class UsuariosService {
     private login: LoginService
   ) {
     this.usuarioCollection = this.afs.collection<any>('Usuarios');
-    /*this.usuarios = this.usuarioCollection.snapshotChanges().pipe(
+    this.usuarios = this.usuarioCollection.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data();
@@ -27,18 +28,32 @@ export class UsuariosService {
           return { uid, ...data };
         });
       })
-    );*/
+    );
   }
 
   public getUsuarios(): Observable<Usuario[]> {
     return this.usuarios;
   }
 
-  public updateImagenes(usuario: Usuario): Promise<void> {
+  public updateImagenes(usuario: Usuario, imagen: Imagen): Promise<void> {
+    const imagenes: Imagen[] = usuario.imagenes ? usuario.imagenes : [];
+    const arrayFire = [];
+
+    imagenes.unshift(imagen);
+
+    usuario.imagenes = imagenes;
+
+    usuario.imagenes.forEach(unaImagen => {
+      arrayFire.push({
+        id: unaImagen.id,
+        tipo: unaImagen.tipo,
+        url: unaImagen.url,
+        usuario: unaImagen.usuario
+      });
+    });
+
     return this.usuarioCollection.doc(usuario.uid).update({
-      imagenes: usuario.imagenes.map((obj) => {
-        return Object.assign({}, obj);
-      })
+      imagenes: arrayFire
     });
   }
 

@@ -51,7 +51,9 @@ export class CamaraService {
   public limpiarFotos(): void {
     /*this.camera.cleanup()
     .catch(error => alert(error));*/
-    this.fotos.splice(0, this.fotos.length);
+    // this.fotos.splice(0, this.fotos.length);
+    this.fotos = null;
+    this.fotos = [];
   }
 
   public async subirFoto(foto: any, tipo: TipoImagen): Promise<void> {

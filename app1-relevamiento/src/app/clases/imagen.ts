@@ -5,5 +5,5 @@ export class Imagen {
     public id: string;
     public tipo: TipoImagen;
     public url: string;
-    public usuario: Usuario;
+    public usuario: string;
 }
