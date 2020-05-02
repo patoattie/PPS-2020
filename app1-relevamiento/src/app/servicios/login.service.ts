@@ -43,6 +43,7 @@ export class LoginService {
       this.usuarioLogueado.id = null;
       this.usuarioLogueado.perfil = null;
       this.usuarioLogueado.sexo = null;
+      this.usuarioLogueado.imagenes = null;
     });
   }
 

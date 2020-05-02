@@ -39,11 +39,12 @@ export class UsuariosService {
     const imagenes: Imagen[] = usuario.imagenes ? usuario.imagenes : [];
     const arrayFire = [];
 
+// imagenes.forEach(unaImagen => alert(unaImagen.id));
     imagenes.unshift(imagen);
 
     usuario.imagenes = imagenes;
 
-    usuario.imagenes.forEach(unaImagen => {
+    imagenes.forEach(unaImagen => {
       arrayFire.push({
         id: unaImagen.id,
         tipo: unaImagen.tipo,

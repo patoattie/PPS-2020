@@ -68,7 +68,7 @@ export class StorageFirebaseService {
 
   uploadToFirebase(imageBlobInfo, nombre: string, fecha: number, tipo: TipoImagen) {
     const usuario: Usuario = this.login.getUsuario();
-
+// usuario.imagenes.forEach(unaImagen => alert(unaImagen.id));
     return new Promise((resolve, reject) => {
       const fileRef = this.storage.ref('images/' + nombre);
       const metadata = {
@@ -100,12 +100,10 @@ export class StorageFirebaseService {
           .then((downloadURL) => {
             const imageData: Imagen = this.SetImagen(nombre, usuario, tipo, downloadURL);
 
-            this.imagenes.addImagen(imageData);
-
-            this.usuarios.updateImagenes(usuario, imageData);
+            this.imagenes.addImagen(imageData)
+            .then(() => this.usuarios.updateImagenes(usuario, imageData)
+              .then(() => resolve(uploadTask.task.snapshot)));
           });
-
-          resolve(uploadTask.task.snapshot);
         }
       );
     });

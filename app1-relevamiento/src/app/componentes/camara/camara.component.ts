@@ -33,7 +33,7 @@ export class CamaraComponent implements OnInit, OnDestroy {
     this.camara.tomarFoto();
   }
 
-  public subirFotos(): void {
+  public async subirFotos(): Promise<void> {
     /*this.spinner.cargarEspera(2000)
     .then(() => this.camara.fotos.forEach(async foto => {
         await this.camara.subirFoto(foto);
@@ -42,9 +42,7 @@ export class CamaraComponent implements OnInit, OnDestroy {
 
     this.spinner.quitarEspera();*/
 
-    this.camara.fotos.forEach(async foto => {
-      await this.camara.subirFoto(foto, this.tipoImagenes);
-    });
+    await this.camara.subirFotos(this.tipoImagenes);
   }
 
 }
