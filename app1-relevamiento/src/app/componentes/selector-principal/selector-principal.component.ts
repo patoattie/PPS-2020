@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NavegacionService } from '../../servicios/navegacion.service';
 
 @Component({
@@ -8,10 +9,18 @@ import { NavegacionService } from '../../servicios/navegacion.service';
 })
 export class SelectorPrincipalComponent implements OnInit {
 
-  constructor(private navegacion: NavegacionService) { }
+  constructor(
+    private navegacion: NavegacionService,
+    private router: Router,
+    private rutaActiva: ActivatedRoute
+  ) { }
 
   ngOnInit() {
     this.navegacion.muestraBackButton = false;
+  }
+
+  public navegar(destino: number): void {
+    this.router.navigate(['/principal/camara', destino]);
   }
 
 }

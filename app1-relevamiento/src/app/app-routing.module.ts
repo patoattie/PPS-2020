@@ -29,7 +29,7 @@ const routes: Routes = [
         component: SelectorPrincipalComponent
       },
       {
-        path: 'camara',
+        path: 'camara/:tipo',
         component: CamaraComponent
       }
     ], canActivate: [AuthGuard]

@@ -1,7 +1,9 @@
-import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { CamaraService } from '../../servicios/camara.service';
 import { NavegacionService } from '../../servicios/navegacion.service';
 import { SpinnerService } from '../../servicios/spinner.service';
+import { TipoImagen } from '../../enums/tipo-imagen.enum';
 
 @Component({
   selector: 'app-camara',
@@ -9,15 +11,18 @@ import { SpinnerService } from '../../servicios/spinner.service';
   styleUrls: ['./camara.component.scss'],
 })
 export class CamaraComponent implements OnInit, OnDestroy {
+  tipoImagenes: TipoImagen;
 
   constructor(
     public camara: CamaraService,
     private navegacion: NavegacionService,
-    private spinner: SpinnerService
+    private spinner: SpinnerService,
+    private ruta: ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.navegacion.muestraBackButton = true;
+    this.tipoImagenes = TipoImagen[this.ruta.snapshot.paramMap.get('tipo')];
   }
 
   ngOnDestroy() {
@@ -38,7 +43,7 @@ export class CamaraComponent implements OnInit, OnDestroy {
     this.spinner.quitarEspera();*/
 
     this.camara.fotos.forEach(async foto => {
-      await this.camara.subirFoto(foto);
+      await this.camara.subirFoto(foto, this.tipoImagenes);
     });
   }
 

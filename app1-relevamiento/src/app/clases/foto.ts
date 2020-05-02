@@ -5,5 +5,6 @@ export class Foto implements FotoCordova {
     public webviewPath: string;
     public base64?: string;
     public name: string;
+    public fecha: number;
     // public nameTemp: string;
 }

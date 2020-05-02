@@ -4,6 +4,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Foto } from '../clases/foto';
 import { StorageFirebaseService } from './storage-firebase.service';
+import { TipoImagen } from '../enums/tipo-imagen.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,7 @@ export class CamaraService {
         // base64: 'data:image/jpeg;base64,' + this.webview.convertFileSrc(datos),
         // name: datos.replace(/^.*[\\\/]/, '')
         // name: Math.round(new Date().getTime() / 1000).toString().concat('.jpg'),
+        fecha: Date.now(),
         name: this.date.transform(Date.now(), 'yyyyMMddHHmmSSS').concat('.jpg')
         // nameTemp: datos.replace(/^.*[\\\/]/, '')
       });
@@ -52,7 +54,7 @@ export class CamaraService {
     this.fotos.splice(0, this.fotos.length);
   }
 
-  public async subirFoto(foto: any): Promise<void> {
-    await this.storage.subirImagen(foto);
+  public async subirFoto(foto: any, tipo: TipoImagen): Promise<void> {
+    await this.storage.subirImagen(foto, tipo);
   }
 }
