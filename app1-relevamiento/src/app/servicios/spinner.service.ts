@@ -5,10 +5,15 @@ import { LoadingController } from '@ionic/angular';
   providedIn: 'root'
 })
 export class SpinnerService {
+  private esperaPorDefecto = 2000;
 
   constructor(private loadingController: LoadingController) { }
 
-  async cargarEspera(ms: number) {
+  async cargarEspera(ms?: number) {
+    if (!ms) {
+      ms = this.esperaPorDefecto;
+    }
+
     const loading = await this.loadingController.create({
       message: 'Espere por favor',
       spinner: 'crescent'
