@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -13,6 +13,8 @@ import { Imagen } from '../clases/imagen';
 })
 export class UsuariosService {
   private usuarios: Observable<Usuario[]>;
+  private usuario: Observable<Usuario>;
+  private usuarioDoc: AngularFirestoreDocument<Usuario>;
   private usuarioCollection: AngularFirestoreCollection<any>;
 
   constructor(
@@ -29,10 +31,17 @@ export class UsuariosService {
         });
       })
     );
+
+    this.usuarioDoc = afs.doc<Usuario>(`Usuarios/${login.getUsuario().uid}`);
+    this.usuario = this.usuarioDoc.valueChanges();
   }
 
   public getUsuarios(): Observable<Usuario[]> {
     return this.usuarios;
+  }
+
+  public getUsuario(): Observable<Usuario> {
+    return this.usuario;
   }
 
   public updateImagenes(usuario: Usuario, imagen: Imagen): Promise<void> {

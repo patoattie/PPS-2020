@@ -30,7 +30,7 @@ export class StorageFirebaseService {
       const blobInfo = await this.makeFileIntoBlob(imagen.webviewPath);
       const uploadInfo: any = await this.uploadToFirebase(blobInfo, imagen.name, imagen.fecha, tipo);
 
-      alert('File Upload Success ' + uploadInfo.fileName);
+      // alert('File Upload Success ' + uploadInfo.fileName);
     }
   }
 
