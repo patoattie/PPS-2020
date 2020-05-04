@@ -66,9 +66,12 @@ export class StorageFirebaseService {
     });
   }
 
-  uploadToFirebase(imageBlobInfo, nombre: string, fecha: number, tipo: TipoImagen) {
+  async uploadToFirebase(imageBlobInfo, nombre: string, fecha: number, tipo: TipoImagen) {
     const usuario: Usuario = this.login.getUsuario();
-// usuario.imagenes.forEach(unaImagen => alert(unaImagen.id));
+    // const usuario: Usuario = await this.usuarios.getUsuarioLogueado(this.login.getUsuario().uid);
+    // const usuario: Usuario = this.usuarioLogueado;
+    // usuario.imagenes.forEach(unaImagen => alert(unaImagen.id));
+
     return new Promise((resolve, reject) => {
       const fileRef = this.storage.ref('images/' + nombre);
       const metadata = {

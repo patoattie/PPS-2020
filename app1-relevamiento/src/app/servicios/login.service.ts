@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthFirebaseService } from './auth-firebase.service';
 import { Usuario } from '../clases/usuario';
 import { Login } from '../clases/login';
+import { UsuariosService } from './usuarios.service';
 // import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,11 +11,14 @@ import { Login } from '../clases/login';
 export class LoginService {
   private usuarioLogueado: Usuario = new Usuario();
 
-  constructor(private auth: AuthFirebaseService) {
+  constructor(
+    private auth: AuthFirebaseService,
+    private usuarios: UsuariosService
+    ) {
     this.auth.getUsuarioRemoto()
     .subscribe(usuario => {
       if (usuario) {
-        const usuarioStorage: Usuario = this.auth.getUserData();
+        /*const usuarioStorage: Usuario = this.auth.getUserData();
         this.usuarioLogueado.displayName = usuarioStorage.displayName;
         this.usuarioLogueado.email = usuarioStorage.email;
         this.usuarioLogueado.emailVerified = usuarioStorage.emailVerified;
@@ -22,7 +26,20 @@ export class LoginService {
         this.usuarioLogueado.perfil = usuarioStorage.perfil;
         this.usuarioLogueado.photoURL = usuarioStorage.photoURL;
         this.usuarioLogueado.sexo = usuarioStorage.sexo;
-        this.usuarioLogueado.uid = usuarioStorage.uid;
+        this.usuarioLogueado.uid = usuarioStorage.uid;*/
+
+        usuarios.getUsuario(usuario.uid)
+        .subscribe(elUsuario => {
+          this.usuarioLogueado.displayName = elUsuario.displayName;
+          this.usuarioLogueado.email = elUsuario.email;
+          this.usuarioLogueado.emailVerified = elUsuario.emailVerified;
+          this.usuarioLogueado.id = elUsuario.id;
+          this.usuarioLogueado.perfil = elUsuario.perfil;
+          this.usuarioLogueado.photoURL = elUsuario.photoURL;
+          this.usuarioLogueado.sexo = elUsuario.sexo;
+          this.usuarioLogueado.uid = elUsuario.uid;
+          this.usuarioLogueado.imagenes = elUsuario.imagenes;
+        });
       }
     });
   }
