@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { DatePipe } from '@angular/common';
 import { LoginService } from './login.service';
 import { Usuario } from '../clases/usuario';
@@ -17,7 +16,6 @@ export class StorageFirebaseService {
 
   constructor(
     private storage: AngularFireStorage,
-    private afs: AngularFirestore,
     private login: LoginService,
     private file: File,
     private date: DatePipe,
@@ -30,7 +28,7 @@ export class StorageFirebaseService {
       const blobInfo = await this.makeFileIntoBlob(imagen.webviewPath);
       const uploadInfo: any = await this.uploadToFirebase(blobInfo, imagen.name, imagen.fecha, tipo);
 
-      // alert('File Upload Success ' + uploadInfo.fileName);
+      alert('File Upload Success ' + uploadInfo.fileName);
     }
   }
 
@@ -67,12 +65,12 @@ export class StorageFirebaseService {
   }
 
   async uploadToFirebase(imageBlobInfo, nombre: string, fecha: number, tipo: TipoImagen) {
-    const usuario: Usuario = this.login.getUsuario();
     // const usuario: Usuario = await this.usuarios.getUsuarioLogueado(this.login.getUsuario().uid);
     // const usuario: Usuario = this.usuarioLogueado;
     // usuario.imagenes.forEach(unaImagen => alert(unaImagen.id));
 
     return new Promise((resolve, reject) => {
+      const usuario: Usuario = this.login.getUsuario();
       const fileRef = this.storage.ref('images/' + nombre);
       const metadata = {
         contentType: 'image/jpeg',
@@ -104,9 +102,10 @@ export class StorageFirebaseService {
             const imageData: Imagen = this.SetImagen(nombre, usuario, tipo, downloadURL);
 
             this.imagenes.addImagen(imageData)
-            .then(() => this.usuarios.updateImagenes(usuario, imageData)
-              .then(() => resolve(uploadTask.task.snapshot)));
+            .then(() => this.usuarios.updateImagenes(usuario, imageData));
           });
+
+          resolve(uploadTask.task.snapshot);
         }
       );
     });

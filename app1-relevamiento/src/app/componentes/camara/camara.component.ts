@@ -33,11 +33,11 @@ export class CamaraComponent implements OnInit, OnDestroy {
     this.camara.tomarFoto();
   }
 
-  public subirFotos(): void {
-    this.spinner.cargarEspera(2000)
-    .then(async () => await this.camara.subirFotos(this.tipoImagenes));
+  public async subirFotos(): Promise<void> {
+    this.spinner.cargarEspera(15000);
+
+    await this.camara.subirFotos(this.tipoImagenes);
 
     this.spinner.quitarEspera();
   }
-
 }

@@ -35,12 +35,8 @@ export class CamaraService {
       this.fotos.unshift({
         filepath: this.webview.convertFileSrc(datos),
         webviewPath: datos,
-        // base64: 'data:image/jpeg;base64,' + this.webview.convertFileSrc(datos),
-        // name: datos.replace(/^.*[\\\/]/, '')
-        // name: Math.round(new Date().getTime() / 1000).toString().concat('.jpg'),
         fecha: Date.now(),
         name: this.date.transform(Date.now(), 'yyyyMMddHHmmSSS').concat('.jpg')
-        // nameTemp: datos.replace(/^.*[\\\/]/, '')
       });
     })
     .catch(error => {
@@ -49,8 +45,7 @@ export class CamaraService {
   }
 
   public limpiarFotos(): void {
-    /*this.camera.cleanup()
-    .catch(error => alert(error));*/
+    this.camera.cleanup();
     this.fotos.splice(0, this.fotos.length);
   }
 

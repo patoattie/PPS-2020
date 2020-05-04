@@ -4,8 +4,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import {Usuario} from '../clases/usuario';
-// import { LoginService } from './login.service';
-import { Perfil } from '../enums/perfil.enum';
 import { Imagen } from '../clases/imagen';
 
 @Injectable({
@@ -16,10 +14,7 @@ export class UsuariosService {
   private usuarioDoc: AngularFirestoreDocument<Usuario>;
   private usuarioCollection: AngularFirestoreCollection<any>;
 
-  constructor(
-    private afs: AngularFirestore // ,
-    // private login: LoginService
-  ) {
+  constructor(private afs: AngularFirestore) {
     this.usuarioCollection = this.afs.collection<any>('Usuarios');
     this.usuarios = this.usuarioCollection.snapshotChanges().pipe(
       map(actions => {
@@ -30,7 +25,6 @@ export class UsuariosService {
         });
       })
     );
-
   }
 
   public getUsuarios(): Observable<Usuario[]> {
@@ -42,19 +36,10 @@ export class UsuariosService {
     return this.usuarioDoc.valueChanges();
   }
 
-  public async getUsuarioLogueado(uid: string): Promise<Usuario> {
-    /*this.usuarioDoc = this.afs.doc<Usuario>(`Usuarios/${uid}`);
-    return this.usuarioDoc.valueChanges().toPromise();*/
-
-    return this.usuarios.toPromise()
-    .then(losUsuarios => losUsuarios.filter(unUsuario => unUsuario.uid === uid)[0]);
-  }
-
   public updateImagenes(usuario: Usuario, imagen: Imagen): Promise<void> {
     const imagenes: Imagen[] = usuario.imagenes ? usuario.imagenes : [];
     const arrayFire = [];
 
-// imagenes.forEach(unaImagen => alert(unaImagen.id));
     imagenes.unshift(imagen);
 
     usuario.imagenes = imagenes;
@@ -68,21 +53,16 @@ export class UsuariosService {
       });
     });
 
-    return this.usuarioCollection.doc(usuario.uid).update({
+    return this.updateUsuario(usuario.uid, {
       imagenes: arrayFire
     });
+  }
+
+  public updateUsuario(uid: string, objeto: any): Promise<void> {
+    return this.usuarioCollection.doc(uid).update(objeto);
   }
 
   public deleteUsuario(uid: string): Promise<void> {
     return this.usuarioCollection.doc(uid).delete();
   }
-
-
-  /*public esAdmin(): boolean {
-    return this.login.getUsuario().perfil === Perfil.ADMIN;
-  }
-
-  public getEmail(): string {
-    return  this.login.getUsuario().email;
-  }*/
 }
