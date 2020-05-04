@@ -22,8 +22,23 @@ export class SpinnerService {
     .then(() => this.delay(ms));
   }
 
-  async quitarEspera() {
-    await this.loadingController.dismiss();
+  async cargarEsperaId(nombre: string, ms?: number) {
+    if (!ms) {
+      ms = this.esperaPorDefecto;
+    }
+
+    const loading = await this.loadingController.create({
+      message: 'Espere por favor',
+      spinner: 'crescent',
+      duration: ms,
+      id: nombre
+    });
+    await loading.present();
+    // .then(() => this.delay(ms));
+  }
+
+  async quitarEspera(id?: string) {
+    id ? await this.loadingController.dismiss(id) : await this.loadingController.dismiss();
   }
 
   async presentLoadingWithOptions() {

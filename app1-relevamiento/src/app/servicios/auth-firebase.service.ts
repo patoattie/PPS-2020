@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { Perfil } from '../enums/perfil.enum';
 import { Sexo } from '../enums/sexo.enum';
 import { Router } from '@angular/router';
+import { SpinnerService } from './spinner.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,15 +18,18 @@ export class AuthFirebaseService {
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public afs: AngularFirestore,   // Inject Firestore service
     public ngZone: NgZone, // NgZone service to remove outside scope warning
-    public router: Router
+    public router: Router,
+    private spinner: SpinnerService
   ) { }
 
   // Sign in with email/password
   public SignIn(login: Login): Promise<void> {
+    this.spinner.cargarEspera(10000);
     return this.afAuth.auth.signInWithEmailAndPassword(login.email, login.clave)
       .then((result) => {
         // const usuario: Usuario = new Usuario();
-        this.SetUserData(result.user);
+        this.SetUserData(result.user)
+        .then(() => this.spinner.quitarEspera());
 
         /*usuario.uid = result.user.uid;
         usuario.email = result.user.email;

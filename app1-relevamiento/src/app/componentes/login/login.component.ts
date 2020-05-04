@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     this.validar = true;
 
     if (this.formLogin.valid) {
-      await this.espera.cargarEspera(100);
+      // await this.espera.cargarEspera(100);
 
       const datosLogin: Login = new Login();
       datosLogin.email = this.formLogin.controls.id.value;
@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
         }
       });
 
-      await this.espera.quitarEspera();
+      // await this.espera.quitarEspera();
     } else {
       if (this.formLogin.controls.id.invalid) {
         await this.mensajes.presentToast('Debe ingresar un Correo electrónico válido');

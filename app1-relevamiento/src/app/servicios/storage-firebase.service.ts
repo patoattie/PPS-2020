@@ -8,6 +8,7 @@ import { Imagen } from '../clases/imagen';
 import { TipoImagen } from '../enums/tipo-imagen.enum';
 import { UsuariosService } from './usuarios.service';
 import { ImagenesService } from './imagenes.service';
+import { SpinnerService } from './spinner.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,22 +21,24 @@ export class StorageFirebaseService {
     private file: File,
     private date: DatePipe,
     private usuarios: UsuariosService,
-    private imagenes: ImagenesService
+    private imagenes: ImagenesService,
+    private spinner: SpinnerService
   ) { }
 
   public async subirImagen(imagen: any, tipo: TipoImagen): Promise<void> {
     if (imagen !== undefined) {
-      const blobInfo = await this.makeFileIntoBlob(imagen.webviewPath);
+      this.spinner.cargarEsperaId(imagen.name, 10000);
+      const blobInfo = await this.makeFileIntoBlob(imagen.webviewPath, imagen.name);
       const uploadInfo: any = await this.uploadToFirebase(blobInfo, imagen.name, imagen.fecha, tipo);
+      this.spinner.quitarEspera(imagen.name);
 
       alert('File Upload Success ' + uploadInfo.fileName);
     }
   }
 
-  private makeFileIntoBlob(imagePath) {
-    // INSTALL PLUGIN - cordova plugin add cordova-plugin-file
+  private makeFileIntoBlob(imagePath: string, fileName: string) {
     return new Promise((resolve, reject) => {
-      let fileName = '';
+      // let fileName = '';
       this.file
         .resolveLocalFilesystemUrl(imagePath)
         .then(fileEntry => {
@@ -102,10 +105,9 @@ export class StorageFirebaseService {
             const imageData: Imagen = this.SetImagen(nombre, usuario, tipo, downloadURL);
 
             this.imagenes.addImagen(imageData)
-            .then(() => this.usuarios.updateImagenes(usuario, imageData));
+            .then(() => this.usuarios.updateImagenes(usuario, imageData)
+              .then(() => resolve(uploadTask.task.snapshot)));
           });
-
-          resolve(uploadTask.task.snapshot);
         }
       );
     });
