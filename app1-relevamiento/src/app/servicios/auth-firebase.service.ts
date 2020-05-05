@@ -58,17 +58,17 @@ export class AuthFirebaseService {
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
   public SetUserData(user: firebase.User) {
     const hardcodeUsuarios = [
-      {id: 1, correo: 'admin@admin.com', perfil: Perfil.ADMIN, sexo: Sexo.FEMENINO},
-      {id: 2, correo: 'invitado@invitado.com', perfil: Perfil.INVITADO, sexo: Sexo.FEMENINO},
-      {id: 3, correo: 'usuario@usuario.com', perfil: Perfil.USUARIO, sexo: Sexo.MASCULINO},
-      {id: 4, correo: 'anonimo@anonimo.com', perfil: Perfil.USUARIO, sexo: Sexo.MASCULINO},
-      {id: 5, correo: 'tester@tester.com', perfil: Perfil.TESTER, sexo: Sexo.FEMENINO}
+      {id: 1, correo: 'admin@admin.com', perfil: Perfil.ADMIN, sexo: Sexo.FEMENINO, displayName: 'Admin'},
+      {id: 2, correo: 'invitado@invitado.com', perfil: Perfil.INVITADO, sexo: Sexo.FEMENINO, displayName: 'Invitado'},
+      {id: 3, correo: 'usuario@usuario.com', perfil: Perfil.USUARIO, sexo: Sexo.MASCULINO, displayName: 'Usuario'},
+      {id: 4, correo: 'anonimo@anonimo.com', perfil: Perfil.USUARIO, sexo: Sexo.MASCULINO, displayName: 'Anónimo'},
+      {id: 5, correo: 'tester@tester.com', perfil: Perfil.TESTER, sexo: Sexo.FEMENINO, displayName: 'Tester'}
     ];
 
     const userData: Usuario = {
       uid: user.uid,
       email: user.email,
-      displayName: user.displayName,
+      displayName: hardcodeUsuarios.filter(unUsuario => unUsuario.correo === user.email)[0].displayName, // user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
       id: hardcodeUsuarios.filter(unUsuario => unUsuario.correo === user.email)[0].id,

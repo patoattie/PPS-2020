@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { LoginService } from '../../servicios/login.service';
 
 @Component({
   selector: 'app-menu',
@@ -8,12 +9,16 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class MenuComponent implements OnInit {
   @Output() salirEvent = new EventEmitter<void>();
 
-  constructor() { }
+  constructor(private login: LoginService) { }
 
   ngOnInit() {}
 
   salir(): void {
     this.salirEvent.emit();
+  }
+
+  getUserName(): string {
+    return this.login.getUsuario().displayName;
   }
 
 }
