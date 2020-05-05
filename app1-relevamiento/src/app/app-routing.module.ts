@@ -8,6 +8,7 @@ import { CamaraComponent } from './componentes/camara/camara.component';
 // Import canActivate guard services
 import { AuthGuard } from './guards/auth.guard';
 import { SecureInnerPagesGuard } from './guards/secure-inner-pages.guard';
+import { GaleriaComponent } from './componentes/galeria/galeria.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
       {
         path: 'camara/:tipo',
         component: CamaraComponent
+      },
+      {
+        path: 'galeria/:tipo',
+        component: GaleriaComponent
       }
     ], canActivate: [AuthGuard]
   },

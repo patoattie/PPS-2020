@@ -30,6 +30,7 @@ import { LogoComponent } from './componentes/logo/logo.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { SelectorUsuarioComponent } from './componentes/selector-usuario/selector-usuario.component';
 import { CamaraComponent } from './componentes/camara/camara.component';
+import { GaleriaComponent } from './componentes/galeria/galeria.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { CamaraComponent } from './componentes/camara/camara.component';
     LogoComponent,
     LoginComponent,
     SelectorUsuarioComponent,
-    CamaraComponent
+    CamaraComponent,
+    GaleriaComponent
   ],
   entryComponents: [],
   imports: [

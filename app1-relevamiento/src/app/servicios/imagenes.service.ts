@@ -33,6 +33,10 @@ export class ImagenesService {
     return this.imagenes;
   }
 
+  public getImagenesPorTipo(tipo: TipoImagen): Observable<Imagen[]> {
+    return this.afs.collection<any>('Imagenes', ref => ref.where('tipo', '==', tipo)).valueChanges();
+  }
+
   public getImagen(uid: string): Observable<Imagen> {
     this.imagenDoc = this.afs.doc<Imagen>(`Imagenes/${uid}`);
     return this.imagenDoc.valueChanges();
