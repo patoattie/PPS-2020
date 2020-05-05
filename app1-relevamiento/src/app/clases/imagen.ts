@@ -6,4 +6,5 @@ export class Imagen {
     public url: string;
     public usuario: string;
     public uid: string;
+    public fecha: number;
 }

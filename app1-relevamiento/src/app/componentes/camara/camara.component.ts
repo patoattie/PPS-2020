@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CamaraService } from '../../servicios/camara.service';
 import { NavegacionService } from '../../servicios/navegacion.service';
 import { TipoImagen } from '../../enums/tipo-imagen.enum';
@@ -15,7 +15,8 @@ export class CamaraComponent implements OnInit, OnDestroy {
   constructor(
     public camara: CamaraService,
     private navegacion: NavegacionService,
-    private ruta: ActivatedRoute
+    private ruta: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -36,7 +37,10 @@ export class CamaraComponent implements OnInit, OnDestroy {
     // this.spinner.cargarEspera(15000);
 
     this.camara.subirFotos(this.tipoImagenes)
-    .then(() => this.camara.limpiarFotos());
+    .then(() => {
+      this.camara.limpiarFotos();
+      this.router.navigate(['/principal/galeria', TipoImagen[this.tipoImagenes]]);
+    });
 
     // this.spinner.quitarEspera();
   }

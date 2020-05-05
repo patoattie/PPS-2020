@@ -102,7 +102,7 @@ export class StorageFirebaseService {
           // completion...
           uploadTask.task.snapshot.ref.getDownloadURL()
           .then((downloadURL) => {
-            const imageData: Imagen = this.imagenes.SetNewImagen(nombre, usuario.uid, tipo, downloadURL);
+            const imageData: Imagen = this.imagenes.SetNewImagen(nombre, usuario.uid, tipo, fecha, downloadURL);
 
             this.imagenes.addImagen(imageData)
             .then((nuevaImagen) => {

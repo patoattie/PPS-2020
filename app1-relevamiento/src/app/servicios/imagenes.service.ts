@@ -34,7 +34,7 @@ export class ImagenesService {
   }
 
   public getImagenesPorTipo(tipo: TipoImagen): Observable<Imagen[]> {
-    return this.afs.collection<any>('Imagenes', ref => ref.where('tipo', '==', tipo)).valueChanges();
+    return this.afs.collection<any>('Imagenes', ref => ref.where('tipo', '==', tipo).orderBy('fecha', 'desc')).valueChanges();
   }
 
   public getImagen(uid: string): Observable<Imagen> {
@@ -63,11 +63,12 @@ export class ImagenesService {
       tipo: imagen.tipo,
       url: imagen.url,
       usuario: imagen.usuario,
-      uid: imagen.uid
+      uid: imagen.uid,
+      fecha: imagen.fecha
     };
   }
 
-  public SetNewImagen(nombre: string, userUid: string, tipoImg: TipoImagen, urlImg: string): Imagen {
+  public SetNewImagen(nombre: string, userUid: string, tipoImg: TipoImagen, fechaImg: number, urlImg: string): Imagen {
     const imageData: Imagen = new Imagen();
 
     imageData.id = nombre;
@@ -75,6 +76,7 @@ export class ImagenesService {
     imageData.url = urlImg;
     imageData.usuario = userUid;
     imageData.uid = null;
+    imageData.fecha = fechaImg;
 
     return imageData;
   }
