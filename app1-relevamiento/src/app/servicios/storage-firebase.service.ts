@@ -102,25 +102,17 @@ export class StorageFirebaseService {
           // completion...
           uploadTask.task.snapshot.ref.getDownloadURL()
           .then((downloadURL) => {
-            const imageData: Imagen = this.SetImagen(nombre, usuario, tipo, downloadURL);
+            const imageData: Imagen = this.imagenes.SetNewImagen(nombre, usuario.uid, tipo, downloadURL);
 
             this.imagenes.addImagen(imageData)
-            .then(() => this.usuarios.updateImagenes(usuario, imageData)
-              .then(() => resolve(uploadTask.task.snapshot)));
+            .then((nuevaImagen) => {
+              imageData.uid = nuevaImagen.id;
+              this.usuarios.updateImagenes(usuario, imageData)
+              .then(() => resolve(uploadTask.task.snapshot));
+            });
           });
         }
       );
     });
-  }
-
-  private SetImagen(nombre: string, user: Usuario, tipoImg: TipoImagen, urlImg: string): Imagen {
-    const imageData: Imagen = new Imagen();
-
-    imageData.id = nombre;
-    imageData.tipo = tipoImg;
-    imageData.url = urlImg;
-    imageData.usuario = user.uid;
-
-    return imageData;
   }
 }

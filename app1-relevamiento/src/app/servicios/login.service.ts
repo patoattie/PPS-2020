@@ -39,6 +39,8 @@ export class LoginService {
           this.usuarioLogueado.sexo = elUsuario.sexo;
           this.usuarioLogueado.uid = elUsuario.uid;
           this.usuarioLogueado.imagenes = elUsuario.imagenes;
+
+          localStorage.setItem('user', JSON.stringify(this.usuarioLogueado));
         });
       }
     });
@@ -61,6 +63,8 @@ export class LoginService {
       this.usuarioLogueado.perfil = null;
       this.usuarioLogueado.sexo = null;
       this.usuarioLogueado.imagenes = null;
+
+      localStorage.removeItem('user');
     });
   }
 
@@ -82,6 +86,10 @@ export class LoginService {
   public getLogin(): boolean {
     // return (this.usuarioLogueado.email != null);
     return this.auth.isLoggedIn();
+  }
+
+  public getUserData(): Usuario {
+    return JSON.parse(localStorage.getItem('user'));
   }
 
   /*public getLogin2(): Observable<boolean> {

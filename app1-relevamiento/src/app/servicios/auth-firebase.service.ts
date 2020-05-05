@@ -8,6 +8,7 @@ import { Perfil } from '../enums/perfil.enum';
 import { Sexo } from '../enums/sexo.enum';
 import { Router } from '@angular/router';
 import { SpinnerService } from './spinner.service';
+import { UsuariosService } from './usuarios.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class AuthFirebaseService {
     public afs: AngularFirestore,   // Inject Firestore service
     public ngZone: NgZone, // NgZone service to remove outside scope warning
     public router: Router,
-    private spinner: SpinnerService
+    private spinner: SpinnerService,
+    private usuarios: UsuariosService
   ) { }
 
   // Sign in with email/password
@@ -28,8 +30,7 @@ export class AuthFirebaseService {
     return this.afAuth.auth.signInWithEmailAndPassword(login.email, login.clave)
       .then((result) => {
         // const usuario: Usuario = new Usuario();
-        this.SetUserData(result.user)
-        .then(() => this.spinner.quitarEspera());
+        this.SetUserData(result.user);
 
         /*usuario.uid = result.user.uid;
         usuario.email = result.user.email;
@@ -64,7 +65,6 @@ export class AuthFirebaseService {
       {id: 5, correo: 'tester@tester.com', perfil: Perfil.TESTER, sexo: Sexo.FEMENINO}
     ];
 
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`Usuarios/${user.uid}`);
     const userData: Usuario = {
       uid: user.uid,
       email: user.email,
@@ -76,11 +76,8 @@ export class AuthFirebaseService {
       sexo: hardcodeUsuarios.filter(unUsuario => unUsuario.correo === user.email)[0].sexo
     };
 
-    localStorage.setItem('user', JSON.stringify(userData));
-
-    return userRef.set(userData, {
-      merge: true
-    });
+    this.usuarios.updateUsuario(user.uid, userData)
+    .then(() => this.spinner.quitarEspera());
 
   }
 
@@ -88,17 +85,12 @@ export class AuthFirebaseService {
   public SignOut(): Promise<void> {
     return this.afAuth.auth.signOut()
     .then(() => {
-      localStorage.removeItem('user');
       // this.router.navigate(['home']);
       console.log('Logout OK');
     })
     .catch((error) => {
       console.log(error.code);
     });
-  }
-
-  public getUserData(): Usuario {
-    return JSON.parse(localStorage.getItem('user'));
   }
 
   public getErrorLogin(): string {

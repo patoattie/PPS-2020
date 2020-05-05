@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentReference, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Imagen } from '../clases/imagen';
+import { TipoImagen } from '../enums/tipo-imagen.enum';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImagenesService {
   private imagenes: Observable<Imagen[]>;
+  private imagenDoc: AngularFirestoreDocument<Imagen>;
   private imagenCollection: AngularFirestoreCollection<any>;
 
   constructor(
@@ -31,25 +33,45 @@ export class ImagenesService {
     return this.imagenes;
   }
 
-  public addImagen(imagen: Imagen): Promise<void | DocumentReference> {
-    return this.imagenCollection.add({
-      id: imagen.id,
-      tipo: imagen.tipo,
-      url: imagen.url,
-      usuario: imagen.usuario
-    });
+  public getImagen(uid: string): Observable<Imagen> {
+    this.imagenDoc = this.afs.doc<Imagen>(`Imagenes/${uid}`);
+    return this.imagenDoc.valueChanges();
   }
 
-  public updateImagen(imagen: Imagen): Promise<void> {
-    return this.imagenCollection.doc(imagen.id).update({
-      id: imagen.id,
-      tipo: imagen.tipo,
-      url: imagen.url,
-      usuario: imagen.usuario
-    });
+  public addImagen(imagen: Imagen): Promise<DocumentReference> {
+    const retorno = this.imagenCollection.add(this.getObject(imagen));
+    retorno.then((nuevaImagen => this.updateImagen(nuevaImagen.id, {uid: nuevaImagen.id})));
+
+    return retorno;
+  }
+
+  public updateImagen(uid: string, objeto: any): Promise<void> {
+    return this.imagenCollection.doc(uid).update(objeto);
   }
 
   public deleteImagen(uid: string): Promise<void> {
     return this.imagenCollection.doc(uid).delete();
+  }
+
+  public getObject(imagen: Imagen): any {
+    return {
+      id: imagen.id,
+      tipo: imagen.tipo,
+      url: imagen.url,
+      usuario: imagen.usuario,
+      uid: imagen.uid
+    };
+  }
+
+  public SetNewImagen(nombre: string, userUid: string, tipoImg: TipoImagen, urlImg: string): Imagen {
+    const imageData: Imagen = new Imagen();
+
+    imageData.id = nombre;
+    imageData.tipo = tipoImg;
+    imageData.url = urlImg;
+    imageData.usuario = userUid;
+    imageData.uid = null;
+
+    return imageData;
   }
 }

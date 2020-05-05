@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 
 import {Usuario} from '../clases/usuario';
 import { Imagen } from '../clases/imagen';
+import { ImagenesService } from './imagenes.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,10 @@ export class UsuariosService {
   private usuarioDoc: AngularFirestoreDocument<Usuario>;
   private usuarioCollection: AngularFirestoreCollection<any>;
 
-  constructor(private afs: AngularFirestore) {
+  constructor(
+    private afs: AngularFirestore,
+    private imagenes: ImagenesService
+  ) {
     this.usuarioCollection = this.afs.collection<any>('Usuarios');
     this.usuarios = this.usuarioCollection.snapshotChanges().pipe(
       map(actions => {
@@ -45,12 +49,7 @@ export class UsuariosService {
     usuario.imagenes = imagenes;
 
     imagenes.forEach(unaImagen => {
-      arrayFire.push({
-        id: unaImagen.id,
-        tipo: unaImagen.tipo,
-        url: unaImagen.url,
-        usuario: unaImagen.usuario
-      });
+      arrayFire.push(this.imagenes.getObject(unaImagen));
     });
 
     return this.updateUsuario(usuario.uid, {
