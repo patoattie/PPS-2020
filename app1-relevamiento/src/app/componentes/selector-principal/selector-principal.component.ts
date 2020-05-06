@@ -22,7 +22,6 @@ export class SelectorPrincipalComponent implements OnInit {
 
   public navegar(destino: number): void {
     this.vibration.vibrar(100);
-    // this.router.navigate(['/principal/camara', destino]);
     this.router.navigate(['/principal/galeria', destino]);
   }
 

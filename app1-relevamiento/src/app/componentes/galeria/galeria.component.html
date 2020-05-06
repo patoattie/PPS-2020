@@ -1,15 +1,19 @@
-<ion-content>
-  <ion-grid>
-    <ion-row>
-    <ion-col size="6" *ngFor="let foto of datos | async">
+<!-- <ion-content> -->
+  <!-- <div class="datos"> -->
+    <ion-card *ngFor="let foto of datos | async">
+      <ion-card-header>
+        <ion-card-subtitle>Autor: {{ getNombreUsuario(foto.usuario) }}</ion-card-subtitle>
+        <ion-card-subtitle>Fecha: {{ foto.fecha | date : "dd/MM/yyyy HH:mm:ss" }}</ion-card-subtitle>
+      </ion-card-header>
       <ion-img src="{{ foto.url }}"></ion-img>
-    </ion-col>
-    </ion-row>
-  </ion-grid>
+    </ion-card>
+<!-- </div> -->
 
-  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-    <ion-fab-button color="secondary" (click)="tomarFoto()">
-      <ion-icon name="camera"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-</ion-content>
+  <!-- <div class="botonera"> -->
+    <ion-fab vertical="bottom" horizontal="center">
+      <ion-fab-button color="secondary" (click)="tomarFoto()">
+        <ion-icon name="camera"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  <!-- </div> -->
+<!-- </ion-content> -->
