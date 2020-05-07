@@ -8,6 +8,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { Gyroscope } from '@ionic-native/gyroscope/ngx';
+import { Flashlight } from '@ionic-native/flashlight/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -54,6 +55,7 @@ import { SelectorUsuarioComponent } from './componentes/selector-usuario/selecto
     SplashScreen,
     Vibration,
     Gyroscope,
+    Flashlight,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: FirestoreSettingsToken, useValue: {} }
   ],
