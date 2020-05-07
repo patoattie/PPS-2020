@@ -50,7 +50,6 @@ export class ImagenesService {
   }
 
   public updateImagen(uid: string, objeto: any): Promise<void> {
-    // return this.imagenCollection.doc(uid).update(objeto);
     return this.imagenCollection.doc(uid).set(objeto, {merge: true});
   }
 
@@ -66,7 +65,6 @@ export class ImagenesService {
       usuario: imagen.usuario,
       uid: imagen.uid,
       fecha: imagen.fecha,
-      // votos: imagen.votos
     };
   }
 

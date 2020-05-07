@@ -68,12 +68,10 @@ export class UsuariosService {
       photoURL: usuario.photoURL,
       sexo: usuario.sexo,
       uid: usuario.uid,
-      // votos: usuario.votos
     };
   }
 
   public updateUsuario(uid: string, objeto: any): Promise<void> {
-    // return this.usuarioCollection.doc(uid).update(objeto);
     return this.usuarioCollection.doc(uid).set(objeto, {merge: true});
   }
 

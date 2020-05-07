@@ -70,7 +70,6 @@ export class VotacionService {
   }
 
   public updateVoto(uid: string, objeto: any): Promise<void> {
-    // return this.votoCollection.doc(uid).update(objeto);
     return this.votoCollection.doc(uid).set(objeto, {merge: true});
   }
 
@@ -91,26 +90,11 @@ export class VotacionService {
     const unUsuario: Usuario = this.getUsuario(uidUser);
 
     if (unUsuario) {
-      // if (!this.emitioVotoUsuario(unUsuario, tipo)) {
       const unaImagen: Imagen = this.getImagen(uidImg);
 
       if (unaImagen) {
         if (!this.emitioVoto(uidUser, tipo)) {
           this.emitirVoto(uidUser, uidImg, tipo);
-          /*if (!unaImagen.votos) {
-            unaImagen.votos = [];
-          }
-          unaImagen.votos.push(uidUser);
-
-          if (!unUsuario.votos) {
-            unUsuario.votos = [];
-          }
-          unUsuario.votos.push(tipo);*/
-
-          // this.imagenes.updateImagen(unaImagen.uid, this.imagenes.getObject(unaImagen));
-          // this.usuarios.updateUsuario(unUsuario.uid, this.usuarios.getObject(unUsuario));
-          // this.imagenes.updateImagen(unaImagen.uid, {votos: unaImagen.votos});
-          // this.usuarios.updateUsuario(unUsuario.uid, {votos: unUsuario.votos});
         } else {
           this.quitarVoto(uidUser, uidImg, tipo);
         }
@@ -118,23 +102,8 @@ export class VotacionService {
     }
   }
 
-  /*private emitioVotoUsuario(usuario: Usuario, tipo: TipoImagen): boolean {
-    let retorno = false;
-
-    if (usuario.votos) {
-      retorno = usuario.votos.findIndex(elemento => elemento === tipo) > -1;
-    }
-
-    return retorno;
-  }*/
-
   public emitioVoto(uidUser: string, tipo: TipoImagen): boolean {
     let retorno = false;
-    /*const unUsuario: Usuario = this.getUsuario(uidUser);
-
-    if (unUsuario) {
-      retorno = this.emitioVotoUsuario(unUsuario, tipo);
-    }*/
 
     const votos: Voto[] = this.getVotosTipo(tipo);
     if (votos) {
@@ -146,14 +115,8 @@ export class VotacionService {
 
   public imagenVotada(uidUser: string, uidImg: string, tipo: TipoImagen): boolean {
     let retorno = false;
-    /*const unaImagen: Imagen = this.getImagen(uidImg);
-
-    if (unaImagen) {
-      if (unaImagen.votos) {
-        retorno = unaImagen.votos.findIndex(elemento => elemento === uidUser) > -1;
-      }
-    }*/
     const votos: Voto[] = this.getVotosTipo(tipo);
+
     if (votos) {
       retorno = this.getVotosTipo(tipo).findIndex(elemento => elemento.usuario === uidUser && elemento.imagen === uidImg) > -1;
     }
@@ -163,15 +126,8 @@ export class VotacionService {
 
   public cantidadVotos(uidImg: string, tipo: TipoImagen): number {
     let retorno = 0;
-    /*const unaImagen: Imagen = this.getImagen(uidImg);
-
-    if (unaImagen) {
-      if (unaImagen.votos) {
-        retorno = unaImagen.votos.length;
-      }
-    }*/
-
     const votos: Voto[] = this.getVotosTipo(tipo);
+
     if (votos) {
       this.getVotosTipo(tipo).forEach(elemento => {
         if (elemento.imagen === uidImg) {
