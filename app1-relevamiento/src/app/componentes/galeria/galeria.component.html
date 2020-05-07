@@ -4,9 +4,9 @@
       <ion-card-header>
         <ion-card-subtitle>
           Autor: {{ getNombreUsuario(foto.usuario) }}
-          <ion-button class="votar" size="small" shape="round" fill="clear">
-            <ion-icon *ngIf="!getVotada(foto.usuario, foto.uid)" name="heart-outline"></ion-icon>
-            <ion-icon *ngIf="getVotada(foto.usuario, foto.uid)" name="heart"></ion-icon>
+          <ion-button class="votar" size="small" shape="round" fill="clear" (click)="votar(foto.uid)">
+            <ion-icon *ngIf="!getVotada(foto.uid)" name="heart-outline"></ion-icon>
+            <ion-icon *ngIf="getVotada(foto.uid)" name="heart"></ion-icon>
             <ion-badge>{{ getCantidadVotos(foto.uid) }}</ion-badge>
           </ion-button>
         </ion-card-subtitle>

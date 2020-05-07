@@ -9,6 +9,7 @@ import { ImagenesService } from '../../servicios/imagenes.service';
 import { UsuariosService } from '../../servicios/usuarios.service';
 import { Usuario } from '../../clases/usuario';
 import { VotacionService } from '../../servicios/votacion.service';
+import { LoginService } from '../../servicios/login.service';
 
 @Component({
   selector: 'app-galeria',
@@ -27,7 +28,8 @@ export class GaleriaComponent implements OnInit, OnDestroy {
     private ruta: ActivatedRoute,
     private imagenes: ImagenesService,
     private usuarios: UsuariosService,
-    private votacion: VotacionService
+    private votacion: VotacionService,
+    private login: LoginService
   ) { }
 
   // this.tipoImagenes -> Devuelve LINDA o FEA
@@ -58,11 +60,23 @@ export class GaleriaComponent implements OnInit, OnDestroy {
     return this.listaUsuarios.filter(unUsuario => unUsuario.uid === uid)[0].displayName;
   }
 
-  public getVotada(uidUser: string, uidImg: string): boolean {
-    return this.votacion.imagenVotada(uidUser, uidImg);
+  public getVotada(uidImg: string): boolean {
+// console.log('getVotada: ', this.votacion.imagenVotada(uidUser, uidImg));
+    return this.votacion.imagenVotada(this.login.getUsuario().uid, uidImg);
   }
 
   public getCantidadVotos(uidImg: string): number {
     return this.votacion.cantidadVotos(uidImg);
+  }
+
+  private emitioVoto(): boolean {
+// console.log('emitioVoto: ', this.votacion.emitioVoto(uidUser, this.tipoImagenes));
+    return this.votacion.emitioVoto(this.login.getUsuario().uid, this.tipoImagenes);
+  }
+
+  public votar(uidImg: string): void {
+    if (!this.emitioVoto() && !this.getVotada(uidImg)) {
+      this.votacion.votar(this.login.getUsuario().uid, uidImg, this.tipoImagenes);
+    }
   }
 }
