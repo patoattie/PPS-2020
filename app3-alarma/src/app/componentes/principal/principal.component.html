@@ -1,0 +1,23 @@
+<ion-header [translucent]="true">
+  <app-toolbar (abrirMenuEvent)="abrirMenu()"></app-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <app-menu (salirEvent)="hacerLogout()"></app-menu>
+  
+  <div id="container">
+    <app-selector-principal></app-selector-principal>
+    <!-- <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>{{ usuarioLogueado.uid }}</ion-card-subtitle>
+        <ion-card-title>{{ usuarioLogueado.email }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        ID: {{ usuarioLogueado.id }} <br>
+        Perfil: {{ usuarioLogueado.perfil }} <br>
+        Sexo: {{ usuarioLogueado.sexo }}
+      </ion-card-content>
+    </ion-card> -->
+  </div>
+</ion-content>
