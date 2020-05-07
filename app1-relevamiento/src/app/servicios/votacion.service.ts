@@ -42,8 +42,10 @@ export class VotacionService {
           unUsuario.votos.push(tipo);
         }
 
-        this.imagenes.updateImagen(unaImagen.uid, this.imagenes.getObject(unaImagen));
-        this.usuarios.updateUsuario(unUsuario.uid, this.usuarios.getObject(unUsuario));
+        // this.imagenes.updateImagen(unaImagen.uid, this.imagenes.getObject(unaImagen));
+        // this.usuarios.updateUsuario(unUsuario.uid, this.usuarios.getObject(unUsuario));
+        this.imagenes.updateImagen(unaImagen.uid, {votos: unaImagen.votos});
+        this.usuarios.updateUsuario(unUsuario.uid, {votos: unUsuario.votos});
       }
     }
   }

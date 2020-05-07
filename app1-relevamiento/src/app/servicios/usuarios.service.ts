@@ -73,7 +73,8 @@ export class UsuariosService {
   }
 
   public updateUsuario(uid: string, objeto: any): Promise<void> {
-    return this.usuarioCollection.doc(uid).update(objeto);
+    // return this.usuarioCollection.doc(uid).update(objeto);
+    return this.usuarioCollection.doc(uid).set(objeto, {merge: true});
   }
 
   public deleteUsuario(uid: string): Promise<void> {
