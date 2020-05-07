@@ -64,7 +64,8 @@ export class ImagenesService {
       url: imagen.url,
       usuario: imagen.usuario,
       uid: imagen.uid,
-      fecha: imagen.fecha
+      fecha: imagen.fecha,
+      votos: imagen.votos
     };
   }
 

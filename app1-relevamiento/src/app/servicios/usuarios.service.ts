@@ -57,6 +57,21 @@ export class UsuariosService {
     });
   }
 
+  public getObject(usuario: Usuario): any {
+    return {
+      displayName: usuario.displayName,
+      email: usuario.email,
+      emailVerified: usuario.emailVerified,
+      id: usuario.id,
+      imagenes: usuario.imagenes,
+      perfil: usuario.perfil,
+      photoURL: usuario.photoURL,
+      sexo: usuario.sexo,
+      uid: usuario.uid,
+      votos: usuario.votos
+    };
+  }
+
   public updateUsuario(uid: string, objeto: any): Promise<void> {
     return this.usuarioCollection.doc(uid).update(objeto);
   }
