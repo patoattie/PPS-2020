@@ -6,7 +6,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
 
 import { AppComponent } from './app.component';
@@ -52,7 +51,6 @@ import { SelectorUsuarioComponent } from './componentes/selector-usuario/selecto
   providers: [
     StatusBar,
     SplashScreen,
-    ScreenOrientation,
     Vibration,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: FirestoreSettingsToken, useValue: {} }
