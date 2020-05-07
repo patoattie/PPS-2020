@@ -68,7 +68,7 @@ export class UsuariosService {
       photoURL: usuario.photoURL,
       sexo: usuario.sexo,
       uid: usuario.uid,
-      votos: usuario.votos
+      // votos: usuario.votos
     };
   }
 

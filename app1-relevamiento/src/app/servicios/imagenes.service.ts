@@ -66,7 +66,7 @@ export class ImagenesService {
       usuario: imagen.usuario,
       uid: imagen.uid,
       fecha: imagen.fecha,
-      votos: imagen.votos
+      // votos: imagen.votos
     };
   }
 

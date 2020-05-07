@@ -20,6 +20,7 @@ export class VotacionService {
 
   private listaUsuarios: Usuario[] = [];
   private listaImagenes: Imagen[] = [];
+  private listaVotos: Voto[] = [];
 
   constructor(
     private usuarios: UsuariosService,
@@ -42,6 +43,9 @@ export class VotacionService {
 
     imagenes.getImagenes()
     .subscribe(lasImagenes => this.listaImagenes = lasImagenes);
+
+    this.getVotos()
+    .subscribe(losVotos => this.listaVotos = losVotos);
   }
 
 
@@ -49,8 +53,8 @@ export class VotacionService {
     return this.votos;
   }
 
-  public getVotosPorTipo(tipo: TipoImagen): Observable<Voto[]> {
-    return this.afs.collection<any>('Votos', ref => ref.where('imagen.tipo', '==', tipo)).valueChanges();
+  public getVotosPorTipo(tipo: string): Observable<Voto[]> {
+    return this.afs.collection<any>('Votos', ref => ref.where('tipoImagen', '==', tipo)).valueChanges();
   }
 
   public getVoto(uid: string): Observable<Voto> {
@@ -60,7 +64,7 @@ export class VotacionService {
 
   public addVoto(voto: Voto): Promise<DocumentReference> {
     const retorno = this.votoCollection.add(this.getObject(voto));
-    retorno.then((nuevoVoto => this.updateVoto(nuevoVoto.id, {uid: nuevoVoto.id})));
+    retorno.then(nuevoVoto => this.updateVoto(nuevoVoto.id, {uid: nuevoVoto.id}));
 
     return retorno;
   }
@@ -76,9 +80,10 @@ export class VotacionService {
 
   public getObject(voto: Voto): any {
     return {
-      uid: voto.uid,
-      usuario: this.usuarios.getObject(voto.usuario),
-      imagen: this.imagenes.getObject(voto.imagen)
+      uid: voto.uid ? voto.uid : null,
+      usuario: voto.usuario,
+      imagen: voto.imagen,
+      tipoImagen: voto.tipoImagen
     };
   }
 
@@ -86,16 +91,12 @@ export class VotacionService {
     const unUsuario: Usuario = this.getUsuario(uidUser);
 
     if (unUsuario) {
-      if (!this.emitioVotoUsuario(unUsuario, tipo)) {
-        const unaImagen: Imagen = this.listaImagenes.find(hayImagen => hayImagen.uid === uidImg);
+      // if (!this.emitioVotoUsuario(unUsuario, tipo)) {
+      const unaImagen: Imagen = this.getImagen(uidImg);
 
-        if (unaImagen) {
-          const nuevoVoto: Voto = new Voto();
-
-          nuevoVoto.usuario = unUsuario;
-          nuevoVoto.imagen = unaImagen;
-
-          this.addVoto(nuevoVoto);
+      if (unaImagen) {
+        if (!this.emitioVoto(uidUser, tipo)) {
+          this.emitirVoto(uidUser, uidImg, tipo);
           /*if (!unaImagen.votos) {
             unaImagen.votos = [];
           }
@@ -110,12 +111,14 @@ export class VotacionService {
           // this.usuarios.updateUsuario(unUsuario.uid, this.usuarios.getObject(unUsuario));
           // this.imagenes.updateImagen(unaImagen.uid, {votos: unaImagen.votos});
           // this.usuarios.updateUsuario(unUsuario.uid, {votos: unUsuario.votos});
+        } else {
+          this.quitarVoto(uidUser, uidImg, tipo);
         }
       }
     }
   }
 
-  private emitioVotoUsuario(usuario: Usuario, tipo: TipoImagen): boolean {
+  /*private emitioVotoUsuario(usuario: Usuario, tipo: TipoImagen): boolean {
     let retorno = false;
 
     if (usuario.votos) {
@@ -123,40 +126,58 @@ export class VotacionService {
     }
 
     return retorno;
-  }
+  }*/
 
   public emitioVoto(uidUser: string, tipo: TipoImagen): boolean {
     let retorno = false;
-    const unUsuario: Usuario = this.getUsuario(uidUser);
+    /*const unUsuario: Usuario = this.getUsuario(uidUser);
 
     if (unUsuario) {
       retorno = this.emitioVotoUsuario(unUsuario, tipo);
+    }*/
+
+    const votos: Voto[] = this.getVotosTipo(tipo);
+    if (votos) {
+      retorno = votos.findIndex(elemento => elemento.usuario === uidUser) > -1;
     }
 
     return retorno;
   }
 
-  public imagenVotada(uidUser: string, uidImg: string): boolean {
+  public imagenVotada(uidUser: string, uidImg: string, tipo: TipoImagen): boolean {
     let retorno = false;
-    const unaImagen: Imagen = this.getImagen(uidImg);
+    /*const unaImagen: Imagen = this.getImagen(uidImg);
 
     if (unaImagen) {
       if (unaImagen.votos) {
         retorno = unaImagen.votos.findIndex(elemento => elemento === uidUser) > -1;
       }
+    }*/
+    const votos: Voto[] = this.getVotosTipo(tipo);
+    if (votos) {
+      retorno = this.getVotosTipo(tipo).findIndex(elemento => elemento.usuario === uidUser && elemento.imagen === uidImg) > -1;
     }
 
     return retorno;
   }
 
-  public cantidadVotos(uidImg: string): number {
+  public cantidadVotos(uidImg: string, tipo: TipoImagen): number {
     let retorno = 0;
-    const unaImagen: Imagen = this.getImagen(uidImg);
+    /*const unaImagen: Imagen = this.getImagen(uidImg);
 
     if (unaImagen) {
       if (unaImagen.votos) {
         retorno = unaImagen.votos.length;
       }
+    }*/
+
+    const votos: Voto[] = this.getVotosTipo(tipo);
+    if (votos) {
+      this.getVotosTipo(tipo).forEach(elemento => {
+        if (elemento.imagen === uidImg) {
+          retorno++;
+        }
+      });
     }
 
     return retorno;
@@ -168,5 +189,37 @@ export class VotacionService {
 
   private getImagen(uidImg: string): Imagen {
     return this.listaImagenes.find(hayImagen => hayImagen.uid === uidImg);
+  }
+
+  private getVotosTipo(tipo: TipoImagen): Voto[] {
+    let retorno: Voto[] = this.listaVotos.filter(elemento => elemento.tipoImagen === tipo);
+
+    if (!retorno) {
+      retorno = null;
+    }
+
+    return retorno;
+  }
+
+  private emitirVoto(uidUser: string, uidImg: string, tipo: TipoImagen): void {
+    const nuevoVoto: Voto = new Voto();
+
+    nuevoVoto.usuario = uidUser;
+    nuevoVoto.imagen = uidImg;
+    nuevoVoto.tipoImagen = tipo;
+
+    this.addVoto(nuevoVoto);
+  }
+
+  private getVotoId(uidUser: string, uidImg: string, tipo: TipoImagen): Voto {
+    return this.listaVotos.find(elemento => elemento.usuario === uidUser && elemento.imagen === uidImg && elemento.tipoImagen === tipo);
+  }
+
+  private quitarVoto(uidUser: string, uidImg: string, tipo: TipoImagen): void {
+    const unVoto: Voto = this.getVotoId(uidUser, uidImg, tipo);
+
+    if (unVoto) {
+      this.deleteVoto(unVoto.uid);
+    }
   }
 }

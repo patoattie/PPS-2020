@@ -14,7 +14,7 @@ export class Usuario implements UserFirebase {
     public perfil: Perfil;
     public sexo: Sexo;
     public imagenes?: Imagen[];
-    public votos?: TipoImagen[];
+    // public votos?: TipoImagen[];
 
     /*constructor(id: string, clave: string) {
         this.id = id;

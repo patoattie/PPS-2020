@@ -1,8 +1,8 @@
-import { Usuario } from './usuario';
-import { Imagen } from './imagen';
+import { TipoImagen } from '../enums/tipo-imagen.enum';
 
 export class Voto {
     public uid: string;
-    public usuario: Usuario;
-    public imagen: Imagen;
+    public usuario: string;
+    public imagen: string;
+    public tipoImagen: TipoImagen;
 }

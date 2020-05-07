@@ -7,5 +7,5 @@ export class Imagen {
     public usuario: string;
     public uid: string;
     public fecha: number;
-    public votos: string[];
+    // public votos: string[];
 }

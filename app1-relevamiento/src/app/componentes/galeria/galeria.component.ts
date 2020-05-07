@@ -62,11 +62,11 @@ export class GaleriaComponent implements OnInit, OnDestroy {
 
   public getVotada(uidImg: string): boolean {
 // console.log('getVotada: ', this.votacion.imagenVotada(uidUser, uidImg));
-    return this.votacion.imagenVotada(this.login.getUsuario().uid, uidImg);
+    return this.votacion.imagenVotada(this.login.getUsuario().uid, uidImg, this.tipoImagenes);
   }
 
   public getCantidadVotos(uidImg: string): number {
-    return this.votacion.cantidadVotos(uidImg);
+    return this.votacion.cantidadVotos(uidImg, this.tipoImagenes);
   }
 
   private emitioVoto(): boolean {
@@ -75,7 +75,9 @@ export class GaleriaComponent implements OnInit, OnDestroy {
   }
 
   public votar(uidImg: string): void {
-    if (!this.emitioVoto() && !this.getVotada(uidImg)) {
+    const imgVotada = this.getVotada(uidImg);
+
+    if ((!this.emitioVoto() && !imgVotada) || imgVotada) {
       this.votacion.votar(this.login.getUsuario().uid, uidImg, this.tipoImagenes);
     }
   }
