@@ -9,6 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { Gyroscope } from '@ionic-native/gyroscope/ngx';
 import { Flashlight } from '@ionic-native/flashlight/ngx';
+import { DeviceMotion } from '@ionic-native/device-motion/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -56,6 +57,7 @@ import { SelectorUsuarioComponent } from './componentes/selector-usuario/selecto
     Vibration,
     Gyroscope,
     Flashlight,
+    DeviceMotion,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: FirestoreSettingsToken, useValue: {} }
   ],
