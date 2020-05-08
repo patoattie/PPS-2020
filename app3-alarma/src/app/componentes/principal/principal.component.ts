@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Usuario } from 'src/app/clases/usuario';
-import { LoginService } from 'src/app/servicios/login.service';
+import { Usuario } from '../../clases/usuario';
+import { LoginService } from '../../servicios/login.service';
 import { MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class PrincipalComponent implements OnInit {
   usuarioLogueado: Usuario = this.login.getUsuario();
+  private idMenu = 'menuLogout';
 
   constructor(
     private login: LoginService,
@@ -21,11 +22,11 @@ export class PrincipalComponent implements OnInit {
   ngOnInit() {}
 
   abrirMenu() {
-    this.menu.open();
+    this.menu.open(this.idMenu);
   }
 
   hacerLogout(): void {
-    this.menu.close();
+    this.menu.close(this.idMenu);
     this.login.logout()
     .then(() => this.router.navigate(['home']));
   }

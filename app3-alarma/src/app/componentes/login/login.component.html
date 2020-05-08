@@ -32,8 +32,10 @@
     </ion-item-group>
 
     <ion-item-group class="botonesLogin">
-      <ion-button [disabled]="!puedeEnviar()" expand="block" type="submit" color="success">Ingresar</ion-button>
-      <ion-button [disabled]="!puedeEnviar()" expand="block" color="light" (click)="limpiarDatos()">Limpiar</ion-button>
+      <!-- <ion-button [disabled]="!puedeEnviar()" expand="block" type="submit" color="success">Ingresar</ion-button>
+      <ion-button [disabled]="!puedeEnviar()" expand="block" color="light" (click)="limpiarDatos()">Limpiar</ion-button> -->
+      <ion-button expand="block" type="submit" color="success">Ingresar</ion-button>
+      <ion-button expand="block" color="light" (click)="limpiarDatos()">Limpiar</ion-button>
     </ion-item-group>
   </ion-list>
 </form>

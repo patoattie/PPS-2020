@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Login } from '../../clases/login';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-selector-usuario',
@@ -9,8 +10,9 @@ import { Login } from '../../clases/login';
 export class SelectorUsuarioComponent implements OnInit {
   @Output() enviarUsuarioEvent = new EventEmitter<Login>();
   @Input() deshabilitaControl: boolean;
+  private idMenu = 'menuLogin';
 
-  constructor() { }
+  constructor(private menu: MenuController) { }
 
   ngOnInit() {}
 
@@ -45,6 +47,24 @@ export class SelectorUsuarioComponent implements OnInit {
     }
 
     this.enviarUsuarioEvent.emit(datosLogin);
+    this.menu.close(this.idMenu);
   }
 
+  openFirst() {
+    this.menu.enable(true, 'first');
+    this.menu.open('first');
+  }
+
+  openEnd() {
+    this.menu.open('end');
+  }
+
+  openCustom() {
+    this.menu.enable(true, 'custom');
+    this.menu.open('custom');
+  }
+
+  openMenu() {
+    this.menu.open(this.idMenu);
+  }
 }

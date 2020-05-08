@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 import { Perfil } from '../enums/perfil.enum';
 import { Sexo } from '../enums/sexo.enum';
 import { Router } from '@angular/router';
+import { SpinnerService } from './spinner.service';
+import { UsuariosService } from './usuarios.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +19,14 @@ export class AuthFirebaseService {
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public afs: AngularFirestore,   // Inject Firestore service
     public ngZone: NgZone, // NgZone service to remove outside scope warning
-    public router: Router
+    public router: Router,
+    private spinner: SpinnerService,
+    private usuarios: UsuariosService
   ) { }
 
   // Sign in with email/password
   public SignIn(login: Login): Promise<void> {
+    this.spinner.cargarEspera(10000);
     return this.afAuth.auth.signInWithEmailAndPassword(login.email, login.clave)
       .then((result) => {
         // const usuario: Usuario = new Usuario();
@@ -53,18 +58,17 @@ export class AuthFirebaseService {
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
   public SetUserData(user: firebase.User) {
     const hardcodeUsuarios = [
-      {id: 1, correo: 'admin@admin.com', perfil: Perfil.ADMIN, sexo: Sexo.FEMENINO},
-      {id: 2, correo: 'invitado@invitado.com', perfil: Perfil.INVITADO, sexo: Sexo.FEMENINO},
-      {id: 3, correo: 'usuario@usuario.com', perfil: Perfil.USUARIO, sexo: Sexo.MASCULINO},
-      {id: 4, correo: 'anonimo@anonimo.com', perfil: Perfil.USUARIO, sexo: Sexo.MASCULINO},
-      {id: 5, correo: 'tester@tester.com', perfil: Perfil.TESTER, sexo: Sexo.FEMENINO}
+      {id: 1, correo: 'admin@admin.com', perfil: Perfil.ADMIN, sexo: Sexo.FEMENINO, displayName: 'Admin'},
+      {id: 2, correo: 'invitado@invitado.com', perfil: Perfil.INVITADO, sexo: Sexo.FEMENINO, displayName: 'Invitado'},
+      {id: 3, correo: 'usuario@usuario.com', perfil: Perfil.USUARIO, sexo: Sexo.MASCULINO, displayName: 'Usuario'},
+      {id: 4, correo: 'anonimo@anonimo.com', perfil: Perfil.USUARIO, sexo: Sexo.MASCULINO, displayName: 'Anónimo'},
+      {id: 5, correo: 'tester@tester.com', perfil: Perfil.TESTER, sexo: Sexo.FEMENINO, displayName: 'Tester'}
     ];
 
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`Usuarios/${user.uid}`);
     const userData: Usuario = {
       uid: user.uid,
       email: user.email,
-      displayName: user.displayName,
+      displayName: hardcodeUsuarios.filter(unUsuario => unUsuario.correo === user.email)[0].displayName, // user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
       id: hardcodeUsuarios.filter(unUsuario => unUsuario.correo === user.email)[0].id,
@@ -72,11 +76,8 @@ export class AuthFirebaseService {
       sexo: hardcodeUsuarios.filter(unUsuario => unUsuario.correo === user.email)[0].sexo
     };
 
-    localStorage.setItem('user', JSON.stringify(userData));
-
-    return userRef.set(userData, {
-      merge: true
-    });
+    this.usuarios.updateUsuario(user.uid, userData)
+    .then(() => this.spinner.quitarEspera());
 
   }
 
@@ -84,17 +85,12 @@ export class AuthFirebaseService {
   public SignOut(): Promise<void> {
     return this.afAuth.auth.signOut()
     .then(() => {
-      localStorage.removeItem('user');
       // this.router.navigate(['home']);
       console.log('Logout OK');
     })
     .catch((error) => {
       console.log(error.code);
     });
-  }
-
-  public getUserData(): Usuario {
-    return JSON.parse(localStorage.getItem('user'));
   }
 
   public getErrorLogin(): string {
