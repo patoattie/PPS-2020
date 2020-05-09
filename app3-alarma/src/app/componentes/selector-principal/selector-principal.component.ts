@@ -8,7 +8,7 @@ import { Sentido } from '../../enums/sentido.enum';
   styleUrls: ['./selector-principal.component.scss'],
 })
 export class SelectorPrincipalComponent implements OnInit, OnDestroy {
-  public eventoAlarma = Sentido.INICIAL;
+  public eventoAlarma = Sentido[Sentido.INICIAL];
 
   constructor(private acelerometro: AcelerometroService) { }
 
@@ -24,7 +24,9 @@ export class SelectorPrincipalComponent implements OnInit, OnDestroy {
 
   public iniciarAlarma(ms: number, delta: number): void {
     this.acelerometro.eventos
-    .subscribe(mensaje => this.eventoAlarma = mensaje);
+    .subscribe(mensaje => {
+      this.eventoAlarma = Sentido[mensaje];
+    });
 
     this.acelerometro.iniciar(ms, delta);
   }
@@ -44,9 +46,5 @@ export class SelectorPrincipalComponent implements OnInit, OnDestroy {
 
   public getZ(): number {
     return this.acelerometro.accZ;
-  }
-
-  public getEvento(): string {
-    return Sentido[this.eventoAlarma];
   }
 }
