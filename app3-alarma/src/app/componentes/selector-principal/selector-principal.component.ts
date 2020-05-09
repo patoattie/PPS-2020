@@ -7,13 +7,41 @@ import { AcelerometroService } from '../../servicios/acelerometro.service';
   styleUrls: ['./selector-principal.component.scss'],
 })
 export class SelectorPrincipalComponent implements OnInit, OnDestroy {
+  public eventoAlarma = '';
 
-  constructor(public acelerometro: AcelerometroService) { }
+  constructor(private acelerometro: AcelerometroService) { }
 
   ngOnInit() { }
 
   ngOnDestroy() {
+    this.pararAlarma();
+  }
+
+  public alarmaActivada(): boolean {
+    return this.acelerometro.activo;
+  }
+
+  public iniciarAlarma(ms: number, delta: number): void {
+    this.acelerometro.eventos
+    .subscribe(mensaje => this.eventoAlarma = mensaje);
+
+    this.acelerometro.iniciar(ms, delta);
+  }
+
+  public pararAlarma(): void {
+    // this.acelerometro.eventos.unsubscribe();
     this.acelerometro.parar();
   }
 
+  public getX(): number {
+    return this.acelerometro.accX;
+  }
+
+  public getY(): number {
+    return this.acelerometro.accY;
+  }
+
+  public getZ(): number {
+    return this.acelerometro.accZ;
+  }
 }
