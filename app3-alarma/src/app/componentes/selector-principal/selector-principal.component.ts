@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AcelerometroService } from '../../servicios/acelerometro.service';
+import { Sentido } from '../../enums/sentido.enum';
 
 @Component({
   selector: 'app-selector-principal',
@@ -7,7 +8,7 @@ import { AcelerometroService } from '../../servicios/acelerometro.service';
   styleUrls: ['./selector-principal.component.scss'],
 })
 export class SelectorPrincipalComponent implements OnInit, OnDestroy {
-  public eventoAlarma = '';
+  public eventoAlarma = Sentido.INICIAL;
 
   constructor(private acelerometro: AcelerometroService) { }
 
@@ -43,5 +44,9 @@ export class SelectorPrincipalComponent implements OnInit, OnDestroy {
 
   public getZ(): number {
     return this.acelerometro.accZ;
+  }
+
+  public getEvento(): string {
+    return Sentido[this.eventoAlarma];
   }
 }

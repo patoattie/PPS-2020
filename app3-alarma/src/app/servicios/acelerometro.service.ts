@@ -3,6 +3,7 @@ import { DecimalPipe } from '@angular/common';
 import { DeviceMotion, DeviceMotionAccelerationData, DeviceMotionAccelerometerOptions } from '@ionic-native/device-motion/ngx';
 import { Subscription, Subject } from 'rxjs';
 import { SpinnerService } from './spinner.service';
+import { Sentido } from '../enums/sentido.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AcelerometroService {
   public activo: boolean;
 
   private suscripcion: Subscription;
-  public eventos: Subject<string>;
+  public eventos: Subject<Sentido>;
 
   constructor(
     private deviceMotion: DeviceMotion,
@@ -35,22 +36,21 @@ export class AcelerometroService {
       // Watch device acceleration
       this.suscripcion = this.deviceMotion.watchAcceleration(optAcc)
       .subscribe((acceleration: DeviceMotionAccelerationData) => {
-        // console.log(acceleration);
         if (this.activo) {
           if (acceleration.x - this.accX > delta) {
-            this.eventos.next('I');
+            this.eventos.next(Sentido.IZQUIERDA);
           }
 
           if (acceleration.x - this.accX < -delta) {
-            this.eventos.next('D');
+            this.eventos.next(Sentido.DERECHA);
           }
 
           if (acceleration.y - this.accY > delta) {
-            this.eventos.next('V');
+            this.eventos.next(Sentido.VERTICAL);
           }
 
           if (acceleration.y - this.accY < -delta) {
-            this.eventos.next('H');
+            this.eventos.next(Sentido.HORIZONTAL);
           }
         }
 
@@ -70,7 +70,7 @@ export class AcelerometroService {
       this.accX = null;
       this.accY = null;
       this.accZ = null;
-      this.eventos.next('');
+      this.eventos.next(Sentido.INICIAL);
     }
   }
 
