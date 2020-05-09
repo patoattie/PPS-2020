@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { AcelerometroService } from './acelerometro.service';
 import { Sentido } from '../enums/sentido.enum';
 import { SpinnerService } from './spinner.service';
+
 import { Flashlight } from '@ionic-native/flashlight/ngx';
+import { Vibration } from '@ionic-native/vibration/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,8 @@ export class AlarmaService {
   constructor(
     private acelerometro: AcelerometroService,
     private luz: Flashlight,
-    private spinner: SpinnerService
+    private spinner: SpinnerService,
+    private vibration: Vibration
   ) {
     this.audio.loop = true;
     this.mensajeAnterior = Sentido.INICIAL;
@@ -42,6 +45,7 @@ export class AlarmaService {
   public pararAlarma(): void {
     this.acelerometro.parar();
     this.audio.pause();
+    this.vibration.vibrate(0);
     if (this.luz.isSwitchedOn()) {
       this.luz.switchOff();
     }
@@ -73,6 +77,7 @@ export class AlarmaService {
 
       switch (mensaje) {
         case Sentido.VERTICAL:
+          this.vibration.vibrate(0);
           this.luz.switchOn()
           .then(encendio => {
             if (encendio) {
@@ -81,7 +86,19 @@ export class AlarmaService {
             }
           });
           break;
-      }
+        case Sentido.HORIZONTAL:
+          if (this.luz.isSwitchedOn()) {
+            this.luz.switchOff();
+          }
+          this.vibration.vibrate(5000);
+          break;
+        case (Sentido.IZQUIERDA || Sentido.DERECHA):
+          this.vibration.vibrate(0);
+          if (this.luz.isSwitchedOn()) {
+            this.luz.switchOff();
+          }
+          break;
+        }
 
       this.audio.src = ruta.concat(Sentido[mensaje].toLowerCase()).concat('.mp3');
       this.audio.load();
