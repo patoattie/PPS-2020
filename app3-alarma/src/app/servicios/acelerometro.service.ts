@@ -31,8 +31,9 @@ export class AcelerometroService {
       frequency: ms
     };
 
-    this.spinner.delay(ms * 2)
+    this.spinner.cargarEspera(ms * 2)
     .then(() => {
+      this.spinner.quitarEspera();
       // Watch device acceleration
       this.suscripcion = this.deviceMotion.watchAcceleration(optAcc)
       .subscribe((acceleration: DeviceMotionAccelerationData) => {

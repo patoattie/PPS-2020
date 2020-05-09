@@ -2,7 +2,7 @@
 <ion-button (click)="pararAlarma()">Frenar</ion-button>
 
 <div *ngIf="alarmaActivada()">
-    <h3>Evento: {{ eventoAlarma }}</h3>
+    <h3>Evento: {{ getEventoAlarma() }}</h3>
     <h6>X: {{ getX() | number: '1.0-0' }}</h6>
     <h6>Y: {{ getY() | number: '1.0-0' }}</h6>
     <h6>Z: {{ getZ() | number: '1.0-0' }}</h6>
