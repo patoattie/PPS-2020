@@ -104,5 +104,4 @@ export class AuthFirebaseService {
   public getUsuarioRemoto(): Observable<any> {
     return this.afAuth.user;
   }
-
 }

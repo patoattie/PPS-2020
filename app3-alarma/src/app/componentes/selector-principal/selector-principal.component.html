@@ -1,5 +1,9 @@
-<ion-button (click)="iniciarAlarma(1500, 3)">Iniciar</ion-button>
-<ion-button (click)="pararAlarma()">Frenar</ion-button>
+<ion-button *ngIf="!alarmaActivada()" (click)="iniciarAlarma(1500, 3)" expand="full" color="success">
+    <ion-icon name="play"></ion-icon>
+</ion-button>
+<ion-button *ngIf="alarmaActivada()" (click)="pararAlarma()" expand="full" color="danger">
+    <ion-icon name="stop"></ion-icon>
+</ion-button>
 
 <div *ngIf="alarmaActivada()">
     <h3>Evento: {{ getEventoAlarma() }}</h3>
