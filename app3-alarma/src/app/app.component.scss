@@ -20,42 +20,59 @@
     justify-content: center;
 }
 
-#logoColores {
+#logo1 {
     position: absolute;
-    width: 35%;
+    width: 45%;
     height: auto;
-    top: 27%;
-    left: 60%;
+    top: -2%;
+    left: 27%;
+    opacity: 0;
     animation-name: logoSplash;
-    animation-duration: 5s;
+    animation-duration: 3s;
 }
 
-#logoNumeros {
+#logo2 {
     position: absolute;
-    width: 35%;
+    width: 45%;
     height: auto;
-    top: 50%;
+    top: 77%;
     left: 32%;
+    opacity: 0;
     animation-name: logoSplash;
-    animation-duration: 5s;
+    animation-duration: 3s;
+    animation-delay: 1.5s;
 }
 
-#logoAnimales {
+#logo3 {
     position: absolute;
-    width: 35%;
+    width: 45%;
     height: auto;
-    top: 27%;
-    left: 12%;
+    top: -2%;
+    left: 27%;
+    opacity: 0;
     animation-name: logoSplash;
-    animation-duration: 5s;
+    animation-duration: 3s;
+    animation-delay: 3s;
+}
+
+#logo4 {
+    position: absolute;
+    width: 45%;
+    height: auto;
+    top: 77%;
+    left: 32%;
+    opacity: 0;
+    animation-name: logoSplash;
+    animation-duration: 3s;
+    animation-delay: 4.5s;
 }
 
 @keyframes logoSplash {
     from {
-        transform: scale3d(0, 0, 0);
+        opacity: 1;
     }
 
     to {
-        transform: scale3d(1, 1, 1);
+        opacity: 0;
     }
 }
