@@ -1,13 +1,24 @@
-<ion-button *ngIf="!alarmaActivada()" (click)="iniciarAlarma(1500, 3)" expand="full" color="success">
+<ion-button *ngIf="!alarmaActivada()" (click)="iniciarAlarma(1500, 3)" expand="full" color="success" class="btnAlarma">
     <ion-icon name="play"></ion-icon>
 </ion-button>
-<ion-button *ngIf="alarmaActivada()" (click)="pararAlarma()" expand="full" color="danger">
+<ion-button *ngIf="alarmaActivada()" (click)="pararAlarma()" expand="full" color="danger" class="btnAlarma">
     <ion-icon name="stop"></ion-icon>
 </ion-button>
 
-<div *ngIf="alarmaActivada()">
+<!-- <div *ngIf="alarmaActivada()">
     <h3>Evento: {{ getEventoAlarma() }}</h3>
     <h6>X: {{ getX() | number: '1.0-0' }}</h6>
     <h6>Y: {{ getY() | number: '1.0-0' }}</h6>
     <h6>Z: {{ getZ() | number: '1.0-0' }}</h6>
+</div> -->
+
+<!-- The Modal -->
+<div *ngIf="alarmaActivada()" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <ion-input [(ngModel)]="clave" placeholder="Ingrese clave para desactivar" type="password"></ion-input>
+    <ion-button (click)="pararAlarma()">Desactivar</ion-button>
+  </div>
+
 </div>

@@ -7,6 +7,7 @@ import { AlarmaService } from '../../servicios/alarma.service';
   styleUrls: ['./selector-principal.component.scss'],
 })
 export class SelectorPrincipalComponent implements OnInit, OnDestroy {
+  public clave: string;
 
   constructor(private alarma: AlarmaService) { }
 
@@ -25,7 +26,7 @@ export class SelectorPrincipalComponent implements OnInit, OnDestroy {
   }
 
   public pararAlarma(): void {
-    this.alarma.pararAlarma();
+    this.alarma.pararAlarma(this.clave);
   }
 
   public getX(): number {

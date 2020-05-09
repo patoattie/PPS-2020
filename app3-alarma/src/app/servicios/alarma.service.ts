@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AcelerometroService } from './acelerometro.service';
 import { Sentido } from '../enums/sentido.enum';
 import { SpinnerService } from './spinner.service';
+import { LoginService } from './login.service';
 
 import { Flashlight } from '@ionic-native/flashlight/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
@@ -13,12 +14,15 @@ export class AlarmaService {
   private eventoAlarma = Sentido[Sentido.INICIAL];
   private audio = new Audio();
   private mensajeAnterior: Sentido;
+  private delayLuz = 5000;
+  private delayVib = 5000;
 
   constructor(
     private acelerometro: AcelerometroService,
     private luz: Flashlight,
     private spinner: SpinnerService,
-    private vibration: Vibration
+    private vibration: Vibration,
+    private login: LoginService
   ) {
     this.audio.loop = true;
     this.mensajeAnterior = Sentido.INICIAL;
@@ -42,12 +46,34 @@ export class AlarmaService {
     this.acelerometro.iniciar(ms, delta);
   }
 
-  public pararAlarma(): void {
-    this.acelerometro.parar();
-    this.audio.pause();
-    this.vibration.vibrate(0);
-    if (this.luz.isSwitchedOn()) {
-      this.luz.switchOff();
+  public pararAlarma(clave: string): void {
+    let valido = false;
+
+    switch (this.login.getUsuario().displayName) {
+      case 'Admin':
+        valido = (clave === '1'.repeat(6));
+        break;
+      case 'Invitado':
+        valido = (clave === '2'.repeat(6));
+        break;
+      case 'Usuario':
+        valido = (clave === '3'.repeat(6));
+        break;
+      case 'Anonimo':
+        valido = (clave === '4'.repeat(6));
+        break;
+      case 'Tester':
+        valido = (clave === '5'.repeat(6));
+        break;
+    }
+
+    if (valido) {
+      this.acelerometro.parar();
+      this.audio.pause();
+      this.vibration.vibrate(0);
+      if (this.luz.isSwitchedOn()) {
+        this.luz.switchOff();
+      }
     }
   }
 
@@ -81,7 +107,7 @@ export class AlarmaService {
           this.luz.switchOn()
           .then(encendio => {
             if (encendio) {
-              this.spinner.delay(5000)
+              this.spinner.delay(this.delayLuz)
               .then(() => this.luz.switchOff());
             }
           });
@@ -90,7 +116,7 @@ export class AlarmaService {
           if (this.luz.isSwitchedOn()) {
             this.luz.switchOff();
           }
-          this.vibration.vibrate(5000);
+          this.vibration.vibrate(this.delayVib);
           break;
         case (Sentido.IZQUIERDA || Sentido.DERECHA):
           this.vibration.vibrate(0);
