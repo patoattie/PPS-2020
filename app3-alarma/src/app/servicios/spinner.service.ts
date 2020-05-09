@@ -33,7 +33,7 @@ export class SpinnerService {
     await loading.present();
   }
 
-  private delay(ms: number) {
+  public delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms));
   }
 }

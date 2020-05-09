@@ -1,7 +1,9 @@
-<ion-button (click)="acelerometro.iniciar(3500)">Iniciar</ion-button>
+<ion-button (click)="acelerometro.iniciar(2000)">Iniciar</ion-button>
 <ion-button (click)="acelerometro.parar()">Frenar</ion-button>
 
-<h2>Acelerometro</h2>
-<h3>X: {{ acelerometro.accX }}</h3>
-<h3>Y: {{ acelerometro.accY }}</h3>
-<h3>Z: {{ acelerometro.accZ }}</h3>
+<div *ngIf="acelerometro.activo">
+    <h2>Acelerometro</h2>
+    <h3>X: {{ acelerometro.accX }}</h3>
+    <h3>Y: {{ acelerometro.accY }}</h3>
+    <h3>Z: {{ acelerometro.accZ }}</h3>
+</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AcelerometroService } from '../../servicios/acelerometro.service';
 
 @Component({
@@ -6,10 +6,14 @@ import { AcelerometroService } from '../../servicios/acelerometro.service';
   templateUrl: './selector-principal.component.html',
   styleUrls: ['./selector-principal.component.scss'],
 })
-export class SelectorPrincipalComponent implements OnInit {
+export class SelectorPrincipalComponent implements OnInit, OnDestroy {
 
   constructor(public acelerometro: AcelerometroService) { }
 
   ngOnInit() { }
+
+  ngOnDestroy() {
+    this.acelerometro.parar();
+  }
 
 }
