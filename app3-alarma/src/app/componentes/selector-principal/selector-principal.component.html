@@ -1,15 +1,7 @@
-<!-- <h2>Actual</h2>
-<h3>X: {{ actual.x }}</h3>
-<h3>Y: {{ actual.y }}</h3>
-<h3>Z: {{ actual.z }}</h3>
-<h3>Timestamp: {{ actual.timestamp }}</h3> -->
-<h2>Giroscopo</h2>
-<h3>X: {{ xOrient }}</h3>
-<h3>Y: {{ yOrient }}</h3>
-<h3>Z: {{ zOrient }}</h3>
-<h3>Timestamp: {{ timestamp }}</h3>
+<ion-button (click)="acelerometro.iniciar(3500)">Iniciar</ion-button>
+<ion-button (click)="acelerometro.parar()">Frenar</ion-button>
 
 <h2>Acelerometro</h2>
-<h3>X: {{ accX }}</h3>
-<h3>Y: {{ accY }}</h3>
-<h3>Z: {{ accZ }}</h3>
+<h3>X: {{ acelerometro.accX }}</h3>
+<h3>Y: {{ acelerometro.accY }}</h3>
+<h3>Z: {{ acelerometro.accZ }}</h3>

@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DecimalPipe } from '@angular/common';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
-import { Gyroscope } from '@ionic-native/gyroscope/ngx';
 import { Flashlight } from '@ionic-native/flashlight/ngx';
 import { DeviceMotion } from '@ionic-native/device-motion/ngx';
 
@@ -55,9 +55,9 @@ import { SelectorUsuarioComponent } from './componentes/selector-usuario/selecto
     StatusBar,
     SplashScreen,
     Vibration,
-    Gyroscope,
     Flashlight,
     DeviceMotion,
+    DecimalPipe,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: FirestoreSettingsToken, useValue: {} }
   ],
