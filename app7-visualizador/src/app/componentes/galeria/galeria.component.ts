@@ -26,6 +26,7 @@ export class GaleriaComponent implements OnInit, OnDestroy {
   idxFoto = 0;
   private capturaMov = true;
   private ultMov: Sentido;
+  filtroUsuario = false;
 
   constructor(
     private navegacion: NavegacionService,
@@ -47,7 +48,8 @@ export class GaleriaComponent implements OnInit, OnDestroy {
 
     this.imagenes.getImagenesPorTipo(this.tipoImagenes)
     .pipe(takeUntil(this.desuscribir))
-    .subscribe(lasFotos => this.listaFotos = lasFotos);
+    .subscribe(lasFotos =>
+      this.listaFotos = lasFotos.filter(unaImagen => this.filtroUsuario ? unaImagen.usuario === this.login.getUsuario().uid : true));
 
     this.usuarios.getUsuarios()
     .pipe(takeUntil(this.desuscribir)) // desuscribe el observable cuando se emita el desuscribir.
