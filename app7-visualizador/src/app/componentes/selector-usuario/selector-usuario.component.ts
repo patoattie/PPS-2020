@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Login } from '../../clases/login';
+import { ActionSheetController } from '@ionic/angular';
 
 @Component({
   selector: 'app-selector-usuario',
@@ -10,7 +11,7 @@ export class SelectorUsuarioComponent implements OnInit {
   @Output() enviarUsuarioEvent = new EventEmitter<Login>();
   @Input() deshabilitaControl: boolean;
 
-  constructor() { }
+  constructor(public actionSheetController: ActionSheetController) { }
 
   ngOnInit() {}
 
@@ -47,4 +48,41 @@ export class SelectorUsuarioComponent implements OnInit {
     this.enviarUsuarioEvent.emit(datosLogin);
   }
 
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Usuarios',
+      buttons: [{
+        text: 'Admin',
+        icon: 'person',
+        handler: () => {
+          this.enviarUsuario('admin');
+        }
+      }, {
+        text: 'Invitado',
+        icon: 'person',
+        handler: () => {
+          this.enviarUsuario('invitado');
+        }
+      }, {
+        text: 'Usuario',
+        icon: 'person',
+        handler: () => {
+          this.enviarUsuario('usuario');
+        }
+      }, {
+        text: 'Anónimo',
+        icon: 'person',
+        handler: () => {
+          this.enviarUsuario('anonimo');
+        }
+      }, {
+        text: 'Tester',
+        icon: 'person',
+        handler: () => {
+          this.enviarUsuario('tester');
+        }
+      }]
+    });
+    await actionSheet.present();
+  }
 }

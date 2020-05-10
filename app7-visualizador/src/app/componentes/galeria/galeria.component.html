@@ -1,6 +1,6 @@
 <!-- <ion-content> -->
   <!-- <div class="datos"> -->
-    <ion-card *ngFor="let foto of datos | async">
+    <ion-card (click)="siguiente()" *ngFor="let foto of datos | async | slice:idxFoto:idxFoto+1">
       <ion-card-header>
         <ion-card-subtitle>
           Autor: {{ getNombreUsuario(foto.usuario) }}

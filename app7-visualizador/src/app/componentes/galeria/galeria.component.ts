@@ -21,6 +21,7 @@ export class GaleriaComponent implements OnInit, OnDestroy {
   datos: Observable<Imagen[]>;
   listaUsuarios: Usuario[] = [];
   private desuscribir = new Subject<void>();
+  idxFoto = 0;
 
   constructor(
     private navegacion: NavegacionService,
@@ -78,5 +79,10 @@ export class GaleriaComponent implements OnInit, OnDestroy {
     if ((!this.emitioVoto() && !imgVotada) || imgVotada) {
       this.votacion.votar(this.login.getUsuario().uid, uidImg, this.tipoImagenes);
     }
+  }
+
+  public siguiente(): void {
+    this.idxFoto++;
+console.log(this.idxFoto);
   }
 }
