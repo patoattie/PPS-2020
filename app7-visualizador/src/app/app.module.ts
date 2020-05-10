@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { DatePipe } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -63,6 +63,7 @@ import { GaleriaComponent } from './componentes/galeria/galeria.component';
   providers: [
     StatusBar,
     DatePipe,
+    DecimalPipe,
     SplashScreen,
     Vibration,
     Camera,
