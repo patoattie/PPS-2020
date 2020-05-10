@@ -11,6 +11,7 @@ import { Vibration } from '@ionic-native/vibration/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { DeviceMotion } from '@ionic-native/device-motion/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -67,6 +68,7 @@ import { GaleriaComponent } from './componentes/galeria/galeria.component';
     Camera,
     WebView,
     File,
+    DeviceMotion,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: FirestoreSettingsToken, useValue: {} }
   ],
