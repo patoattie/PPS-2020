@@ -1,0 +1,9 @@
+<ion-header [translucent]="true">
+  <app-toolbar (abrirMenuEvent)="abrirMenu()"></app-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <app-menu (salirEvent)="hacerLogout()"></app-menu>
+
+  <router-outlet></router-outlet>
+</ion-content>

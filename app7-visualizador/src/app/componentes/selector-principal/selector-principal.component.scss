@@ -1,0 +1,16 @@
+@media screen and (orientation:portrait) {
+    ion-button {
+        height: 50%;
+        width: 100%;
+        margin: 0;
+    }
+}
+
+@media screen and (orientation:landscape) {
+    ion-button {
+        float: left;
+        width: 50%;
+        height: 100%;
+        margin: 0;
+    }
+}

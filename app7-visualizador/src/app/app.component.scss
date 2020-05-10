@@ -1,0 +1,48 @@
+#superpuesto {
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    width: 100%;
+    background-color: rgb(255,181,0);
+}
+
+#splash {
+    --background: none;
+    background: url("../../resources/splash.png") no-repeat center / cover;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#logo {
+    position: absolute;
+    width: 35%;
+    top: 40%;
+    left: 32%;
+    animation-name: logoSplash;
+    animation-duration: 5s;
+}
+
+@keyframes logoSplash {
+    from {
+        transform: rotateZ(0deg);
+    }
+
+    33% {
+        transform: rotateZ(90deg);
+    }
+    
+    66% {
+        transform: rotateZ(-90deg);
+    }
+
+    to {
+        transform: rotateZ(0deg);
+    }
+}

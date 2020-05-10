@@ -1,0 +1,26 @@
+<!-- <ion-content> -->
+  <!-- <div class="datos"> -->
+    <ion-card *ngFor="let foto of datos | async">
+      <ion-card-header>
+        <ion-card-subtitle>
+          Autor: {{ getNombreUsuario(foto.usuario) }}
+          <ion-button class="votar" size="small" shape="round" fill="clear" (click)="votar(foto.uid)">
+            <ion-icon *ngIf="!getVotada(foto.uid)" name="heart-outline"></ion-icon>
+            <ion-icon *ngIf="getVotada(foto.uid)" name="heart"></ion-icon>
+            <ion-badge>{{ getCantidadVotos(foto.uid) }}</ion-badge>
+          </ion-button>
+        </ion-card-subtitle>
+        <ion-card-subtitle>Fecha: {{ foto.fecha | date : "dd/MM/yyyy HH:mm:ss" }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-img src="{{ foto.url }}"></ion-img>
+    </ion-card>
+<!-- </div> -->
+
+  <!-- <div class="botonera"> -->
+    <ion-fab vertical="bottom" horizontal="center">
+      <ion-fab-button color="secondary" (click)="tomarFoto()">
+        <ion-icon name="camera"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  <!-- </div> -->
+<!-- </ion-content> -->
