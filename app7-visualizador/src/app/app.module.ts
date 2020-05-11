@@ -21,6 +21,7 @@ import { environment } from '../environments/environment';
 import { FirestoreSettingsToken, AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { ChartsModule } from 'ng2-charts';
 
 import { PrincipalComponent } from './componentes/principal/principal.component';
 import { MenuComponent } from './componentes/menu/menu.component';
@@ -58,6 +59,7 @@ import { GaleriaComponent } from './componentes/galeria/galeria.component';
     AngularFireStorageModule,
     ReactiveFormsModule,
     FormsModule,
+    ChartsModule,
     AppRoutingModule
   ],
   providers: [

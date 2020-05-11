@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { NavegacionService } from '../../servicios/navegacion.service';
 import { TipoImagen } from '../../enums/tipo-imagen.enum';
+import { TipoGrafico } from '../../enums/tipo-grafico.enum';
 import { Imagen } from '../../clases/imagen';
 import { ImagenesService } from '../../servicios/imagenes.service';
 import { UsuariosService } from '../../servicios/usuarios.service';
@@ -12,6 +13,7 @@ import { VotacionService } from '../../servicios/votacion.service';
 import { LoginService } from '../../servicios/login.service';
 import { AcelerometroService } from '../../servicios/acelerometro.service';
 import { Sentido } from '../../enums/sentido.enum';
+import { ToastService } from '../../servicios/toast.service';
 
 @Component({
   selector: 'app-galeria',
@@ -27,7 +29,11 @@ export class GaleriaComponent implements OnInit, OnDestroy {
   idxFoto = 0;
   private capturaMov = true;
   private ultMov: Sentido;
-  private filtroUsuario = false;
+  filtroUsuario = false;
+  tipoGrafico: string;
+  muestraGrafico = false;
+
+  // https://www.positronx.io/angular-chart-js-tutorial-with-ng2-charts-examples/
 
   constructor(
     private navegacion: NavegacionService,
@@ -37,7 +43,8 @@ export class GaleriaComponent implements OnInit, OnDestroy {
     private usuarios: UsuariosService,
     private votacion: VotacionService,
     private login: LoginService,
-    private acelerometro: AcelerometroService
+    private acelerometro: AcelerometroService,
+    private toast: ToastService
   ) { }
 
   // this.tipoImagenes -> Devuelve LINDA o FEA
@@ -46,6 +53,15 @@ export class GaleriaComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.navegacion.muestraBackButton = true;
     this.tipoImagenes = TipoImagen[this.ruta.snapshot.paramMap.get('tipo')];
+
+    switch (TipoImagen[this.ruta.snapshot.paramMap.get('tipo')]) {
+      case 'FEA':
+        this.tipoGrafico = TipoGrafico[TipoGrafico.BARRA];
+        break;
+      case 'LINDA':
+        this.tipoGrafico = TipoGrafico[TipoGrafico.TORTA];
+        break;
+    }
 
     this.imagenes.getImagenesPorTipo(this.tipoImagenes)
     .pipe(takeUntil(this.desuscribir))
@@ -136,6 +152,8 @@ export class GaleriaComponent implements OnInit, OnDestroy {
 
   public filtro(): void {
     this.filtroUsuario = !this.filtroUsuario;
+
+    this.toast.presentToast(this.filtroUsuario ? 'Sólo mis fotos' : 'Todas las fotos');
 
     this.listaFotosUsuario = this.listaFotos.filter(unaImagen =>
       this.filtroUsuario ? unaImagen.usuario === this.login.getUsuario().uid : true);
