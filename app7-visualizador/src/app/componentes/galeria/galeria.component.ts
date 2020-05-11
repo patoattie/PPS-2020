@@ -21,12 +21,13 @@ import { Sentido } from '../../enums/sentido.enum';
 export class GaleriaComponent implements OnInit, OnDestroy {
   private tipoImagenes: TipoImagen;
   private listaUsuarios: Usuario[] = [];
-  listaFotos: Imagen[] = [];
+  private listaFotos: Imagen[] = [];
+  listaFotosUsuario: Imagen[] = [];
   private desuscribir = new Subject<void>();
   idxFoto = 0;
   private capturaMov = true;
   private ultMov: Sentido;
-  filtroUsuario = false;
+  private filtroUsuario = false;
 
   constructor(
     private navegacion: NavegacionService,
@@ -48,8 +49,10 @@ export class GaleriaComponent implements OnInit, OnDestroy {
 
     this.imagenes.getImagenesPorTipo(this.tipoImagenes)
     .pipe(takeUntil(this.desuscribir))
-    .subscribe(lasFotos =>
-      this.listaFotos = lasFotos.filter(unaImagen => this.filtroUsuario ? unaImagen.usuario === this.login.getUsuario().uid : true));
+    .subscribe(lasFotos => {
+      this.listaFotos = lasFotos;
+      this.listaFotosUsuario = lasFotos;
+    });
 
     this.usuarios.getUsuarios()
     .pipe(takeUntil(this.desuscribir)) // desuscribe el observable cuando se emita el desuscribir.
@@ -122,12 +125,19 @@ export class GaleriaComponent implements OnInit, OnDestroy {
   }
 
   public siguiente(): void {
-    if (this.listaFotos.length > 0) {
-      this.idxFoto = this.idxFoto + (this.idxFoto === this.listaFotos.length - 1 ? 0 : 1);
+    if (this.listaFotosUsuario.length > 0) {
+      this.idxFoto = this.idxFoto + (this.idxFoto === this.listaFotosUsuario.length - 1 ? 0 : 1);
     }
   }
 
   public anterior(): void {
     this.idxFoto = this.idxFoto - (this.idxFoto === 0 ? 0 : 1);
+  }
+
+  public filtro(): void {
+    this.filtroUsuario = !this.filtroUsuario;
+
+    this.listaFotosUsuario = this.listaFotos.filter(unaImagen =>
+      this.filtroUsuario ? unaImagen.usuario === this.login.getUsuario().uid : true);
   }
 }

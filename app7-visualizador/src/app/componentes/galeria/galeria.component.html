@@ -1,4 +1,7 @@
-<ion-card *ngFor="let foto of listaFotos | slice:idxFoto:idxFoto+1">
+<ion-checkbox (click)="filtro()" color="primary"></ion-checkbox>
+<ion-label>Sólo mis fotos</ion-label>
+
+<ion-card *ngFor="let foto of listaFotosUsuario | slice:idxFoto:idxFoto+1">
   <ion-card-header>
     <ion-card-subtitle>
       Autor: {{ getNombreUsuario(foto.usuario) }}
@@ -12,8 +15,6 @@
   </ion-card-header>
   <ion-img src="{{ foto.url }}"></ion-img>
 </ion-card>
-
-<ion-checkbox [(ngModel)]="filtroUsuario" color="primary"></ion-checkbox>
 
 <ion-fab vertical="bottom" horizontal="center">
   <ion-fab-button color="secondary" (click)="tomarFoto()">
