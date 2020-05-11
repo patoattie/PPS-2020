@@ -78,4 +78,8 @@ export class UsuariosService {
   public deleteUsuario(uid: string): Promise<void> {
     return this.usuarioCollection.doc(uid).delete();
   }
+
+  public getUnUsuario(lista: Usuario[], uidUser: string): Usuario {
+    return lista.find(unUsuario => unUsuario.uid === uidUser);
+  }
 }

@@ -30,7 +30,7 @@
   </ion-fab>
   
   <ion-fab vertical="bottom" horizontal="end">
-    <ion-fab-button color="success">
+    <ion-fab-button color="success" (click)="grafico(true)">
       <ion-icon *ngIf="tipoGrafico === 'TORTA'" name="pie-chart"></ion-icon>
       <ion-icon *ngIf="tipoGrafico === 'BARRA'" name="bar-chart"></ion-icon>
     </ion-fab-button>
@@ -38,5 +38,5 @@
 </div>
 
 <div *ngIf="muestraGrafico">
-  
+  <app-grafico-barra *ngIf="tipoGrafico === 'BARRA'" [listaFotos]="listaFotosUsuario" [listaUsuarios]="listaUsuarios" (cerrarEvent)="grafico(false)"></app-grafico-barra>
 </div>

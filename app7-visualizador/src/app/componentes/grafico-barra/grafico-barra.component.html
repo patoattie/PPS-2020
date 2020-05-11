@@ -1,0 +1,15 @@
+<div class="chart-wrapper">
+    <canvas baseChart 
+    [datasets]="barChartData"
+    [labels]="barChartLabels"
+    [options]="barChartOptions"
+    [plugins]="barChartPlugins"
+    [legend]="barChartLegend"
+    [chartType]="barChartType">
+  </canvas>
+</div>
+<ion-fab vertical="bottom" horizontal="end">
+  <ion-fab-button color="success" (click)="cerrarGrafico()">
+    <ion-icon name="close"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

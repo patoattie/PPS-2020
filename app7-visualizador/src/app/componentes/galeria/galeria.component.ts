@@ -22,7 +22,7 @@ import { ToastService } from '../../servicios/toast.service';
 })
 export class GaleriaComponent implements OnInit, OnDestroy {
   private tipoImagenes: TipoImagen;
-  private listaUsuarios: Usuario[] = [];
+  listaUsuarios: Usuario[] = [];
   private listaFotos: Imagen[] = [];
   listaFotosUsuario: Imagen[] = [];
   private desuscribir = new Subject<void>();
@@ -117,7 +117,7 @@ export class GaleriaComponent implements OnInit, OnDestroy {
   }
 
   public getNombreUsuario(uid: string): string {
-    return this.listaUsuarios.filter(unUsuario => unUsuario.uid === uid)[0].displayName;
+    return this.usuarios.getUnUsuario(this.listaUsuarios, uid).displayName;
   }
 
   public getVotada(uidImg: string): boolean {
@@ -157,5 +157,9 @@ export class GaleriaComponent implements OnInit, OnDestroy {
 
     this.listaFotosUsuario = this.listaFotos.filter(unaImagen =>
       this.filtroUsuario ? unaImagen.usuario === this.login.getUsuario().uid : true);
+  }
+
+  public grafico(muestra: boolean): void {
+    this.muestraGrafico = muestra;
   }
 }

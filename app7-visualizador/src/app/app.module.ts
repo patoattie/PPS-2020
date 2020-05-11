@@ -33,6 +33,8 @@ import { LoginComponent } from './componentes/login/login.component';
 import { SelectorUsuarioComponent } from './componentes/selector-usuario/selector-usuario.component';
 import { CamaraComponent } from './componentes/camara/camara.component';
 import { GaleriaComponent } from './componentes/galeria/galeria.component';
+import { GraficoBarraComponent } from './componentes/grafico-barra/grafico-barra.component';
+import { GraficoTortaComponent } from './componentes/grafico-torta/grafico-torta.component';
 
 
 @NgModule({
@@ -47,7 +49,9 @@ import { GaleriaComponent } from './componentes/galeria/galeria.component';
     LoginComponent,
     SelectorUsuarioComponent,
     CamaraComponent,
-    GaleriaComponent
+    GaleriaComponent,
+    GraficoBarraComponent,
+    GraficoTortaComponent
   ],
   entryComponents: [],
   imports: [
