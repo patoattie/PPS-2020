@@ -20,6 +20,9 @@ export class GraficoBarraComponent implements OnInit {
 
   barChartOptions: ChartOptions = {
     responsive: true,
+    onClick(e, a) {
+      console.log(a[0]._model.label);
+    }
   };
   barChartLabels: Label[] = [];
   barChartType: ChartType = 'bar';
