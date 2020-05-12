@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
+import { ChartOptions, ChartType, ChartDataSets, Chart } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { Imagen } from '../../clases/imagen';
 import { VotacionService } from '../../servicios/votacion.service';
@@ -16,13 +16,15 @@ export class GraficoBarraComponent implements OnInit {
   @Input() listaFotos: Imagen[];
   @Input() listaUsuarios: Usuario[];
   @Output() cerrarEvent = new EventEmitter<void>();
+  @Output() elegirEvent = new EventEmitter<any[]>();
   private datos: number[] = [];
 
   barChartOptions: ChartOptions = {
     responsive: true,
-    onClick(e, a) {
-      console.log(a[0]._model.label);
-    }
+    /*onClick(e, a) {
+      // this.getElementAtEvent(e)
+      console.log(this);
+    }*/
   };
   barChartLabels: Label[] = [];
   barChartType: ChartType = 'bar';
@@ -35,7 +37,7 @@ export class GraficoBarraComponent implements OnInit {
       label: 'Fotos más votadas'
     }
   ];
-
+// https://www.joshmorony.com/adding-responsive-charts-graphs-to-ionic-2-applications/
   constructor(
     private votacion: VotacionService,
     private date: DatePipe,
@@ -55,6 +57,14 @@ export class GraficoBarraComponent implements OnInit {
 
   public cerrarGrafico(): void {
     this.cerrarEvent.emit();
+  }
+
+  public elegirGrafico(datos: any): void {
+    /*if (datos !== undefined) {
+      this.elegirEvent.emit(datos);
+      this.cerrarGrafico();
+    }*/
+    console.log(datos);
   }
 
   public getNombreUsuario(uid: string): string {

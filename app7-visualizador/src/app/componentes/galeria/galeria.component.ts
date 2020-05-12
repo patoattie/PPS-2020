@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -44,7 +45,8 @@ export class GaleriaComponent implements OnInit, OnDestroy {
     private votacion: VotacionService,
     private login: LoginService,
     private acelerometro: AcelerometroService,
-    private toast: ToastService
+    private toast: ToastService,
+    private date: DatePipe
   ) { }
 
   // this.tipoImagenes -> Devuelve LINDA o FEA
@@ -74,7 +76,7 @@ export class GaleriaComponent implements OnInit, OnDestroy {
     .pipe(takeUntil(this.desuscribir)) // desuscribe el observable cuando se emita el desuscribir.
     .subscribe(losUsuarios => this.listaUsuarios = losUsuarios);
 
-    this.acelerometro.iniciar(1000, 2);
+    this.acelerometro.iniciar(500, 2);
 
     this.acelerometro.eventos
     .subscribe(movimiento => {
@@ -161,5 +163,15 @@ export class GaleriaComponent implements OnInit, OnDestroy {
 
   public grafico(muestra: boolean): void {
     this.muestraGrafico = muestra;
+  }
+
+  public elegir(datos: any[]): void {
+    const idxImg = this.listaFotosUsuario.findIndex(unaFoto =>
+      this.usuarios.getUnUsuario(this.listaUsuarios, unaFoto.usuario) === datos[0]
+      && this.date.transform(unaFoto.fecha, 'dd/MM/yyyy HH:mm:ss') === datos[1]);
+
+    if (idxImg > -1) {
+      this.idxFoto = idxImg;
+    }
   }
 }
