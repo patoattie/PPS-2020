@@ -3,6 +3,7 @@ import { Usuario } from '../../clases/usuario';
 import { LoginService } from '../../servicios/login.service';
 import { MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { NavegacionService } from '../../servicios/navegacion.service';
 
 @Component({
   selector: 'app-principal',
@@ -15,7 +16,8 @@ export class PrincipalComponent implements OnInit {
   constructor(
     private login: LoginService,
     private menu: MenuController,
-    private router: Router
+    private router: Router,
+    private navegacion: NavegacionService
   ) { }
 
   ngOnInit() {}
@@ -27,6 +29,9 @@ export class PrincipalComponent implements OnInit {
   hacerLogout(): void {
     this.menu.close();
     this.login.logout()
-    .then(() => this.router.navigate(['home']));
+    .then(() => {
+      this.navegacion.setTitulo('Relevamiento Visual');
+      this.router.navigate(['home']);
+    });
   }
 }
