@@ -3,7 +3,6 @@ import { Usuario } from '../../clases/usuario';
 import { LoginService } from '../../servicios/login.service';
 import { MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { NavegacionService } from '../../servicios/navegacion.service';
 
 @Component({
   selector: 'app-principal',
@@ -16,8 +15,7 @@ export class PrincipalComponent implements OnInit {
   constructor(
     private login: LoginService,
     private menu: MenuController,
-    private router: Router,
-    public navegacion: NavegacionService
+    private router: Router
   ) { }
 
   ngOnInit() {}

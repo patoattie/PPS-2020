@@ -18,6 +18,7 @@ export class SelectorPrincipalComponent implements OnInit {
 
   ngOnInit() {
     this.navegacion.muestraBackButton = false;
+    this.navegacion.setTitulo('Relevamiento Visual');
   }
 
   public navegar(destino: number): void {

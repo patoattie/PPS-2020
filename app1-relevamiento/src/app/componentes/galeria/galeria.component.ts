@@ -38,6 +38,7 @@ export class GaleriaComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.navegacion.muestraBackButton = true;
     this.tipoImagenes = TipoImagen[this.ruta.snapshot.paramMap.get('tipo')];
+    this.navegacion.setTitulo('Cosas '.concat(this.tipoImagenes.toString().toLowerCase()).concat('s'));
 
     this.datos = this.imagenes.getImagenesPorTipo(this.tipoImagenes)
     .pipe(takeUntil(this.desuscribir));
