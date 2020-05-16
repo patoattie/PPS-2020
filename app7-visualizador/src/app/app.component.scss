@@ -27,22 +27,16 @@
     left: 32%;
     animation-name: logoSplash;
     animation-duration: 5s;
+    opacity: 0;
 }
 
 @keyframes logoSplash {
     from {
-        transform: rotateZ(0deg);
-    }
-
-    33% {
-        transform: rotateZ(90deg);
-    }
-    
-    66% {
-        transform: rotateZ(-90deg);
+        opacity: 1;
+        right: 0;
     }
 
     to {
-        transform: rotateZ(0deg);
+        left: 0;
     }
 }
