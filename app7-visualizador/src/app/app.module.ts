@@ -35,6 +35,7 @@ import { CamaraComponent } from './componentes/camara/camara.component';
 import { GaleriaComponent } from './componentes/galeria/galeria.component';
 import { GraficoBarraComponent } from './componentes/grafico-barra/grafico-barra.component';
 import { GraficoTortaComponent } from './componentes/grafico-torta/grafico-torta.component';
+import { CardComponent } from './componentes/card/card.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { GraficoTortaComponent } from './componentes/grafico-torta/grafico-torta
     CamaraComponent,
     GaleriaComponent,
     GraficoBarraComponent,
-    GraficoTortaComponent
+    GraficoTortaComponent,
+    CardComponent
   ],
   entryComponents: [],
   imports: [

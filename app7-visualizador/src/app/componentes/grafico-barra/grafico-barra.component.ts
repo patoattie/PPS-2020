@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { ChartOptions, ChartType, ChartDataSets, Chart } from 'chart.js';
+import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
+// import { BaseChartDirective } from 'ng2-charts';
 import { Label } from 'ng2-charts';
 import { Imagen } from '../../clases/imagen';
 import { VotacionService } from '../../servicios/votacion.service';
@@ -16,15 +17,14 @@ export class GraficoBarraComponent implements OnInit {
   @Input() listaFotos: Imagen[];
   @Input() listaUsuarios: Usuario[];
   @Output() cerrarEvent = new EventEmitter<void>();
-  @Output() elegirEvent = new EventEmitter<any[]>();
+  @Output() elegirEvent = new EventEmitter<string>();
+  // @ViewChild(BaseChartDirective, {static: true}) chart: Chart;
   private datos: number[] = [];
+  private uids: string[] = [];
 
   barChartOptions: ChartOptions = {
     responsive: true,
-    /*onClick(e, a) {
-      // this.getElementAtEvent(e)
-      console.log(this);
-    }*/
+    onClick: this.elegirGrafico.bind(this)
   };
   barChartLabels: Label[] = [];
   barChartType: ChartType = 'bar';
@@ -50,7 +50,11 @@ export class GraficoBarraComponent implements OnInit {
 
       if (cantVotos > 0) {
         this.datos.push(cantVotos);
-        this.barChartLabels.push([this.getNombreUsuario(unaFoto.usuario), this.date.transform(unaFoto.fecha, 'dd/MM/yyyy HH:mm:ss')]);
+        this.uids.push(unaFoto.uid);
+        this.barChartLabels.push([
+          this.getNombreUsuario(unaFoto.usuario),
+          this.date.transform(unaFoto.fecha, 'dd/MM/yyyy HH:mm:ss')
+        ]);
       }
     });
   }
@@ -59,12 +63,14 @@ export class GraficoBarraComponent implements OnInit {
     this.cerrarEvent.emit();
   }
 
-  public elegirGrafico(datos: any): void {
-    /*if (datos !== undefined) {
-      this.elegirEvent.emit(datos);
-      this.cerrarGrafico();
-    }*/
-    console.log(datos);
+  public elegirGrafico(e: any, a: any): any {
+    try {
+      const idxImg = a[0]._chart.getElementAtEvent(e)[0]._index;
+      // console.log(a[0]._model.label);
+      this.elegirEvent.emit(this.uids[idxImg]);
+      this.cerrarEvent.emit();
+      // console.log(a[0]._chart.getElementAtEvent(e)[0]._index);
+    } catch (error) { }
   }
 
   public getNombreUsuario(uid: string): string {

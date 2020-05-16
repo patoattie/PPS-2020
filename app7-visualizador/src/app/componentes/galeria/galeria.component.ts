@@ -22,7 +22,7 @@ import { ToastService } from '../../servicios/toast.service';
   styleUrls: ['./galeria.component.scss'],
 })
 export class GaleriaComponent implements OnInit, OnDestroy {
-  private tipoImagenes: TipoImagen;
+  tipoImagenes: TipoImagen;
   listaUsuarios: Usuario[] = [];
   private listaFotos: Imagen[] = [];
   listaFotosUsuario: Imagen[] = [];
@@ -118,20 +118,12 @@ export class GaleriaComponent implements OnInit, OnDestroy {
     this.router.navigate(['/principal/camara', TipoImagen[this.tipoImagenes]]);
   }
 
-  public getNombreUsuario(uid: string): string {
-    return this.usuarios.getUnUsuario(this.listaUsuarios, uid).displayName;
+  private emitioVoto(): boolean {
+    return this.votacion.emitioVoto(this.login.getUsuario().uid, this.tipoImagenes);
   }
 
   public getVotada(uidImg: string): boolean {
     return this.votacion.imagenVotada(this.login.getUsuario().uid, uidImg, this.tipoImagenes);
-  }
-
-  public getCantidadVotos(uidImg: string): number {
-    return this.votacion.cantidadVotos(uidImg, this.tipoImagenes);
-  }
-
-  private emitioVoto(): boolean {
-    return this.votacion.emitioVoto(this.login.getUsuario().uid, this.tipoImagenes);
   }
 
   public votar(uidImg: string): void {
@@ -165,10 +157,11 @@ export class GaleriaComponent implements OnInit, OnDestroy {
     this.muestraGrafico = muestra;
   }
 
-  public elegir(datos: any[]): void {
-    const idxImg = this.listaFotosUsuario.findIndex(unaFoto =>
-      this.usuarios.getUnUsuario(this.listaUsuarios, unaFoto.usuario) === datos[0]
-      && this.date.transform(unaFoto.fecha, 'dd/MM/yyyy HH:mm:ss') === datos[1]);
+  public elegir(uidImg: string): void {
+    /*const idxImg = this.listaFotosUsuario.findIndex(unaFoto =>
+      this.usuarios.getUnUsuario(this.listaUsuarios, unaFoto.usuario).uid === datos[2]
+      && this.date.transform(unaFoto.fecha, 'dd/MM/yyyy HH:mm:ss') === datos[1]);*/
+    const idxImg = this.listaFotosUsuario.findIndex(unaFoto => unaFoto.uid === uidImg);
 
     if (idxImg > -1) {
       this.idxFoto = idxImg;
