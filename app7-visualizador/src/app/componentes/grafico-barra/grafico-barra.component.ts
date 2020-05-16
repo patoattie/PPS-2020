@@ -22,7 +22,8 @@ export class GraficoBarraComponent implements OnInit {
 
   barChartOptions: ChartOptions = {
     responsive: true,
-    onClick: this.elegirGrafico.bind(this)
+    onClick: this.elegirGrafico.bind(this),
+    aspectRatio: 1
   };
   barChartLabels: Label[] = [];
   barChartType: ChartType = 'bar';

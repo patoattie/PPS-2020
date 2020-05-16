@@ -21,7 +21,8 @@ export class GraficoTortaComponent implements OnInit {
 
   public pieChartOptions: ChartOptions = {
     responsive: true,
-    onClick: this.elegirGrafico.bind(this)
+    onClick: this.elegirGrafico.bind(this),
+    aspectRatio: 1
   };
   public pieChartLabels: Label[] = [];
   public pieChartData: SingleDataSet = [];
@@ -34,8 +35,8 @@ export class GraficoTortaComponent implements OnInit {
     private date: DatePipe,
     private usuarios: UsuariosService
   ) {
-    /*monkeyPatchChartJsTooltip();
-    monkeyPatchChartJsLegend();*/
+    monkeyPatchChartJsTooltip();
+    monkeyPatchChartJsLegend();
   }
 
   ngOnInit() {
