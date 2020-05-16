@@ -6,6 +6,7 @@ import { LoginService } from '../../servicios/login.service';
 import { Login } from '../../clases/login';
 import { ToastService } from '../../servicios/toast.service';
 import { SpinnerService } from '../../servicios/spinner.service';
+import { NavegacionService } from '../../servicios/navegacion.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
       private login: LoginService,
       private mensajes: ToastService,
       public espera: SpinnerService,
-      private router: Router
+      private router: Router,
+      private navegacion: NavegacionService
     ) {
     this.validar = false;
 
@@ -31,7 +33,9 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.navegacion.setTitulo('Visualizador Kinético');
+  }
 
   async enviarDatos(): Promise<void> {
     this.validar = true;

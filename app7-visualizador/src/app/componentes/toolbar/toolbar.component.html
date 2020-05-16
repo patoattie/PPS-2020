@@ -1,6 +1,6 @@
 <ion-toolbar color="primary">
   <ion-title>
-    Relevamiento Visual
+    {{ navegacion.getTitulo() }}
   </ion-title>
   <ion-buttons *ngIf="navegacion.muestraBackButton && getLogueado()" slot="start">
     <ion-back-button></ion-back-button>

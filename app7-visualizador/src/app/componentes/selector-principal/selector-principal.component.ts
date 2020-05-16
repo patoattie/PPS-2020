@@ -18,6 +18,7 @@ export class SelectorPrincipalComponent implements OnInit {
 
   ngOnInit() {
     this.navegacion.muestraBackButton = false;
+    this.navegacion.setTitulo('Visualizador Kinético');
   }
 
   public navegar(destino: number): void {

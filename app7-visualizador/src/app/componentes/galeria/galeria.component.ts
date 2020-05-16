@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -45,8 +44,7 @@ export class GaleriaComponent implements OnInit, OnDestroy {
     private votacion: VotacionService,
     private login: LoginService,
     private acelerometro: AcelerometroService,
-    private toast: ToastService,
-    private date: DatePipe
+    private toast: ToastService
   ) { }
 
   // this.tipoImagenes -> Devuelve LINDA o FEA
@@ -55,6 +53,7 @@ export class GaleriaComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.navegacion.muestraBackButton = true;
     this.tipoImagenes = TipoImagen[this.ruta.snapshot.paramMap.get('tipo')];
+    this.navegacion.setTitulo('Cosas '.concat(this.tipoImagenes.toString().toLowerCase()).concat('s'));
 
     switch (TipoImagen[this.ruta.snapshot.paramMap.get('tipo')]) {
       case 'FEA':
