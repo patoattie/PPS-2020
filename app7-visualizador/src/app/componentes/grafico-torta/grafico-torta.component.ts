@@ -16,9 +16,12 @@ export class GraficoTortaComponent implements OnInit {
   @Input() listaFotos: Imagen[];
   @Input() listaUsuarios: Usuario[];
   @Output() cerrarEvent = new EventEmitter<void>();
+  @Output() elegirEvent = new EventEmitter<string>();
+  private uids: string[] = [];
 
   public pieChartOptions: ChartOptions = {
     responsive: true,
+    onClick: this.elegirGrafico.bind(this)
   };
   public pieChartLabels: Label[] = [];
   public pieChartData: SingleDataSet = [];
@@ -31,8 +34,8 @@ export class GraficoTortaComponent implements OnInit {
     private date: DatePipe,
     private usuarios: UsuariosService
   ) {
-    monkeyPatchChartJsTooltip();
-    monkeyPatchChartJsLegend();
+    /*monkeyPatchChartJsTooltip();
+    monkeyPatchChartJsLegend();*/
   }
 
   ngOnInit() {
@@ -41,6 +44,7 @@ export class GraficoTortaComponent implements OnInit {
 
       if (cantVotos > 0) {
         this.pieChartData.push(cantVotos);
+        this.uids.push(unaFoto.uid);
         this.pieChartLabels.push([this.getNombreUsuario(unaFoto.usuario), this.date.transform(unaFoto.fecha, 'dd/MM/yyyy HH:mm:ss')]);
       }
     });
@@ -48,6 +52,16 @@ export class GraficoTortaComponent implements OnInit {
 
   public cerrarGrafico(): void {
     this.cerrarEvent.emit();
+  }
+
+  public elegirGrafico(e: any, a: any): any {
+    // console.log(a[0]._chart.getElementAtEvent(e)[0]._index);
+    // Devuelve el índice de la gráfica seleccionada, lo mapeo con el índice del array de uids de imágenes (uids)
+    try {
+      const idxImg = a[0]._chart.getElementAtEvent(e)[0]._index;
+      this.elegirEvent.emit(this.uids[idxImg]);
+      this.cerrarEvent.emit();
+    } catch (error) { }
   }
 
   public getNombreUsuario(uid: string): string {

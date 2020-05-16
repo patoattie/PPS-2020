@@ -28,5 +28,5 @@
 
 <div *ngIf="muestraGrafico">
   <app-grafico-barra *ngIf="tipoGrafico === 'BARRA'" [listaFotos]="listaFotosUsuario" [listaUsuarios]="listaUsuarios" (cerrarEvent)="grafico(false)" (elegirEvent)="elegir($event)"></app-grafico-barra>
-  <app-grafico-torta *ngIf="tipoGrafico === 'TORTA'" [listaFotos]="listaFotosUsuario" [listaUsuarios]="listaUsuarios" (cerrarEvent)="grafico(false)"></app-grafico-torta>
+  <app-grafico-torta *ngIf="tipoGrafico === 'TORTA'" [listaFotos]="listaFotosUsuario" [listaUsuarios]="listaUsuarios" (cerrarEvent)="grafico(false)" (elegirEvent)="elegir($event)"></app-grafico-torta>
 </div>

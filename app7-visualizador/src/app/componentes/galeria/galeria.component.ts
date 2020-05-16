@@ -157,9 +157,7 @@ export class GaleriaComponent implements OnInit, OnDestroy {
   }
 
   public elegir(uidImg: string): void {
-    /*const idxImg = this.listaFotosUsuario.findIndex(unaFoto =>
-      this.usuarios.getUnUsuario(this.listaUsuarios, unaFoto.usuario).uid === datos[2]
-      && this.date.transform(unaFoto.fecha, 'dd/MM/yyyy HH:mm:ss') === datos[1]);*/
+    // Toma por parámetro el índice de la foto seleccionada
     const idxImg = this.listaFotosUsuario.findIndex(unaFoto => unaFoto.uid === uidImg);
 
     if (idxImg > -1) {

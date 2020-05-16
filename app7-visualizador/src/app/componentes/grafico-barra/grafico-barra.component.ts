@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
-// import { BaseChartDirective } from 'ng2-charts';
 import { Label } from 'ng2-charts';
 import { Imagen } from '../../clases/imagen';
 import { VotacionService } from '../../servicios/votacion.service';
@@ -18,7 +17,6 @@ export class GraficoBarraComponent implements OnInit {
   @Input() listaUsuarios: Usuario[];
   @Output() cerrarEvent = new EventEmitter<void>();
   @Output() elegirEvent = new EventEmitter<string>();
-  // @ViewChild(BaseChartDirective, {static: true}) chart: Chart;
   private datos: number[] = [];
   private uids: string[] = [];
 
@@ -64,12 +62,12 @@ export class GraficoBarraComponent implements OnInit {
   }
 
   public elegirGrafico(e: any, a: any): any {
+    // console.log(a[0]._chart.getElementAtEvent(e)[0]._index);
+    // Devuelve el índice de la gráfica seleccionada, lo mapeo con el índice del array de uids de imágenes (uids)
     try {
       const idxImg = a[0]._chart.getElementAtEvent(e)[0]._index;
-      // console.log(a[0]._model.label);
       this.elegirEvent.emit(this.uids[idxImg]);
       this.cerrarEvent.emit();
-      // console.log(a[0]._chart.getElementAtEvent(e)[0]._index);
     } catch (error) { }
   }
 
