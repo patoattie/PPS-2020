@@ -1,0 +1,15 @@
+<ion-button [disabled]="deshabilitaControl" size="small" color="dark" (click)="enviarUsuario('admin')">
+  Admin
+</ion-button>
+<ion-button [disabled]="deshabilitaControl" size="small" color="success" (click)="enviarUsuario('invitado')">
+  Invitado
+</ion-button>
+<ion-button [disabled]="deshabilitaControl" size="small" color="warning" (click)="enviarUsuario('usuario')">
+  Usuario
+</ion-button>
+<ion-button [disabled]="deshabilitaControl" size="small" color="danger" (click)="enviarUsuario('anonimo')">
+  Anónimo
+</ion-button>
+<ion-button [disabled]="deshabilitaControl" size="small" color="medium" (click)="enviarUsuario('tester')">
+  Tester
+</ion-button>

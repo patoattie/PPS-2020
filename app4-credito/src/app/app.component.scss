@@ -1,0 +1,61 @@
+#superpuesto {
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    width: 100%;
+    background-color: rgb(255,200,200);
+}
+
+#splash {
+    --background: none;
+    background: url("../../resources/splash.png") no-repeat center / cover;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#logoColores {
+    position: absolute;
+    width: 35%;
+    height: auto;
+    top: 27%;
+    left: 60%;
+    animation-name: logoSplash;
+    animation-duration: 5s;
+}
+
+#logoNumeros {
+    position: absolute;
+    width: 35%;
+    height: auto;
+    top: 50%;
+    left: 32%;
+    animation-name: logoSplash;
+    animation-duration: 5s;
+}
+
+#logoAnimales {
+    position: absolute;
+    width: 35%;
+    height: auto;
+    top: 27%;
+    left: 12%;
+    animation-name: logoSplash;
+    animation-duration: 5s;
+}
+
+@keyframes logoSplash {
+    from {
+        transform: scale3d(0, 0, 0);
+    }
+
+    to {
+        transform: scale3d(1, 1, 1);
+    }
+}

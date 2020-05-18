@@ -1,0 +1,39 @@
+<app-selector-usuario class="botonesUsuario" (enviarUsuarioEvent)="completarUsuario($event)" [deshabilitaControl]="getLogueado()"></app-selector-usuario>
+
+<form [formGroup]="formLogin" (ngSubmit)="enviarDatos()">
+  <ion-list lines="full" class="ion-no-margin ion-no-padding">
+    <ion-item-group class="formLogin">
+      <ion-list-header>
+        <ion-label>Por favor ingrese sus credenciales</ion-label>
+      </ion-list-header>
+
+      <ion-item [disabled]="getLogueado()">
+        <ion-label position="stacked">
+          Correo electrónico 
+          <ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-label position="stacked">
+          <ion-text *ngIf="tieneError('id')" color="danger">Debe ingresar un Correo electrónico válido</ion-text>
+          <ion-text *ngIf="loginFallido()" color="danger">Correo electrónico o Clave no válidos</ion-text>
+        </ion-label>
+        <ion-input formControlName="id" required type="email" autofocus="true" inputmode="email" name="id"></ion-input>
+      </ion-item>
+
+      <ion-item [disabled]="getLogueado()">
+        <ion-label position="stacked">
+          Clave
+          <ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-label position="stacked">
+          <ion-text *ngIf="tieneError('clave')" color="danger">Debe ingresar una Clave válida</ion-text>
+        </ion-label>
+        <ion-input formControlName="clave" required type="password" name="clave"></ion-input>
+      </ion-item>
+    </ion-item-group>
+
+    <ion-item-group class="botonesLogin">
+      <ion-button [disabled]="!puedeEnviar()" expand="block" type="submit" color="success">Ingresar</ion-button>
+      <ion-button [disabled]="!puedeEnviar()" expand="block" color="light" (click)="limpiarDatos()">Limpiar</ion-button>
+    </ion-item-group>
+  </ion-list>
+</form>
