@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="ar.pps.app2.tabla" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Tabla Didáctica de Idiomas</name>
-    <description>Tabla Didáctica de Idiomas</description>
+<widget id="ar.pps.app4.credito" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Carga de Crédito</name>
+    <description>Carga de Crédito</description>
     <author email="patoattie@gmail.com" href="http://ionicframework.com/">Patricio Attie</author>
     <content src="index.html" />
     <access origin="*" />
