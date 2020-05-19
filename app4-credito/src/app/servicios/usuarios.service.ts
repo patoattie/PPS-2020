@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import {Usuario} from '../clases/usuario';
+import {Credito} from '../clases/credito';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,10 @@ export class UsuariosService {
     return this.usuarioDoc.valueChanges();
   }
 
+  public getCreditos(uid: string): Observable<Credito> {
+    return this.afs.doc<Credito>(`Usuarios/${uid}/creditos`).valueChanges();
+  }
+
   public getObject(usuario: Usuario): any {
     return {
       displayName: usuario.displayName,
@@ -47,6 +52,8 @@ export class UsuariosService {
       photoURL: usuario.photoURL,
       sexo: usuario.sexo,
       uid: usuario.uid,
+      creditos: usuario.creditos,
+      saldo: usuario.saldo
     };
   }
 

@@ -4,7 +4,10 @@
     <ion-card-title>{{ usuario.displayName }}</ion-card-title>
   </ion-card-header>
   <ion-card-content>
-    <h1>Visor de crédito</h1>
+    <h1>Saldo: {{ usuario.saldo }}</h1>
+    <ion-list>
+      <ion-item *ngFor="let credito of usuario.creditos">{{ credito.codigo.concat(': ').concat(credito.importe.toString()) }}</ion-item>
+    </ion-list>
   </ion-card-content>
 </ion-card>
 <ion-button expand="full">Cargar créditos</ion-button>

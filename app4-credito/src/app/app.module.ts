@@ -8,6 +8,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
+import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -54,6 +55,7 @@ import { SelectorUsuarioComponent } from './componentes/selector-usuario/selecto
     SplashScreen,
     ScreenOrientation,
     Vibration,
+    QRScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: FirestoreSettingsToken, useValue: {} }
   ],
