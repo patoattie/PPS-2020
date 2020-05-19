@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UsuariosService } from '../../servicios/usuarios.service';
-import { AuthFirebaseService } from '../../servicios/auth-firebase.service';
+import { LoginService } from '../../servicios/login.service';
 import { Usuario } from '../../clases/usuario';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -16,11 +16,11 @@ export class SelectorPrincipalComponent implements OnInit, OnDestroy {
 
   constructor(
     private usuarios: UsuariosService,
-    private auth: AuthFirebaseService
+    private login: LoginService
   ) { }
 
   ngOnInit() {
-    this.auth.getUsuarioRemoto()
+    this.login.getUserData()
     .pipe(takeUntil(this.desuscribir))
     .subscribe(logueado => {
       if (logueado) {

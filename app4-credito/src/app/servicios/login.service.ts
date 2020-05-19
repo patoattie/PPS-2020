@@ -3,7 +3,7 @@ import { AuthFirebaseService } from './auth-firebase.service';
 import { Usuario } from '../clases/usuario';
 import { Login } from '../clases/login';
 import { UsuariosService } from './usuarios.service';
-// import { Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -86,7 +86,8 @@ export class LoginService {
     return this.auth.isLoggedIn();
   }
 
-  public getUserData(): Usuario {
-    return JSON.parse(localStorage.getItem('user'));
+  public getUserData(): Observable<Usuario> {
+    // return JSON.parse(localStorage.getItem('user'));
+    return this.auth.getUsuarioRemoto();
   }
 }
