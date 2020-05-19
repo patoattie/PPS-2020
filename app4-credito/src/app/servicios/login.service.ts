@@ -89,12 +89,4 @@ export class LoginService {
   public getUserData(): Usuario {
     return JSON.parse(localStorage.getItem('user'));
   }
-
-  /*public getLogin2(): Observable<boolean> {
-    return this.auth.getUsuarioRemoto();
-  }
-
-  public getLogin3(): Usuario {
-    return this.usuarioLogueado;
-  }*/
 }
