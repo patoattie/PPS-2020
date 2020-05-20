@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UsuariosService } from '../../servicios/usuarios.service';
 import { LoginService } from '../../servicios/login.service';
+import { CreditosService } from '../../servicios/creditos.service';
+import { QrService } from '../../servicios/qr.service';
 import { Usuario } from '../../clases/usuario';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -16,7 +18,9 @@ export class SelectorPrincipalComponent implements OnInit, OnDestroy {
 
   constructor(
     private usuarios: UsuariosService,
-    private login: LoginService
+    private login: LoginService,
+    private creditos: CreditosService,
+    private qr: QrService
   ) { }
 
   ngOnInit() {
@@ -27,6 +31,16 @@ export class SelectorPrincipalComponent implements OnInit, OnDestroy {
         this.usuarios.getUsuario(logueado.uid)
         .pipe(takeUntil(this.desuscribir))
         .subscribe(elUsuario => this.usuario = elUsuario);
+
+        this.qr.resultado.subscribe(res => {
+          this.creditos.getCreditoPorCodigo(res)
+          .pipe(takeUntil(this.desuscribir))
+          .subscribe(elCredito => {
+            this.usuario.saldo += elCredito[0].importe;
+            this.usuario.creditos.push(elCredito[0]);
+            this.usuarios.updateUsuario(this.usuario.uid, this.usuarios.getObject(this.usuario));
+          });
+        });
       }
     });
   }
@@ -34,6 +48,11 @@ export class SelectorPrincipalComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.desuscribir.next();
     this.desuscribir.complete();
+    this.qr.resultado.unsubscribe();
+  }
+
+  public cargarCredito(): void {
+    this.qr.escanear();
   }
 
 }
