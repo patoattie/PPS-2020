@@ -6,6 +6,7 @@ import { HomeComponent } from './componentes/home/home.component';
 // Import canActivate guard services
 import { AuthGuard } from './guards/auth.guard';
 import { SecureInnerPagesGuard } from './guards/secure-inner-pages.guard';
+import { QrComponent } from './componentes/qr/qr.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,11 @@ const routes: Routes = [
     path: 'principal',
     component: PrincipalComponent,
     children: [],
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'qr',
+    component: QrComponent,
     canActivate: [AuthGuard]
   },
   {

@@ -26,6 +26,7 @@ import { ToolbarComponent } from './componentes/toolbar/toolbar.component';
 import { LogoComponent } from './componentes/logo/logo.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { SelectorUsuarioComponent } from './componentes/selector-usuario/selector-usuario.component';
+import { QrComponent } from './componentes/qr/qr.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { SelectorUsuarioComponent } from './componentes/selector-usuario/selecto
     ToolbarComponent,
     LogoComponent,
     LoginComponent,
-    SelectorUsuarioComponent
+    SelectorUsuarioComponent,
+    QrComponent
   ],
   entryComponents: [],
   imports: [

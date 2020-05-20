@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { UsuariosService } from '../../servicios/usuarios.service';
 import { LoginService } from '../../servicios/login.service';
 import { CreditosService } from '../../servicios/creditos.service';
@@ -20,7 +21,8 @@ export class SelectorPrincipalComponent implements OnInit, OnDestroy {
     private usuarios: UsuariosService,
     private login: LoginService,
     private creditos: CreditosService,
-    private qr: QrService
+    private qr: QrService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -36,9 +38,12 @@ export class SelectorPrincipalComponent implements OnInit, OnDestroy {
           this.creditos.getCreditoPorCodigo(res)
           .pipe(takeUntil(this.desuscribir))
           .subscribe(elCredito => {
-            this.usuario.saldo += elCredito[0].importe;
-            this.usuario.creditos.push(elCredito[0]);
-            this.usuarios.updateUsuario(this.usuario.uid, this.usuarios.getObject(this.usuario));
+            if (elCredito[0]) {
+              // Actualizo el Usuario agregando el objeto Credito
+              this.usuario.saldo += elCredito[0].importe;
+              this.usuario.creditos.push(elCredito[0]);
+              this.usuarios.updateUsuario(this.usuario.uid, this.usuarios.getObject(this.usuario));
+            }
           });
         });
       }
@@ -52,7 +57,7 @@ export class SelectorPrincipalComponent implements OnInit, OnDestroy {
   }
 
   public cargarCredito(): void {
-    this.qr.escanear();
+    this.router.navigate(['qr']);
   }
 
 }
