@@ -33,7 +33,7 @@ export class ToastService {
       await this.showToast(toastData);
   }
 
-  async showToast(data: any): Promise<void> {
+  private async showToast(data: any): Promise<void> {
     // this.toast ? this.toast.dismiss() : false;
     // Espera hasta que el mensaje anterior se haya cerrado. Para encolar los siguientes.
     // while (this.toast != null) { }

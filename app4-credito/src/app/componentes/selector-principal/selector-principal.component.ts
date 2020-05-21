@@ -7,7 +7,8 @@ import { QrService } from '../../servicios/qr.service';
 import { Usuario } from '../../clases/usuario';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-// import { Credito } from '../../clases/credito';
+import { Credito } from '../../clases/credito';
+import { ToastService } from '../../servicios/toast.service';
 
 @Component({
   selector: 'app-selector-principal',
@@ -24,7 +25,8 @@ export class SelectorPrincipalComponent implements OnInit, OnDestroy {
     private login: LoginService,
     private creditos: CreditosService,
     private qr: QrService,
-    private router: Router
+    private router: Router,
+    private toast: ToastService
   ) { }
 
   ngOnInit() {
@@ -49,20 +51,27 @@ export class SelectorPrincipalComponent implements OnInit, OnDestroy {
               if (!this.usuario.creditos) {
                 this.usuario.creditos = [];
               }
-              this.usuarios.updateUsuario(this.usuario.uid, {creditos: this.usuario.creditos})
-              .then(() => {
-                // Inicializo el saldo si no lo está
-                if (!this.usuario.saldo) {
-                  this.usuario.saldo = 0;
-                }
-                this.usuarios.updateUsuario(this.usuario.uid, {saldo: this.usuario.saldo})
+
+              if (this.puedeCargar(this.usuario, elCredito.codigo)) {
+                this.usuarios.updateUsuario(this.usuario.uid, {creditos: this.usuario.creditos})
                 .then(() => {
-                  // Actualizo el Usuario agregando el objeto Credito
-                  this.usuario.saldo += elCredito.importe;
-                  this.usuario.creditos.push(elCredito);
-                  this.usuarios.updateUsuario(this.usuario.uid, {creditos: this.usuario.creditos, saldo: this.usuario.saldo});
+                  // Inicializo el saldo si no lo está
+                  if (!this.usuario.saldo) {
+                    this.usuario.saldo = 0;
+                  }
+                  this.usuarios.updateUsuario(this.usuario.uid, {saldo: this.usuario.saldo})
+                  .then(() => {
+                    // Actualizo el Usuario agregando el objeto Credito y acumulando el saldo
+                    this.usuario.saldo += elCredito.importe;
+                    this.usuario.creditos.push(elCredito);
+                    this.usuarios.updateUsuario(this.usuario.uid, {creditos: this.usuario.creditos, saldo: this.usuario.saldo});
+                  });
                 });
-              });
+              } else {
+                this.toast.presentToast('Se ha alcanzado la cantidad máxima de cargas');
+              }
+            } else {
+              this.toast.presentToast('No existe el código en la base de datos');
             }
           });
         });
@@ -87,4 +96,11 @@ export class SelectorPrincipalComponent implements OnInit, OnDestroy {
     // this.usuarios.updateUsuario(this.usuario.uid, {creditos: [], saldo: 0});
   }
 
+  private contarCreditos(creditos: Credito[], codigo: string): number {
+    return creditos.filter(unCredito => unCredito.codigo === codigo).length;
+  }
+
+  private puedeCargar(usuario: Usuario, codigo: string): boolean {
+    return this.contarCreditos(usuario.creditos, codigo) < this.creditos.getMaxCarga(usuario.perfil);
+  }
 }

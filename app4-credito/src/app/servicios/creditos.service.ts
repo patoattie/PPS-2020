@@ -13,6 +13,8 @@ export class CreditosService {
   private creditos: Observable<Credito[]>;
   private creditoDoc: AngularFirestoreDocument<Credito>;
   private creditoCollection: AngularFirestoreCollection<any>;
+  private maxCargaAdmin = 2;
+  private maxCarga = 1;
 
   constructor(
     private afs: AngularFirestore
@@ -60,5 +62,15 @@ export class CreditosService {
 
   public getUnCredito(lista: Credito[], codigo: string): Credito {
     return lista.find(unCredito => unCredito.codigo === codigo);
+  }
+
+  public getMaxCarga(perfil: string): number {
+    let retorno = this.maxCarga;
+
+    if (perfil === 'admin') {
+      retorno = this.maxCargaAdmin;
+    }
+
+    return retorno;
   }
 }

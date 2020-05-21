@@ -5,9 +5,6 @@
   </ion-card-header>
   <ion-card-content>
     <h1>Saldo: {{ usuario.saldo | nvl }}</h1>
-    <!-- <ion-list>
-      <ion-item *ngFor="let credito of usuario.creditos" lines="none">{{ 'Importe carga: '.concat(credito.importe.toString()) }}</ion-item>
-    </ion-list> -->
     <ion-label *ngFor="let credito of usuario.creditos" color="primary">{{ 'Importe carga: '.concat(credito.importe.toString()) }}</ion-label>
   </ion-card-content>
 </ion-card>
