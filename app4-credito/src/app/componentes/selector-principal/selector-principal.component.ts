@@ -81,7 +81,10 @@ export class SelectorPrincipalComponent implements OnInit, OnDestroy {
   }
 
   public limpiarCredito(): void {
-    this.usuarios.updateUsuario(this.usuario.uid, {creditos: [], saldo: 0});
+    this.usuario.creditos = [];
+    this.usuario.saldo = 0;
+    this.usuarios.updateUsuario(this.usuario.uid, {creditos: this.usuario.creditos, saldo: this.usuario.saldo});
+    // this.usuarios.updateUsuario(this.usuario.uid, {creditos: [], saldo: 0});
   }
 
 }
