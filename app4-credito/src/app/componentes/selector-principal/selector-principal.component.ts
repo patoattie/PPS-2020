@@ -41,10 +41,10 @@ export class SelectorPrincipalComponent implements OnInit, OnDestroy {
         });
 
         this.qr.resultado.subscribe(res => {
-          this.creditos.getCreditoPorCodigo(res)
+          this.creditos.getCredito(res)
           .pipe(takeUntil(this.desuscribir))
           .subscribe(elCredito => {
-            if (elCredito[0]) {
+            if (elCredito) {
               // Inicializo los créditos si no lo están
               if (!this.usuario.creditos) {
                 this.usuario.creditos = [];
@@ -58,8 +58,8 @@ export class SelectorPrincipalComponent implements OnInit, OnDestroy {
                 this.usuarios.updateUsuario(this.usuario.uid, {saldo: this.usuario.saldo})
                 .then(() => {
                   // Actualizo el Usuario agregando el objeto Credito
-                  this.usuario.saldo += elCredito[0].importe;
-                  this.usuario.creditos.push(elCredito[0]);
+                  this.usuario.saldo += elCredito.importe;
+                  this.usuario.creditos.push(elCredito);
                   this.usuarios.updateUsuario(this.usuario.uid, {creditos: this.usuario.creditos, saldo: this.usuario.saldo});
                 });
               });

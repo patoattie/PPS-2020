@@ -38,13 +38,12 @@ export class CreditosService {
     return this.creditoDoc.valueChanges();
   }
 
-  public getCreditoPorCodigo(codigo: string): Observable<Credito[]> {
+  /*public getCreditoPorCodigo(codigo: string): Observable<Credito[]> {
     return this.afs.collection<any>('Creditos', ref => ref.where('codigo', '==', codigo)).valueChanges();
-  }
+  }*/
 
   public getObject(credito: Credito): any {
     return {
-      uid: credito.uid,
       codigo: credito.codigo,
       importe: credito.importe,
       usuarios: credito.usuarios
