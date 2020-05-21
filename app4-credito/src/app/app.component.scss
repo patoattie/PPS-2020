@@ -20,42 +20,95 @@
     justify-content: center;
 }
 
-#logoColores {
+#logo1 {
     position: absolute;
     width: 35%;
     height: auto;
-    top: 27%;
-    left: 60%;
+    top: 40%;
+    left: 33%;
+    opacity: 0;
     animation-name: logoSplash;
-    animation-duration: 5s;
+    animation-duration: 1s;
 }
 
-#logoNumeros {
+#logo2 {
     position: absolute;
     width: 35%;
     height: auto;
-    top: 50%;
-    left: 32%;
+    top: 40%;
+    left: 33%;
+    opacity: 0;
     animation-name: logoSplash;
-    animation-duration: 5s;
+    animation-duration: 1s;
+    animation-delay: .4s;
 }
 
-#logoAnimales {
+#logo3 {
     position: absolute;
     width: 35%;
     height: auto;
-    top: 27%;
-    left: 12%;
+    top: 40%;
+    left: 33%;
+    opacity: 0;
     animation-name: logoSplash;
-    animation-duration: 5s;
+    animation-duration: 1s;
+    animation-delay: .8s;
+}
+
+#logo4 {
+    position: absolute;
+    width: 35%;
+    height: auto;
+    top: 40%;
+    left: 33%;
+    opacity: 0;
+    animation-name: logoSplash;
+    animation-duration: 1s;
+    animation-delay: 1.2s;
+}
+
+#logo5 {
+    position: absolute;
+    width: 35%;
+    height: auto;
+    top: 40%;
+    left: 33%;
+    opacity: 0;
+    animation-name: logoSplash;
+    animation-duration: 1s;
+    animation-delay: 1.6s;
+}
+
+#logo6 {
+    position: absolute;
+    width: 35%;
+    height: auto;
+    top: 40%;
+    left: 33%;
+    opacity: 0;
+    animation-name: logoSplash;
+    animation-duration: 1s;
+    animation-delay: 2s;
+}
+
+#logo7 {
+    position: absolute;
+    width: 35%;
+    height: auto;
+    top: 40%;
+    left: 33%;
+    opacity: 0;
+    animation-name: logoSplash;
+    animation-duration: 1s;
+    animation-delay: 2.4s;
 }
 
 @keyframes logoSplash {
     from {
-        transform: scale3d(0, 0, 0);
+        opacity: 1;
     }
 
     to {
-        transform: scale3d(1, 1, 1);
+        opacity: 0;
     }
 }
