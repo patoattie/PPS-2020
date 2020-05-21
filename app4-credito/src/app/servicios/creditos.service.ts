@@ -59,7 +59,7 @@ export class CreditosService {
     return this.creditoCollection.doc(uid).delete();
   }*/
 
-  public getUnCredito(lista: Credito[], uidCredito: string): Credito {
-    return lista.find(unCredito => unCredito.uid === uidCredito);
+  public getUnCredito(lista: Credito[], codigo: string): Credito {
+    return lista.find(unCredito => unCredito.codigo === codigo);
   }
 }

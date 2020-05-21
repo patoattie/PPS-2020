@@ -7,6 +7,7 @@ import { QrService } from '../../servicios/qr.service';
 import { Usuario } from '../../clases/usuario';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+// import { Credito } from '../../clases/credito';
 
 @Component({
   selector: 'app-selector-principal',
@@ -15,6 +16,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class SelectorPrincipalComponent implements OnInit, OnDestroy {
   usuario: Usuario;
+  // listaCreditos: Credito[];
   private desuscribir = new Subject<void>();
 
   constructor(
@@ -32,17 +34,35 @@ export class SelectorPrincipalComponent implements OnInit, OnDestroy {
       if (logueado) {
         this.usuarios.getUsuario(logueado.uid)
         .pipe(takeUntil(this.desuscribir))
-        .subscribe(elUsuario => this.usuario = elUsuario);
+        .subscribe(elUsuario => {
+          if (elUsuario) {
+            this.usuario = elUsuario;
+          }
+        });
 
         this.qr.resultado.subscribe(res => {
           this.creditos.getCreditoPorCodigo(res)
           .pipe(takeUntil(this.desuscribir))
           .subscribe(elCredito => {
             if (elCredito[0]) {
-              // Actualizo el Usuario agregando el objeto Credito
-              this.usuario.saldo += elCredito[0].importe;
-              this.usuario.creditos.push(elCredito[0]);
-              this.usuarios.updateUsuario(this.usuario.uid, this.usuarios.getObject(this.usuario));
+              // Inicializo los créditos si no lo están
+              if (!this.usuario.creditos) {
+                this.usuario.creditos = [];
+              }
+              this.usuarios.updateUsuario(this.usuario.uid, {creditos: this.usuario.creditos})
+              .then(() => {
+                // Inicializo el saldo si no lo está
+                if (!this.usuario.saldo) {
+                  this.usuario.saldo = 0;
+                }
+                this.usuarios.updateUsuario(this.usuario.uid, {saldo: this.usuario.saldo})
+                .then(() => {
+                  // Actualizo el Usuario agregando el objeto Credito
+                  this.usuario.saldo += elCredito[0].importe;
+                  this.usuario.creditos.push(elCredito[0]);
+                  this.usuarios.updateUsuario(this.usuario.uid, {creditos: this.usuario.creditos, saldo: this.usuario.saldo});
+                });
+              });
             }
           });
         });
@@ -53,11 +73,15 @@ export class SelectorPrincipalComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.desuscribir.next();
     this.desuscribir.complete();
-    this.qr.resultado.unsubscribe();
+    // this.qr.resultado.unsubscribe();
   }
 
   public cargarCredito(): void {
     this.router.navigate(['qr']);
+  }
+
+  public limpiarCredito(): void {
+    this.usuarios.updateUsuario(this.usuario.uid, {creditos: [], saldo: 0});
   }
 
 }

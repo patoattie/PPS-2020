@@ -28,7 +28,7 @@ export class QrComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     // this.hideCamera();
-    this.qr.salir.unsubscribe();
+    // this.qr.salir.unsubscribe();
   }
 
   /*showCamera() {

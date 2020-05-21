@@ -38,8 +38,8 @@ export class LoginService {
           this.usuarioLogueado.photoURL = elUsuario.photoURL;
           this.usuarioLogueado.sexo = elUsuario.sexo;
           this.usuarioLogueado.uid = elUsuario.uid;
-          this.usuarioLogueado.creditos = elUsuario.creditos ? elUsuario.creditos : [];
-          this.usuarioLogueado.saldo = elUsuario.saldo ? elUsuario.saldo : 0;
+          this.usuarioLogueado.creditos = elUsuario.creditos;
+          this.usuarioLogueado.saldo = elUsuario.saldo;
 
           usuarios.updateUsuario(elUsuario.uid, usuarios.getObject(this.usuarioLogueado));
 

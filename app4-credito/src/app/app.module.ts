@@ -27,6 +27,7 @@ import { LogoComponent } from './componentes/logo/logo.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { SelectorUsuarioComponent } from './componentes/selector-usuario/selector-usuario.component';
 import { QrComponent } from './componentes/qr/qr.component';
+import { NvlPipe } from './pipes/nvl.pipe';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { QrComponent } from './componentes/qr/qr.component';
     LogoComponent,
     LoginComponent,
     SelectorUsuarioComponent,
-    QrComponent
+    QrComponent,
+    NvlPipe
   ],
   entryComponents: [],
   imports: [
