@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { QrService } from '../../servicios/qr.service';
 import { VibrationService } from '../../servicios/vibration.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-qr',
@@ -9,6 +11,7 @@ import { VibrationService } from '../../servicios/vibration.service';
   styleUrls: ['./qr.component.scss'],
 })
 export class QrComponent implements OnInit, OnDestroy {
+  private desuscribir = new Subject<void>();
 
   constructor(
     private qr: QrService,
@@ -19,7 +22,9 @@ export class QrComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // this.showCamera();
 
-    this.qr.salir.subscribe(() => {
+    this.qr.getSalir()
+    .pipe(takeUntil(this.desuscribir))
+    .subscribe(() => {
       this.vibration.vibrar(100);
       this.router.navigate(['principal']);
     });
@@ -29,6 +34,8 @@ export class QrComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     // this.hideCamera();
     // this.qr.salir.unsubscribe();
+    this.desuscribir.next();
+    this.desuscribir.complete();
   }
 
   /*showCamera() {

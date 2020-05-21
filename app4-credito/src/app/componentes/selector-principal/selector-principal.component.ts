@@ -42,7 +42,9 @@ export class SelectorPrincipalComponent implements OnInit, OnDestroy {
           }
         });
 
-        this.qr.resultado.subscribe(res => {
+        this.qr.getResultado()
+        .pipe(takeUntil(this.desuscribir))
+        .subscribe(res => {
           this.creditos.getCredito(res)
           .pipe(takeUntil(this.desuscribir))
           .subscribe(elCredito => {

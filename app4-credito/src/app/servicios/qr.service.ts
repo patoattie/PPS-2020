@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QrService {
-  public resultado = new Subject<string>();
-  public salir = new Subject<void>();
+  private resultado = new Subject<string>();
+  private salir = new Subject<void>();
   private desuscribir = new Subject<void>();
+
+  // https://blog.angulartraining.com/rxjs-subjects-a-tutorial-4dcce0e9637f
 
   constructor(private qrScanner: QRScanner) { }
 
@@ -47,5 +49,13 @@ export class QrService {
       }
     })
     .catch((e: any) => alert(e.name) /*console.log('Error: ', e)*/);
+  }
+
+  public getResultado(): Observable<string> {
+    return this.resultado.asObservable();
+  }
+
+  public getSalir(): Observable<void> {
+    return this.salir.asObservable();
   }
 }
