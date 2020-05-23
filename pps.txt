@@ -1,0 +1,35 @@
+GitHub
+sotomayormatias/2019...
+
+clientes precargados, idem apps
+cliente, una vez logueado, leer entrada qr entrada restaurant, me pone en lista de espera, que lo ve el perfil de metre.
+
+El metre le da ingreso.
+
+El cliente se sienta en una mesa (qr de mesa).
+
+Una vez sentado el cliente ve el menu.
+
+Siempre visible el monto acumulado del pedido.
+
+Una vez definido el cliente ejecuta la accion de hacer el pedido y eso va al mozo.
+
+El mozo confirma el pedido y se distribuye a las areas (bartender, cocina, etc.)
+Son tomados, preparados, y finalizados.
+Con todos finalizados el mozo entrega el pedido.
+El cliente hace un solo pedido.
+
+Si vuelve a leer el qr de la mesa el cliente, le va a proponer los juegos y las encuestas.
+Tambien con el mismo qr va a poder ver el estado del pedido.
+
+El cliente confirma la entrega del pedido.
+Puede acceder a juegos, encuesta, o pedir la cuenta.
+
+Al solicitar la cuenta, le llega al mozo.
+
+Con delivery, la lista de espera la maneja el supervisor o dueño.
+
+Con todo finalizado, el delivery hace la entrega.
+El cliente paga el pedido + propina y se cierra el pedido.
+
+Proxima semana grupo definido, icono y splash de la aplicacion con nombre del grupo o nombre de los integrantes. Form de login.
