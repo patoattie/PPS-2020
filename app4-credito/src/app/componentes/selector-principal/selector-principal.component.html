@@ -8,5 +8,5 @@
     <ion-label *ngFor="let credito of usuario.creditos" color="primary">{{ 'Importe carga: '.concat(credito.importe.toString()) }}</ion-label>
   </ion-card-content>
 </ion-card>
-<ion-button expand="full" (click)="cargarCredito()">Cargar créditos</ion-button>
-<ion-button color="light" expand="full" (click)="limpiarCredito()">Limpiar créditos</ion-button>
+<ion-button class="btnCarga" expand="full" (click)="cargarCredito()">Cargar créditos</ion-button>
+<ion-button class="btnLimpia" color="light" expand="full" (click)="limpiarCredito()">Limpiar créditos</ion-button>

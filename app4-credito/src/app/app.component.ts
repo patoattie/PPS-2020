@@ -31,7 +31,7 @@ export class AppComponent {
       if (this.splash) {
         setTimeout(() => {
           this.splash = false;
-        }, 6750);
+        }, 4750);
       }
     });
   }
