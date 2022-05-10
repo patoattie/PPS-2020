@@ -27,7 +27,7 @@
     "cordova-android": "8.1.0",
     "core-js": "^2.5.4",
     "firebase": "^7.15.0",
-    "minimist": "^1.2.5",
+    "minimist": "^1.2.6",
     "rxjs": "^6.5.5",
     "tslib": "^1.13.0",
     "websocket-extensions": "^0.1.4",
